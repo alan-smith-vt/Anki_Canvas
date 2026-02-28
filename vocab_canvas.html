@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>漢字 Canvas</title>
+<style>
+  @font-face {
+    font-family: 'Noto Sans JP';
+    src: url('NotoSansJP-VariableFont_wght.ttf') format('truetype');
+    font-weight: 100 900;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0a0a0f;
+    overflow: hidden;
+    font-family: 'IBM Plex Mono', monospace;
+    cursor: grab;
+  }
+  body.dragging { cursor: grabbing; }
+
+  #app { width: 100vw; height: 100vh; }
+
+  /* Tooltip */
+  #tooltip {
+    position: fixed;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.15s ease;
+    z-index: 100;
+    background: #13131a;
+    border: 1px solid #2a2a3a;
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-family: 'IBM Plex Mono', monospace;
+    color: #c0c0d0;
+    font-size: 13px;
+    min-width: 180px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+  }
+  #tooltip.visible { opacity: 1; }
+  #tooltip .tt-term {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 4px;
+  }
+  #tooltip .tt-reading {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 14px;
+    color: #8888aa;
+    margin-bottom: 8px;
+  }
+  #tooltip .tt-meaning {
+    color: #a0a0c0;
+    margin-bottom: 10px;
+    font-size: 13px;
+  }
+  #tooltip .tt-stats {
+    display: flex;
+    gap: 16px;
+    font-size: 11px;
+    color: #666680;
+    border-top: 1px solid #1e1e2e;
+    padding-top: 8px;
+  }
+  #tooltip .tt-stats span { color: #9090b0; }
+  #tooltip .tt-bar {
+    height: 3px;
+    background: #1e1e2e;
+    border-radius: 2px;
+    margin-top: 8px;
+    overflow: hidden;
+  }
+  #tooltip .tt-bar-fill {
+    height: 100%;
+    border-radius: 2px;
+    transition: width 0.2s ease;
+  }
+  #tooltip .tt-radicals {
+    margin-top: 8px;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  #kanji-picker {
+    position: fixed;
+    display: none;
+    z-index: 100;
+    background: #13131a;
+    border: 1px solid #2a2a3a;
+    border-radius: 8px;
+    padding: 8px;
+    display: none;
+    gap: 4px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+  }
+  #kanji-picker button {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 24px;
+    background: #1a1a2a;
+    color: #c0c0d0;
+    border: 1px solid #2a2a3a;
+    border-radius: 6px;
+    padding: 8px 14px;
+    cursor: pointer;
+  }
+  #kanji-picker button:hover {
+    background: #2a2a4a;
+    color: #ffffff;
+  }
+
+  /* Legend */
+  #legend {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 50;
+    background: #13131aee;
+    border: 1px solid #2a2a3a;
+    border-radius: 8px;
+    padding: 14px 18px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: #666680;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  #legend .legend-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  #legend .legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* Mini-map */
+  #minimap {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 50;
+    background: #13131aee;
+    border: 1px solid #2a2a3a;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  #minimap canvas { display: block; }
+
+  /* Page labels */
+  #info {
+    position: fixed;
+    top: 16px;
+    left: 16px;
+    z-index: 50;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: #444460;
+  }
+</style>
+</head>
+<body>
+
+<div id="app"></div>
+
+<div id="tooltip">
+  <div class="tt-term"></div>
+  <div class="tt-reading"></div>
+  <div class="tt-meaning"></div>
+  <div class="tt-stats">
+    <div>reviews <span class="tt-reviews"></span></div>
+    <div>fails <span class="tt-fails"></span></div>
+    <div>rate <span class="tt-rate"></span></div>
+  </div>
+  <div class="tt-bar"><div class="tt-bar-fill"></div></div>
+  <div class="tt-radicals"></div>
+</div>
+
+
+
+<div id="kanji-picker"></div>
+
+<div id="legend">
+  <div class="legend-row"><div class="legend-dot" style="background:#ff3344;box-shadow:0 0 8px #ff3344"></div> struggling (>20% fail)</div>
+  <div class="legend-row"><div class="legend-dot" style="background:#ff9933;box-shadow:0 0 6px #ff9933"></div> shaky (10-20%)</div>
+  <div class="legend-row"><div class="legend-dot" style="background:#c0c0d0"></div> solid (<10%)</div>
+  <div class="legend-row"><div class="legend-dot" style="background:#333348"></div> new / unstarted</div>
+</div>
+
+<div id="minimap"><canvas id="minimap-canvas"></canvas></div>
+<div id="info">scroll to zoom · drag to pan</div>
+
+<script src="vocab_data.js"></script>
+<script>
+
+// --- State ---
+let data = null;
+let canvasEl, ctx;
+let offsetX = 0, offsetY = 0, scale = 1;
+let isDragging = false, dragStartX, dragStartY, dragOffsetX, dragOffsetY;
+let hoveredTerm = null;
+let minimapCtx;
+let dismissed = new Set();
+let selectedKanji = null;
+let kanjiScores = new Map(); // term -> similarity score 0-1
+let reviewPage = null;
+let reviewHalf = null; // 'R' or 'L'
+let termProgress = new Map(); // term -> 0(red) / 1(orange) / 2(white)
+
+// --- Color Mapping ---
+function getTermColor(term) {
+  // Similarity always wins
+  if (selectedKanji && kanjiScores.size > 0) {
+    return { fill: '#1a1a28', glow: null };
+  }
+
+  // Term has progress entry
+  if (termProgress.has(term)) {
+    const p = termProgress.get(term);
+    if (p === 0) return { fill: '#ff3344', glow: '#ff3344' };
+    if (p === 1) return { fill: '#ff9933', glow: '#ff993366' };
+    return { fill: '#c0c0d0', glow: null };
+  }
+
+  // Dismissed
+  if (dismissed.has(term)) return { fill: '#c0c0d0', glow: null };
+
+  // Review mode active — dim terms not in active half
+  if (reviewPage !== null) {
+    const inActiveHalf = term.page === reviewPage &&
+      (reviewHalf === 'R' ? term.col < 7 : term.col >= 7);
+    if (!inActiveHalf) return { fill: '#333348', glow: null };
+  }
+
+  // Normal
+  if (term.status === 'new') return { fill: '#333348', glow: null };
+  if (term.fail_rate > 0.20) return { fill: '#ff3344', glow: '#ff3344' };
+  if (term.fail_rate > 0.10) return { fill: '#ff9933', glow: '#ff993366' };
+  return { fill: '#c0c0d0', glow: null };
+}
+
+function getGlowIntensity(term) {
+  if (selectedKanji && kanjiScores.size > 0) return 0;
+
+  if (termProgress.has(term)) {
+    const p = termProgress.get(term);
+    if (p === 0) return 12;
+    if (p === 1) return 6;
+    return 0;
+  }
+
+  if (dismissed.has(term)) return 0;
+
+  if (reviewPage !== null) {
+    const inActiveHalf = term.page === reviewPage &&
+      (reviewHalf === 'R' ? term.col < 7 : term.col >= 7);
+    if (!inActiveHalf) return 0;
+  }
+
+  if (term.status === 'new') return 0;
+  if (term.fail_rate > 0.20) return 12 + (term.fail_rate - 0.20) * 40;
+  if (term.fail_rate > 0.10) return 6;
+  return 0;
+}
+
+function computeKanjiScores(kanji) {
+  kanjiScores.clear();
+  const selectedRadicals = new Set(data.radicals[kanji] || []);
+
+  for (const term of data.terms) {
+    const charScores = {};
+    for (const char of term.term) {
+      if (char === kanji) {
+        charScores[char] = 1;
+      } else {
+        const charRadicals = data.radicals[char];
+        if (charRadicals && selectedRadicals.size > 0) {
+          const shared = charRadicals.filter(r => selectedRadicals.has(r)).length;
+          const score = shared / Math.max(selectedRadicals.size, charRadicals.length);
+          if (!charScores[char] || score > charScores[char]) {
+            charScores[char] = score;
+          }
+        }
+      }
+    }
+    kanjiScores.set(term, charScores);
+  }
+}
+
+function getHalfTerms(pageNum, half) {
+  return data.terms.filter(t => {
+    if (t.page !== pageNum) return false;
+    return half === 'R' ? t.col < 7 : t.col >= 7;
+  });
+}
+
+// --- Init ---
+function init() {
+  data = VOCAB_DATA;
+
+  // Create main canvas
+  canvasEl = document.createElement('canvas');
+  canvasEl.width = window.innerWidth;
+  canvasEl.height = window.innerHeight;
+  document.getElementById('app').appendChild(canvasEl);
+  ctx = canvasEl.getContext('2d');
+
+  // Center on the canvas content
+  offsetX = (window.innerWidth - data.canvas_width * scale) / 2;
+  offsetY = (window.innerHeight - data.canvas_height * scale) / 2;
+
+  // Minimap
+  const mm = document.getElementById('minimap-canvas');
+  const mmScale = 150 / Math.max(data.canvas_width, data.canvas_height);
+  mm.width = Math.round(data.canvas_width * mmScale);
+  mm.height = Math.round(data.canvas_height * mmScale);
+  minimapCtx = mm.getContext('2d');
+
+  // Events
+  canvasEl.addEventListener('mousedown', onMouseDown);
+  window.addEventListener('mousemove', onMouseMove);
+  window.addEventListener('mouseup', onMouseUp);
+  canvasEl.addEventListener('wheel', onWheel, { passive: false });
+  window.addEventListener('resize', onResize);
+  canvasEl.addEventListener('click', onClick);
+  canvasEl.addEventListener('contextmenu', onRightClick);
+
+  drawMinimap();
+  requestAnimationFrame(draw);
+}
+
+// --- Drawing ---
+function draw() {
+  ctx.clearRect(0, 0, canvasEl.width, canvasEl.height);
+  ctx.save();
+  ctx.translate(offsetX, offsetY);
+  ctx.scale(scale, scale);
+
+  // Draw page backgrounds
+  ctx.fillStyle = '#0e0e16';
+  ctx.strokeStyle = '#1a1a2a';
+  ctx.lineWidth = 1;
+  const pw = 13 * data.cell_width;
+  const ph = 9 * data.cell_height;
+  const pad = data.page_padding / 2;
+  for (const page of data.pages) {
+    const bgX = page.x + pad - data.cell_width / 2 - 10;
+    const bgY = page.y + pad - data.cell_height / 2 - 10;
+    const bgW = pw + data.cell_width + 20;  // 13 gaps + 1 full cell = 14 columns covered
+    const bgH = ph + data.cell_height + 20; // 9 gaps + 1 full cell = 10 rows covered
+    ctx.fillRect(bgX, bgY, bgW, bgH);
+    ctx.strokeRect(bgX, bgY, bgW, bgH);
+
+    // Page label
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'alphabetic';
+    ctx.fillStyle = '#222238';
+    ctx.font = '700 14px "IBM Plex Mono", monospace';
+    ctx.fillText('Page ' + page.page_num, bgX + 4, bgY - 6);
+
+    // Page stats
+    const pageTerms = data.terms.filter(t => t.page === page.page_num);
+    let red = 0, orange = 0, solid = 0, newCount = 0;
+    for (const t of pageTerms) {
+      if (termProgress.has(t)) {
+        const p = termProgress.get(t);
+        if (p === 0) red++;
+        else if (p === 1) orange++;
+        else solid++;
+      } else if (dismissed.has(t)) {
+        solid++;
+      } else if (t.status === 'new') {
+        newCount++;
+      } else if (t.fail_rate > 0.20) {
+        red++;
+      } else if (t.fail_rate > 0.10) {
+        orange++;
+      } else {
+        solid++;
+      }
+    }
+
+    const statsX = bgX + 4;
+    const statsY = bgY - 6 + 16;
+    ctx.font = '600 11px "IBM Plex Mono", monospace';
+    let cx = statsX;
+
+    const parts = [
+      { text: '' + red, color: '#ff3344' },
+      { text: ' · ', color: '#222238' },
+      { text: '' + orange, color: '#ff9933' },
+      { text: ' · ', color: '#222238' },
+      { text: '' + solid, color: '#c0c0d0' },
+      { text: ' · ', color: '#222238' },
+      { text: '' + newCount, color: '#333348' },
+    ];
+
+    for (const part of parts) {
+      ctx.fillStyle = part.color;
+      ctx.fillText(part.text, cx, statsY);
+      cx += ctx.measureText(part.text).width;
+    }
+
+    // Review half buttons
+    const btnY = bgY - 24;
+    const btnW = 28;
+    const btnH = 16;
+    const lBtnX = bgX + bgW - 62;
+    const rBtnX = lBtnX + btnW + 2;
+
+    // R button
+    const rActive = reviewPage === page.page_num && reviewHalf === 'R';
+    ctx.fillStyle = rActive ? '#2a2a5a' : '#151520';
+    ctx.strokeStyle = rActive ? '#5555ff' : '#2a2a3a';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.roundRect(rBtnX, btnY, btnW, btnH, 3);
+    ctx.fill();
+    ctx.stroke();
+    ctx.fillStyle = rActive ? '#8888ff' : '#444460';
+    ctx.font = '600 10px "IBM Plex Mono", monospace';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('R', rBtnX + btnW / 2, btnY + btnH / 2);
+
+    // L button
+    const lActive = reviewPage === page.page_num && reviewHalf === 'L';
+    ctx.fillStyle = lActive ? '#2a2a5a' : '#151520';
+    ctx.strokeStyle = lActive ? '#5555ff' : '#2a2a3a';
+    ctx.beginPath();
+    ctx.roundRect(lBtnX, btnY, btnW, btnH, 3);
+    ctx.fill();
+    ctx.stroke();
+    ctx.fillStyle = lActive ? '#8888ff' : '#444460';
+    ctx.fillText('L', lBtnX + btnW / 2, btnY + btnH / 2);
+
+    // Reset text align for rest of drawing
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+
+    ctx.fillStyle = '#0e0e16';
+  }
+
+  // Draw terms
+  const fontSize = 20;
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+
+  for (const term of data.terms) {
+    const color = getTermColor(term);
+    const glowSize = getGlowIntensity(term);
+
+    // Glow
+    if (glowSize > 0 && color.glow) {
+      ctx.shadowColor = color.glow;
+      ctx.shadowBlur = glowSize;
+    } else {
+      ctx.shadowColor = 'transparent';
+      ctx.shadowBlur = 0;
+    }
+
+    // Hover highlight
+    if (hoveredTerm === term) {
+      ctx.shadowColor = '#ffffff44';
+      ctx.shadowBlur = 20;
+      ctx.fillStyle = '#ffffff';
+      ctx.font = `700 ${fontSize + 2}px "Noto Sans JP", sans-serif`;
+    } else {
+      ctx.fillStyle = color.fill;
+      ctx.font = `400 ${fontSize}px "Noto Sans JP", sans-serif`;
+    }
+
+    // Draw each character vertically
+    const chars = term.term.split('');
+    const charSpacing = 22;
+    const startY = term.y - ((chars.length - 1) * charSpacing) / 2;
+
+    const charScores = (selectedKanji && kanjiScores.size > 0) ? kanjiScores.get(term) || {} : null;
+
+    for (let ci = 0; ci < chars.length; ci++) {
+      if (charScores) {
+        const score = charScores[chars[ci]] || 0;
+        if (score === 1) {
+          ctx.fillStyle = '#ffffff';
+          ctx.shadowColor = '#ffffff';
+          ctx.shadowBlur = 16;
+        } else if (score > 0.5) {
+          ctx.fillStyle = '#7799cc';
+          ctx.shadowColor = '#7799cc';
+          ctx.shadowBlur = 10;
+        } else if (score > 0.3) {
+          ctx.fillStyle = '#445570';
+          ctx.shadowColor = 'transparent';
+          ctx.shadowBlur = 0;
+        } else {
+          ctx.fillStyle = '#1a1a28';
+          ctx.shadowColor = 'transparent';
+          ctx.shadowBlur = 0;
+        }
+        ctx.font = `400 ${fontSize}px "Noto Sans JP", sans-serif`;
+      }
+
+      ctx.fillText(chars[ci], term.x, startY + ci * charSpacing);
+
+      if (charScores) {
+        ctx.shadowColor = 'transparent';
+        ctx.shadowBlur = 0;
+      }
+    }
+
+    // Reset shadow
+    ctx.shadowColor = 'transparent';
+    ctx.shadowBlur = 0;
+  }
+
+  ctx.restore();
+  drawMinimapViewport();
+  requestAnimationFrame(draw);
+}
+
+function drawMinimap() {
+  if (!minimapCtx || !data) return;
+  const mm = minimapCtx.canvas;
+  const s = mm.width / data.canvas_width;
+
+  minimapCtx.fillStyle = '#0a0a0f';
+  minimapCtx.fillRect(0, 0, mm.width, mm.height);
+
+  // Page boxes
+  const pw = 13 * data.cell_width;
+  const ph = 9 * data.cell_height;
+  const pad = data.page_padding / 2;
+  minimapCtx.fillStyle = '#151520';
+  for (const page of data.pages) {
+    const bgX = page.x + pad - data.cell_width / 2 - 10;
+    const bgY = page.y + pad - data.cell_height / 2 - 10;
+    const bgW = pw + data.cell_width + 20;  // 13 gaps + 1 full cell = 14 columns covered
+    const bgH = ph + data.cell_height + 20; // 9 gaps + 1 full cell = 10 rows covered
+    minimapCtx.fillRect(bgX * s, bgY * s, bgW * s, bgH * s);
+  }
+
+  // Term dots
+  for (const term of data.terms) {
+    // Similarity mode — exaggerate highlights
+    if (selectedKanji && kanjiScores.size > 0) {
+      const charScores = kanjiScores.get(term) || {};
+      let bestScore = 0;
+      for (const char of term.term) {
+        const score = charScores[char] || 0;
+        if (score > bestScore) bestScore = score;
+      }
+      if (bestScore === 1) {
+        minimapCtx.fillStyle = '#ffffff';
+        minimapCtx.shadowColor = '#ffffff';
+        minimapCtx.shadowBlur = 8;
+        minimapCtx.fillRect(term.x * s - 1.5, term.y * s - 1.5, 4, 4);
+        minimapCtx.shadowBlur = 0;
+      } else if (bestScore > 0.5) {
+        minimapCtx.fillStyle = '#7799cc';
+        minimapCtx.shadowColor = '#7799cc';
+        minimapCtx.shadowBlur = 5;
+        minimapCtx.fillRect(term.x * s - 1, term.y * s - 1, 3, 3);
+        minimapCtx.shadowBlur = 0;
+      } else if (bestScore > 0.3) {
+        minimapCtx.fillStyle = '#334455';
+        minimapCtx.fillRect(term.x * s - 0.5, term.y * s - 0.5, 1.5, 1.5);
+      } else {
+        minimapCtx.fillStyle = '#0e0e16';
+        minimapCtx.fillRect(term.x * s - 0.5, term.y * s - 0.5, 1.5, 1.5);
+      }
+    } else {
+      const color = getTermColor(term);
+      minimapCtx.fillStyle = color.fill;
+      minimapCtx.fillRect(term.x * s - 0.5, term.y * s - 0.5, 1.5, 1.5);
+    }
+  }
+}
+
+function drawMinimapViewport() {
+  if (!minimapCtx || !data) return;
+  const mm = minimapCtx.canvas;
+  const s = mm.width / data.canvas_width;
+
+  // Redraw base
+  drawMinimap();
+
+  // Viewport rect
+  const vx = (-offsetX / scale) * s;
+  const vy = (-offsetY / scale) * s;
+  const vw = (canvasEl.width / scale) * s;
+  const vh = (canvasEl.height / scale) * s;
+
+  minimapCtx.strokeStyle = '#5555ff88';
+  minimapCtx.lineWidth = 1.5;
+  minimapCtx.strokeRect(vx, vy, vw, vh);
+}
+
+// --- Hit Testing ---
+function hitTest(mouseX, mouseY) {
+  const worldX = (mouseX - offsetX) / scale;
+  const worldY = (mouseY - offsetY) / scale;
+
+  let closest = null;
+  let closestDist = Infinity;
+
+  for (const term of data.terms) {
+    const chars = term.term.length;
+    const halfHeight = (chars * 22) / 2;
+    const dx = worldX - term.x;
+    const dy = worldY - term.y;
+
+    if (Math.abs(dx) < 18 && Math.abs(dy) < halfHeight + 10) {
+      const dist = dx * dx + dy * dy;
+      if (dist < closestDist) {
+        closestDist = dist;
+        closest = term;
+      }
+    }
+  }
+  return closest;
+}
+
+function hitTestReviewButton(mouseX, mouseY) {
+  const worldX = (mouseX - offsetX) / scale;
+  const worldY = (mouseY - offsetY) / scale;
+  const pw = 13 * data.cell_width;
+  const pad = data.page_padding / 2;
+
+  for (const page of data.pages) {
+    const bgX = page.x + pad - data.cell_width / 2 - 10;
+    const bgY = page.y + pad - data.cell_height / 2 - 10;
+    const btnY = bgY - 24;
+    const btnW = 28;
+    const btnH = 16;
+
+    // L button first (left)
+    const lBtnX = bgX + pw + data.cell_width + 20 - 62;
+    if (worldX >= lBtnX && worldX <= lBtnX + btnW && worldY >= btnY && worldY <= btnY + btnH) {
+      return { page: page.page_num, half: 'L' };
+    }
+    // R button second (right)
+    const rBtnX = lBtnX + btnW + 2;
+    if (worldX >= rBtnX && worldX <= rBtnX + btnW && worldY >= btnY && worldY <= btnY + btnH) {
+      return { page: page.page_num, half: 'R' };
+    }
+  }
+  return null;
+}
+
+// --- Tooltip ---
+function showTooltip(term, mouseX, mouseY) {
+  const tt = document.getElementById('tooltip');
+  tt.querySelector('.tt-term').textContent = term.term;
+  tt.querySelector('.tt-reading').textContent = term.reading;
+  tt.querySelector('.tt-meaning').textContent = term.meaning;
+  tt.querySelector('.tt-reviews').textContent = term.reviews;
+  tt.querySelector('.tt-fails').textContent = term.fails;
+  tt.querySelector('.tt-rate').textContent = term.status === 'new' ? 'new' : (term.fail_rate * 100).toFixed(1) + '%';
+
+  const barFill = tt.querySelector('.tt-bar-fill');
+  if (term.status === 'new') {
+    barFill.style.width = '0%';
+    barFill.style.background = '#333348';
+  } else {
+    barFill.style.width = Math.min(term.fail_rate * 300, 100) + '%';
+    barFill.style.background = term.fail_rate > 0.2 ? '#ff3344' : term.fail_rate > 0.1 ? '#ff9933' : '#4a4a6a';
+  }
+
+  // Radical similarity info
+  let radicalHTML = '';
+  if (selectedKanji && kanjiScores.size > 0) {
+    const selectedRadicals = new Set(data.radicals[selectedKanji] || []);
+    const charScores = kanjiScores.get(term) || {};
+    for (const char of term.term) {
+      const charRadicals = data.radicals[char] || [];
+      const shared = charRadicals.filter(r => selectedRadicals.has(r));
+      if (char === selectedKanji) {
+        radicalHTML += `<div style="color:#ffffff">${char} — exact match</div>`;
+      } else if (shared.length > 0) {
+        radicalHTML += `<div style="color:#7799cc">${char} — shared: ${shared.join(' ')}</div>`;
+      }
+    }
+  }
+  tt.querySelector('.tt-radicals').innerHTML = radicalHTML;
+
+  // Position tooltip
+  let tx = mouseX + 16;
+  let ty = mouseY - 10;
+  if (tx + 220 > window.innerWidth) tx = mouseX - 220;
+  if (ty + 160 > window.innerHeight) ty = mouseY - 160;
+  tt.style.left = tx + 'px';
+  tt.style.top = ty + 'px';
+  tt.classList.add('visible');
+}
+
+function hideTooltip() {
+  document.getElementById('tooltip').classList.remove('visible');
+}
+
+// --- Events ---
+function onMouseDown(e) {
+  isDragging = true;
+  dragStartX = e.clientX;
+  dragStartY = e.clientY;
+  dragOffsetX = offsetX;
+  dragOffsetY = offsetY;
+  document.body.classList.add('dragging');
+}
+
+function onMouseMove(e) {
+  if (isDragging) {
+    offsetX = dragOffsetX + (e.clientX - dragStartX);
+    offsetY = dragOffsetY + (e.clientY - dragStartY);
+    hideTooltip();
+    hoveredTerm = null;
+  } else if (data) {
+    const btnHit = hitTestReviewButton(e.clientX, e.clientY);
+    if (btnHit) {
+      hoveredTerm = null;
+      canvasEl.style.cursor = 'pointer';
+      hideTooltip();
+    } else {
+      const hit = hitTest(e.clientX, e.clientY);
+      if (hit) {
+        hoveredTerm = hit;
+        canvasEl.style.cursor = 'pointer';
+        showTooltip(hit, e.clientX, e.clientY);
+      } else {
+        hoveredTerm = null;
+        canvasEl.style.cursor = 'grab';
+        hideTooltip();
+      }
+    }
+  }
+}
+
+function onClick(e) {
+  if (Math.abs(e.clientX - dragStartX) > 3 || Math.abs(e.clientY - dragStartY) > 3) return;
+
+  // Check review buttons first
+  const btn = hitTestReviewButton(e.clientX, e.clientY);
+  if (btn) {
+    if (reviewPage === btn.page && reviewHalf === btn.half) {
+      // Toggle off
+      reviewPage = null;
+      reviewHalf = null;
+    } else {
+      // Activate and set all terms in that half to red if not already in progress
+      reviewPage = btn.page;
+      reviewHalf = btn.half;
+      const halfTerms = getHalfTerms(btn.page, btn.half);
+      for (const term of halfTerms) {
+        if (!termProgress.has(term)) {
+          termProgress.set(term, 0);
+        }
+      }
+    }
+    return;
+  }
+
+  const hit = hitTest(e.clientX, e.clientY);
+
+  // Clear kanji selection if clicking empty space
+  if (!hit && selectedKanji) {
+    selectedKanji = null;
+    kanjiScores.clear();
+    document.getElementById('kanji-picker').style.display = 'none';
+    return;
+  }
+
+  // Term click — cycle progress if it has one, or start it
+  if (hit) {
+    if (termProgress.has(hit)) {
+      const current = termProgress.get(hit);
+      if (current < 2) {
+        termProgress.set(hit, current + 1);
+      } else {
+        // Already white, do nothing (or could cycle back)
+      }
+    } else if (!selectedKanji) {
+      // Outside review mode, clicking a highlighted term dismisses as before
+      if (hit.status !== 'new' && hit.fail_rate > 0.10) {
+        if (dismissed.has(hit)) dismissed.delete(hit);
+        else dismissed.add(hit);
+      }
+    }
+  }
+}
+
+function onRightClick(e) {
+  e.preventDefault();
+  const hit = hitTest(e.clientX, e.clientY);
+  const picker = document.getElementById('kanji-picker');
+
+  if (!hit) {
+    picker.style.display = 'none';
+    selectedKanji = null;
+    kanjiScores.clear();
+    return;
+  }
+
+  // Get unique kanji from the term
+  const chars = [...new Set(hit.term.split(''))].filter(c => data.radicals[c]);
+  if (chars.length === 0) {
+    picker.style.display = 'none';
+    return;
+  }
+
+  // If single kanji, select immediately
+  if (chars.length === 1) {
+    picker.style.display = 'none';
+    selectedKanji = chars[0];
+    computeKanjiScores(selectedKanji);
+    return;
+  }
+
+  // Show picker
+  picker.innerHTML = '';
+  picker.style.display = 'flex';
+  picker.style.left = e.clientX + 'px';
+  picker.style.top = e.clientY + 'px';
+
+  for (const char of chars) {
+    const btn = document.createElement('button');
+    btn.textContent = char;
+    btn.addEventListener('click', () => {
+      picker.style.display = 'none';
+      selectedKanji = char;
+      computeKanjiScores(selectedKanji);
+    });
+    picker.appendChild(btn);
+  }
+}
+
+function onMouseUp() {
+  isDragging = false;
+  document.body.classList.remove('dragging');
+}
+
+function onWheel(e) {
+  e.preventDefault();
+  const zoomFactor = e.deltaY < 0 ? 1.1 : 0.9;
+  const newScale = Math.max(0.2, Math.min(5, scale * zoomFactor));
+
+  // Zoom toward cursor
+  const wx = (e.clientX - offsetX) / scale;
+  const wy = (e.clientY - offsetY) / scale;
+  scale = newScale;
+  offsetX = e.clientX - wx * scale;
+  offsetY = e.clientY - wy * scale;
+}
+
+function onResize() {
+  canvasEl.width = window.innerWidth;
+  canvasEl.height = window.innerHeight;
+}
+
+// --- Start ---
+init();
+</script>
+</body>
+</html>
