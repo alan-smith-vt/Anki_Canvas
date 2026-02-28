@@ -1,2 +1,2 @@
 # Anki_Canvas
-[Open Kanji Canvas](https://your-username.github.io/repo-name/vocab_canvas.html)
+[Open Kanji Canvas](https://alan-smith-vt.github.io/Anki_Canvas/vocab_canvas.html)
