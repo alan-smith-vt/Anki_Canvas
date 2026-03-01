@@ -903,13 +903,22 @@ function onTouchStart(e) {
   e.preventDefault();
 
   if (e.touches.length === 2) {
-    // Pinch start
     clearTimeout(longPressTimer);
+    clearTimeout(singleTapTimer);
+    singleTapTimer = null;
     longPressTriggered = false;
+    isTouchDragging = true; // prevent tap actions after pinch
+
     pinchStartDist = getTouchDist(e.touches[0], e.touches[1]);
     pinchStartScale = scale;
     pinchMidX = (e.touches[0].clientX + e.touches[1].clientX) / 2;
     pinchMidY = (e.touches[0].clientY + e.touches[1].clientY) / 2;
+
+    // Also track for simultaneous pan
+    dragStartX = pinchMidX;
+    dragStartY = pinchMidY;
+    dragOffsetX = offsetX;
+    dragOffsetY = offsetY;
     return;
   }
 
@@ -919,10 +928,8 @@ function onTouchStart(e) {
     isTouchDragging = false;
     longPressTriggered = false;
 
-    // Start long press timer
     longPressTimer = setTimeout(() => {
       longPressTriggered = true;
-      // Simulate right click
       const hit = hitTest(touch.clientX, touch.clientY);
       const picker = document.getElementById('kanji-picker');
 
@@ -963,7 +970,6 @@ function onTouchStart(e) {
       }
     }, 500);
 
-    // Set up drag
     dragStartX = touch.clientX;
     dragStartY = touch.clientY;
     dragOffsetX = offsetX;
@@ -974,34 +980,61 @@ function onTouchStart(e) {
 function onTouchMove(e) {
   e.preventDefault();
 
-  if (e.touches.length === 2 && pinchStartDist !== null) {
-    // Pinch zoom
+  if (e.touches.length === 2) {
     clearTimeout(longPressTimer);
-    const newDist = getTouchDist(e.touches[0], e.touches[1]);
-    const zoomFactor = newDist / pinchStartDist;
-    const newScale = Math.max(0.2, Math.min(5, pinchStartScale * zoomFactor));
 
+    const newDist = getTouchDist(e.touches[0], e.touches[1]);
     const midX = (e.touches[0].clientX + e.touches[1].clientX) / 2;
     const midY = (e.touches[0].clientY + e.touches[1].clientY) / 2;
 
-    const wx = (pinchMidX - offsetX) / scale;
-    const wy = (pinchMidY - offsetY) / scale;
-    scale = newScale;
-    offsetX = midX - wx * scale;
-    offsetY = midY - wy * scale;
+    if (pinchStartDist !== null) {
+      // Zoom toward pinch center
+      const zoomFactor = newDist / pinchStartDist;
+      const newScale = Math.max(0.2, Math.min(5, pinchStartScale * zoomFactor));
 
-    pinchMidX = midX;
-    pinchMidY = midY;
+      // Use original pinch midpoint as zoom anchor
+      const wx = (pinchMidX - dragOffsetX) / pinchStartScale;
+      const wy = (pinchMidY - dragOffsetY) / pinchStartScale;
+
+      scale = newScale;
+
+      // Pan: how much the midpoint has moved since start
+      const panDX = midX - dragStartX;
+      const panDY = midY - dragStartY;
+
+      offsetX = dragOffsetX + panDX + (pinchMidX - wx * scale) - pinchMidX + (dragStartX - pinchMidX);
+      offsetY = dragOffsetY + panDY + (pinchMidY - wy * scale) - pinchMidY + (dragStartY - pinchMidY);
+
+      // Simplify: compute from scratch each frame
+      offsetX = midX - wx * scale + (midX - pinchMidX) * 0;
+      offsetY = midY - wy * scale + (midY - pinchMidY) * 0;
+
+      // Actually let's just do it cleanly:
+      // The world point under the original pinch midpoint should now be under the current midpoint
+      offsetX = midX - wx * scale;
+      offsetY = midY - wy * scale;
+    }
+
     return;
   }
 
   if (e.touches.length === 1) {
+    // If we just came from a pinch (lifted one finger), reset drag origin
+    if (pinchStartDist !== null) {
+      pinchStartDist = null;
+      const touch = e.touches[0];
+      dragStartX = touch.clientX;
+      dragStartY = touch.clientY;
+      dragOffsetX = offsetX;
+      dragOffsetY = offsetY;
+      return;
+    }
+
     const touch = e.touches[0];
-    const dx = touch.clientX - touchStartPos.x;
-    const dy = touch.clientY - touchStartPos.y;
+    const dx = touch.clientX - dragStartX;
+    const dy = touch.clientY - dragStartY;
 
     if (Math.abs(dx) > 5 || Math.abs(dy) > 5) {
-      // Started dragging — cancel long press
       clearTimeout(longPressTimer);
       isTouchDragging = true;
       offsetX = dragOffsetX + dx;
@@ -1016,7 +1049,18 @@ function onTouchEnd(e) {
   e.preventDefault();
   clearTimeout(longPressTimer);
 
-  if (pinchStartDist !== null && e.touches.length < 2) {
+  // Went from 2 fingers to 1 — reset drag origin to remaining finger
+  if (pinchStartDist !== null && e.touches.length === 1) {
+    pinchStartDist = null;
+    const touch = e.touches[0];
+    dragStartX = touch.clientX;
+    dragStartY = touch.clientY;
+    dragOffsetX = offsetX;
+    dragOffsetY = offsetY;
+    return;
+  }
+
+  if (pinchStartDist !== null && e.touches.length === 0) {
     pinchStartDist = null;
     return;
   }
@@ -1033,17 +1077,13 @@ function onTouchEnd(e) {
 
   if (!touchStartPos) return;
 
-  const now = Date.now();
-
   if (singleTapTimer !== null) {
-    // Second tap came in — it's a double tap
     clearTimeout(singleTapTimer);
     singleTapTimer = null;
     hideTooltip();
 
     const pos = pendingTapPos || touchStartPos;
 
-    // Check review buttons
     const btn = hitTestReviewButton(pos.x, pos.y);
     if (btn) {
       if (reviewPage === btn.page && reviewHalf === btn.half) {
@@ -1082,12 +1122,9 @@ function onTouchEnd(e) {
     return;
   }
 
-  // First tap — wait to see if double tap follows
   pendingTapPos = { x: touchStartPos.x, y: touchStartPos.y };
   singleTapTimer = setTimeout(() => {
     singleTapTimer = null;
-
-    // No second tap — treat as hover/tooltip
     const hit = hitTest(pendingTapPos.x, pendingTapPos.y);
     if (hit) {
       hoveredTerm = hit;
