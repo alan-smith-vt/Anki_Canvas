@@ -90,7 +90,7 @@
   #kanji-picker {
     position: fixed;
     display: none;
-    z-index: 100;
+    z-index: 110;
     background: #13131a;
     border: 1px solid #2a2a3a;
     border-radius: 8px;
@@ -897,10 +897,14 @@ function onRightClick(e) {
   for (const char of chars) {
     const btn = document.createElement('button');
     btn.textContent = char;
-    btn.addEventListener('click', () => {
+    btn.addEventListener('click', (evt) => {
+      evt.stopPropagation();
       picker.style.display = 'none';
       selectedKanji = char;
       computeKanjiScores(selectedKanji);
+    });
+    btn.addEventListener('touchend', (evt) => {
+      evt.stopPropagation();
     });
     picker.appendChild(btn);
   }
@@ -1005,10 +1009,14 @@ function onTouchStart(e) {
       for (const char of chars) {
         const btn = document.createElement('button');
         btn.textContent = char;
-        btn.addEventListener('click', () => {
+        btn.addEventListener('click', (evt) => {
+          evt.stopPropagation();
           picker.style.display = 'none';
           selectedKanji = char;
           computeKanjiScores(selectedKanji);
+        });
+        btn.addEventListener('touchend', (evt) => {
+          evt.stopPropagation();
         });
         picker.appendChild(btn);
       }
