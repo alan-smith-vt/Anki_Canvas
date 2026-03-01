@@ -167,6 +167,24 @@
     color: #444460;
   }
 
+  #info-mobile {
+    display: none;
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    z-index: 50;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: #444460;
+    text-align: right;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 768px) {
+    #info-mobile { display: block; }
+    #info { display: none; }
+  }
+
   @media (max-width: 768px) {
     #tooltip {
       padding: 16px 20px;
@@ -211,7 +229,17 @@
 </div>
 
 <div id="minimap"><canvas id="minimap-canvas"></canvas></div>
-<div id="info">scroll to zoom · drag to pan</div>
+<div id="info">
+  drag to pan · scroll to zoom · click minimap to jump<br>
+  hover to inspect · click to dismiss/cycle<br>
+  right-click for radical search
+</div>
+
+<div id="info-mobile">
+  drag to pan · pinch to zoom<br>
+  tap to inspect · double tap to select<br>
+  long press for radical search
+</div>
 
 <script src="vocab_data.js"></script>
 <script>
@@ -229,6 +257,7 @@ let kanjiScores = new Map(); // term -> similarity score 0-1
 let reviewPage = null;
 let reviewHalf = null; // 'R' or 'L'
 let termProgress = new Map(); // term -> 0(red) / 1(orange) / 2(white)
+let isMinimapDragging = false;
 //Touch states
 let lastTouchEnd = 0;
 let longPressTimer = null;
@@ -241,6 +270,7 @@ let isTouchDragging = false;
 let longPressTriggered = false;
 let singleTapTimer = null;
 let pendingTapPos = null;
+
 
 // --- Color Mapping ---
 function getTermColor(term) {
@@ -350,6 +380,10 @@ function init() {
   mm.width = Math.round(data.canvas_width * mmScale);
   mm.height = Math.round(data.canvas_height * mmScale);
   minimapCtx = mm.getContext('2d');
+  mm.addEventListener('mousedown', onMinimapDown);
+  mm.addEventListener('mousemove', onMinimapMove);
+  mm.addEventListener('mouseup', onMinimapUp);
+  mm.addEventListener('mouseleave', onMinimapUp);
 
   // Events
   canvasEl.addEventListener('mousedown', onMouseDown);
@@ -362,7 +396,6 @@ function init() {
   canvasEl.addEventListener('touchstart', onTouchStart, { passive: false });
   canvasEl.addEventListener('touchmove', onTouchMove, { passive: false });
   canvasEl.addEventListener('touchend', onTouchEnd, { passive: false });
-
   drawMinimap();
   requestAnimationFrame(draw);
 }
@@ -751,7 +784,7 @@ function onMouseMove(e) {
     offsetY = dragOffsetY + (e.clientY - dragStartY);
     hideTooltip();
     hoveredTerm = null;
-  } else if (data) {
+  } else if (data && !isMinimapDragging) {
     const btnHit = hitTestReviewButton(e.clientX, e.clientY);
     if (btnHit) {
       hoveredTerm = null;
@@ -886,6 +919,14 @@ function onWheel(e) {
   scale = newScale;
   offsetX = e.clientX - wx * scale;
   offsetY = e.clientY - wy * scale;
+
+  // Update drag origin so active drag stays consistent
+  if (isDragging) {
+    dragOffsetX = offsetX;
+    dragOffsetY = offsetY;
+    dragStartX = e.clientX;
+    dragStartY = e.clientY;
+  }
 }
 
 function onResize() {
@@ -1134,6 +1175,39 @@ function onTouchEnd(e) {
       hideTooltip();
     }
   }, 200);
+}
+
+function minimapToWorld(e) {
+  const mm = e.target;
+  const rect = mm.getBoundingClientRect();
+  const mx = e.clientX - rect.left;
+  const my = e.clientY - rect.top;
+  const mmScale = mm.width / data.canvas_width;
+  return { x: mx / mmScale, y: my / mmScale };
+}
+
+function centerOnWorld(worldX, worldY) {
+  offsetX = canvasEl.width / 2 - worldX * scale;
+  offsetY = canvasEl.height / 2 - worldY * scale;
+}
+
+function onMinimapDown(e) {
+  e.preventDefault();
+  isMinimapDragging = true;
+  const world = minimapToWorld(e);
+  centerOnWorld(world.x, world.y);
+}
+
+function onMinimapMove(e) {
+  if (!isMinimapDragging) return;
+  const world = minimapToWorld(e);
+  centerOnWorld(world.x, world.y);
+  hideTooltip();
+  hoveredTerm = null;
+}
+
+function onMinimapUp() {
+  isMinimapDragging = false;
 }
 
 // --- Start ---
