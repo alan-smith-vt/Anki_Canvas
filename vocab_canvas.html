@@ -160,11 +160,12 @@
   #info {
     position: fixed;
     top: 16px;
-    left: 16px;
+    right: 16px;
     z-index: 50;
     font-family: 'IBM Plex Mono', monospace;
     font-size: 12px;
     color: #444460;
+    text-align: right;
   }
 
   #info-mobile {
@@ -178,6 +179,34 @@
     color: #444460;
     text-align: right;
     line-height: 1.6;
+  }
+
+  #search-box {
+    position: fixed;
+    top: 16px;
+    left: 16px;
+    z-index: 50;
+  }
+  #search-box input {
+    background: #13131a;
+    border: 1px solid #2a2a3a;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 13px;
+    color: #c0c0d0;
+    width: 240px;
+    outline: none;
+  }
+  #search-box input:focus {
+    border-color: #5555ff;
+  }
+  #search-box input::placeholder {
+    color: #444460;
+  }
+
+  @media (max-width: 768px) {
+    #search-box { display: none; }
   }
 
   @media (max-width: 768px) {
@@ -235,6 +264,10 @@
   right-click for radical search
 </div>
 
+<div id="search-box">
+  <input type="text" id="search-input" placeholder="search kanji, reading, meaning..." />
+</div>
+
 <div id="info-mobile">
   drag to pan · pinch to zoom<br>
   tap to inspect · double tap to select<br>
@@ -258,6 +291,9 @@ let reviewPage = null;
 let reviewHalf = null; // 'R' or 'L'
 let termProgress = new Map(); // term -> 0(red) / 1(orange) / 2(white)
 let isMinimapDragging = false;
+let searchQuery = '';
+let searchMatches = new Set();
+
 //Touch states
 let lastTouchEnd = 0;
 let longPressTimer = null;
@@ -276,6 +312,12 @@ let pendingTapPos = null;
 function getTermColor(term) {
   // Similarity always wins
   if (selectedKanji && kanjiScores.size > 0) {
+    return { fill: '#1a1a28', glow: null };
+  }
+
+  // Search mode
+  if (searchQuery !== '') {
+    if (searchMatches.has(term)) return { fill: '#ffffff', glow: '#ffffff' };
     return { fill: '#1a1a28', glow: null };
   }
 
@@ -306,6 +348,12 @@ function getTermColor(term) {
 
 function getGlowIntensity(term) {
   if (selectedKanji && kanjiScores.size > 0) return 0;
+
+  // Search mode
+  if (searchQuery !== '') {
+    if (searchMatches.has(term)) return 16;
+    return 0;
+  }
 
   if (termProgress.has(term)) {
     const p = termProgress.get(term);
@@ -359,6 +407,7 @@ function getHalfTerms(pageNum, half) {
   });
 }
 
+
 // --- Init ---
 function init() {
   data = VOCAB_DATA;
@@ -373,6 +422,12 @@ function init() {
   // Center on the canvas content
   offsetX = (window.innerWidth - data.canvas_width * scale) / 2;
   offsetY = (window.innerHeight - data.canvas_height * scale) / 2;
+
+  const searchInput = document.getElementById('search-input');
+  searchInput.addEventListener('input', onSearchInput);
+  searchInput.addEventListener('keydown', (e) => {
+    e.stopPropagation(); // prevent canvas shortcuts if you add any later
+  });
 
   // Minimap
   const mm = document.getElementById('minimap-canvas');
@@ -615,6 +670,20 @@ function drawMinimap() {
 
   // Term dots
   for (const term of data.terms) {
+    // Search mode
+    if (searchQuery !== '') {
+      if (searchMatches.has(term)) {
+        minimapCtx.fillStyle = '#ffffff';
+        minimapCtx.shadowColor = '#ffffff';
+        minimapCtx.shadowBlur = 8;
+        minimapCtx.fillRect(term.x * s - 1.5, term.y * s - 1.5, 4, 4);
+        minimapCtx.shadowBlur = 0;
+      } else {
+        minimapCtx.fillStyle = '#0e0e16';
+        minimapCtx.fillRect(term.x * s - 0.5, term.y * s - 0.5, 1.5, 1.5);
+      }
+      continue;
+    }
     // Similarity mode — exaggerate highlights
     if (selectedKanji && kanjiScores.size > 0) {
       const charScores = kanjiScores.get(term) || {};
@@ -772,6 +841,22 @@ function hideTooltip() {
 }
 
 // --- Events ---
+function onSearchInput(e) {
+  searchQuery = e.target.value.trim().toLowerCase();
+  searchMatches.clear();
+
+  if (searchQuery === '') return;
+
+  for (const term of data.terms) {
+    const cleanReading = term.reading.replace(/[。・「」]/g, '').toLowerCase();
+    if (term.term.toLowerCase().includes(searchQuery) ||
+        cleanReading.includes(searchQuery) ||
+        term.meaning.toLowerCase().includes(searchQuery)) {
+      searchMatches.add(term);
+    }
+  }
+}
+
 function onMouseDown(e) {
   isDragging = true;
   dragStartX = e.clientX;
@@ -839,6 +924,14 @@ function onClick(e) {
     selectedKanji = null;
     kanjiScores.clear();
     document.getElementById('kanji-picker').style.display = 'none';
+    return;
+  }
+  
+  // Clear search if clicking empty space
+  if (!hit && searchQuery !== '') {
+    searchQuery = '';
+    searchMatches.clear();
+    document.getElementById('search-input').value = '';
     return;
   }
 
