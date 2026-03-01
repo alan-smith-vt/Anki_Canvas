@@ -166,6 +166,20 @@
     font-size: 12px;
     color: #444460;
   }
+
+  @media (max-width: 768px) {
+    #tooltip {
+      padding: 16px 20px;
+      min-width: 220px;
+      font-size: 15px;
+    }
+    #tooltip .tt-term { font-size: 36px; }
+    #tooltip .tt-reading { font-size: 17px; }
+    #tooltip .tt-meaning { font-size: 15px; }
+    #tooltip .tt-stats { font-size: 13px; gap: 20px; }
+    #tooltip .tt-radicals { font-size: 15px; }
+    #kanji-picker button { font-size: 32px; padding: 12px 18px; }
+  }
 </style>
 </head>
 <body>
@@ -215,6 +229,18 @@ let kanjiScores = new Map(); // term -> similarity score 0-1
 let reviewPage = null;
 let reviewHalf = null; // 'R' or 'L'
 let termProgress = new Map(); // term -> 0(red) / 1(orange) / 2(white)
+//Touch states
+let lastTouchEnd = 0;
+let longPressTimer = null;
+let touchStartPos = null;
+let pinchStartDist = null;
+let pinchStartScale = null;
+let pinchMidX = null;
+let pinchMidY = null;
+let isTouchDragging = false;
+let longPressTriggered = false;
+let singleTapTimer = null;
+let pendingTapPos = null;
 
 // --- Color Mapping ---
 function getTermColor(term) {
@@ -333,6 +359,9 @@ function init() {
   window.addEventListener('resize', onResize);
   canvasEl.addEventListener('click', onClick);
   canvasEl.addEventListener('contextmenu', onRightClick);
+  canvasEl.addEventListener('touchstart', onTouchStart, { passive: false });
+  canvasEl.addEventListener('touchmove', onTouchMove, { passive: false });
+  canvasEl.addEventListener('touchend', onTouchEnd, { passive: false });
 
   drawMinimap();
   requestAnimationFrame(draw);
@@ -862,6 +891,212 @@ function onWheel(e) {
 function onResize() {
   canvasEl.width = window.innerWidth;
   canvasEl.height = window.innerHeight;
+}
+
+function getTouchDist(t1, t2) {
+  const dx = t1.clientX - t2.clientX;
+  const dy = t1.clientY - t2.clientY;
+  return Math.sqrt(dx * dx + dy * dy);
+}
+
+function onTouchStart(e) {
+  e.preventDefault();
+
+  if (e.touches.length === 2) {
+    // Pinch start
+    clearTimeout(longPressTimer);
+    longPressTriggered = false;
+    pinchStartDist = getTouchDist(e.touches[0], e.touches[1]);
+    pinchStartScale = scale;
+    pinchMidX = (e.touches[0].clientX + e.touches[1].clientX) / 2;
+    pinchMidY = (e.touches[0].clientY + e.touches[1].clientY) / 2;
+    return;
+  }
+
+  if (e.touches.length === 1) {
+    const touch = e.touches[0];
+    touchStartPos = { x: touch.clientX, y: touch.clientY };
+    isTouchDragging = false;
+    longPressTriggered = false;
+
+    // Start long press timer
+    longPressTimer = setTimeout(() => {
+      longPressTriggered = true;
+      // Simulate right click
+      const hit = hitTest(touch.clientX, touch.clientY);
+      const picker = document.getElementById('kanji-picker');
+
+      if (!hit) {
+        picker.style.display = 'none';
+        selectedKanji = null;
+        kanjiScores.clear();
+        return;
+      }
+
+      const chars = [...new Set(hit.term.split(''))].filter(c => data.radicals[c]);
+      if (chars.length === 0) {
+        picker.style.display = 'none';
+        return;
+      }
+
+      if (chars.length === 1) {
+        picker.style.display = 'none';
+        selectedKanji = chars[0];
+        computeKanjiScores(selectedKanji);
+        return;
+      }
+
+      picker.innerHTML = '';
+      picker.style.display = 'flex';
+      picker.style.left = touch.clientX + 'px';
+      picker.style.top = touch.clientY + 'px';
+
+      for (const char of chars) {
+        const btn = document.createElement('button');
+        btn.textContent = char;
+        btn.addEventListener('click', () => {
+          picker.style.display = 'none';
+          selectedKanji = char;
+          computeKanjiScores(selectedKanji);
+        });
+        picker.appendChild(btn);
+      }
+    }, 500);
+
+    // Set up drag
+    dragStartX = touch.clientX;
+    dragStartY = touch.clientY;
+    dragOffsetX = offsetX;
+    dragOffsetY = offsetY;
+  }
+}
+
+function onTouchMove(e) {
+  e.preventDefault();
+
+  if (e.touches.length === 2 && pinchStartDist !== null) {
+    // Pinch zoom
+    clearTimeout(longPressTimer);
+    const newDist = getTouchDist(e.touches[0], e.touches[1]);
+    const zoomFactor = newDist / pinchStartDist;
+    const newScale = Math.max(0.2, Math.min(5, pinchStartScale * zoomFactor));
+
+    const midX = (e.touches[0].clientX + e.touches[1].clientX) / 2;
+    const midY = (e.touches[0].clientY + e.touches[1].clientY) / 2;
+
+    const wx = (pinchMidX - offsetX) / scale;
+    const wy = (pinchMidY - offsetY) / scale;
+    scale = newScale;
+    offsetX = midX - wx * scale;
+    offsetY = midY - wy * scale;
+
+    pinchMidX = midX;
+    pinchMidY = midY;
+    return;
+  }
+
+  if (e.touches.length === 1) {
+    const touch = e.touches[0];
+    const dx = touch.clientX - touchStartPos.x;
+    const dy = touch.clientY - touchStartPos.y;
+
+    if (Math.abs(dx) > 5 || Math.abs(dy) > 5) {
+      // Started dragging — cancel long press
+      clearTimeout(longPressTimer);
+      isTouchDragging = true;
+      offsetX = dragOffsetX + dx;
+      offsetY = dragOffsetY + dy;
+      hideTooltip();
+      hoveredTerm = null;
+    }
+  }
+}
+
+function onTouchEnd(e) {
+  e.preventDefault();
+  clearTimeout(longPressTimer);
+
+  if (pinchStartDist !== null && e.touches.length < 2) {
+    pinchStartDist = null;
+    return;
+  }
+
+  if (longPressTriggered) {
+    longPressTriggered = false;
+    return;
+  }
+
+  if (isTouchDragging) {
+    isTouchDragging = false;
+    return;
+  }
+
+  if (!touchStartPos) return;
+
+  const now = Date.now();
+
+  if (singleTapTimer !== null) {
+    // Second tap came in — it's a double tap
+    clearTimeout(singleTapTimer);
+    singleTapTimer = null;
+    hideTooltip();
+
+    const pos = pendingTapPos || touchStartPos;
+
+    // Check review buttons
+    const btn = hitTestReviewButton(pos.x, pos.y);
+    if (btn) {
+      if (reviewPage === btn.page && reviewHalf === btn.half) {
+        reviewPage = null;
+        reviewHalf = null;
+      } else {
+        reviewPage = btn.page;
+        reviewHalf = btn.half;
+        const halfTerms = getHalfTerms(btn.page, btn.half);
+        for (const term of halfTerms) {
+          if (!termProgress.has(term)) {
+            termProgress.set(term, 0);
+          }
+        }
+      }
+      return;
+    }
+
+    const hit = hitTest(pos.x, pos.y);
+    if (hit) {
+      if (termProgress.has(hit)) {
+        const current = termProgress.get(hit);
+        if (current < 2) termProgress.set(hit, current + 1);
+      } else if (!selectedKanji) {
+        if (hit.status !== 'new' && hit.fail_rate > 0.10) {
+          if (dismissed.has(hit)) dismissed.delete(hit);
+          else dismissed.add(hit);
+        }
+      }
+    } else if (selectedKanji) {
+      selectedKanji = null;
+      kanjiScores.clear();
+      document.getElementById('kanji-picker').style.display = 'none';
+    }
+
+    return;
+  }
+
+  // First tap — wait to see if double tap follows
+  pendingTapPos = { x: touchStartPos.x, y: touchStartPos.y };
+  singleTapTimer = setTimeout(() => {
+    singleTapTimer = null;
+
+    // No second tap — treat as hover/tooltip
+    const hit = hitTest(pendingTapPos.x, pendingTapPos.y);
+    if (hit) {
+      hoveredTerm = hit;
+      showTooltip(hit, pendingTapPos.x, pendingTapPos.y);
+    } else {
+      hoveredTerm = null;
+      hideTooltip();
+    }
+  }, 200);
 }
 
 // --- Start ---
