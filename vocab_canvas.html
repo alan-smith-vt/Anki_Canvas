@@ -850,7 +850,9 @@ function showTooltip(term, mouseX, mouseY) {
   let tx = mouseX + 16;
   let ty = mouseY - 10;
   if (tx + 220 > window.innerWidth) tx = mouseX - 220;
+  if (tx < 10) tx = 10;
   if (ty + 160 > window.innerHeight) ty = mouseY - 160;
+  if (ty < 10) ty = 10;
   tt.style.left = tx + 'px';
   tt.style.top = ty + 'px';
   tt.classList.add('visible');
