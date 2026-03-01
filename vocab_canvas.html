@@ -795,7 +795,7 @@ function showTooltip(term, mouseX, mouseY) {
   const tt = document.getElementById('tooltip');
   tt.querySelector('.tt-term').textContent = term.term;
   tt.querySelector('.tt-reading').textContent = term.reading;
-  tt.querySelector('.tt-meaning').textContent = term.meaning;
+  tt.querySelector('.tt-meaning').innerHTML = term.meaning;
   tt.querySelector('.tt-reviews').textContent = term.reviews;
   tt.querySelector('.tt-fails').textContent = term.fails;
   tt.querySelector('.tt-rate').textContent = term.status === 'new' ? 'new' : (term.fail_rate * 100).toFixed(1) + '%';
