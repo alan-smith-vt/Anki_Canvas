@@ -480,13 +480,6 @@ function draw() {
     ctx.fillRect(bgX, bgY, bgW, bgH);
     ctx.strokeRect(bgX, bgY, bgW, bgH);
 
-    // Page label
-    ctx.textAlign = 'left';
-    ctx.textBaseline = 'alphabetic';
-    ctx.fillStyle = '#222238';
-    ctx.font = '700 14px "IBM Plex Mono", monospace';
-    ctx.fillText('Page ' + page.page_num, bgX + 4, bgY - 6);
-
     // Page stats
     const pageTerms = data.terms.filter(t => t.page === page.page_num);
     let red = 0, orange = 0, solid = 0, newCount = 0;
@@ -508,6 +501,32 @@ function draw() {
         solid++;
       }
     }
+
+    // Page health dot
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'alphabetic';
+    ctx.font = '700 14px "IBM Plex Mono", monospace';
+
+    const totalReviewed = pageTerms.filter(t => t.status !== 'new' || termProgress.has(t)).length;
+    let dotColor = '#333348';
+    if (totalReviewed > 71) {
+      const whiteCount = pageTerms.filter(t => {
+        if (termProgress.has(t)) return termProgress.get(t) === 2;
+        if (dismissed.has(t)) return true;
+        return t.status !== 'new' && t.fail_rate <= 0.10;
+      }).length;
+      const passRate = whiteCount / totalReviewed;
+      dotColor = passRate >= 0.85 ? '#c0c0d0' : passRate >= 0.70 ? '#ff9933' : '#ff3344';
+    }
+
+    ctx.fillStyle = dotColor;
+    ctx.beginPath();
+    ctx.arc(bgX + 8, bgY - 10, 4, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Page label
+    ctx.fillStyle = '#222238';
+    ctx.fillText('Page ' + page.page_num, bgX + 18, bgY - 6);
 
     const statsX = bgX + 4;
     const statsY = bgY - 6 + 16;
@@ -926,7 +945,7 @@ function onClick(e) {
     document.getElementById('kanji-picker').style.display = 'none';
     return;
   }
-  
+
   // Clear search if clicking empty space
   if (!hit && searchQuery !== '') {
     searchQuery = '';
