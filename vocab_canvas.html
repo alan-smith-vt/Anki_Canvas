@@ -384,6 +384,9 @@ function init() {
   mm.addEventListener('mousemove', onMinimapMove);
   mm.addEventListener('mouseup', onMinimapUp);
   mm.addEventListener('mouseleave', onMinimapUp);
+  mm.addEventListener('touchstart', onMinimapTouchStart, { passive: false });
+  mm.addEventListener('touchmove', onMinimapTouchMove, { passive: false });
+  mm.addEventListener('touchend', onMinimapTouchEnd, { passive: false });
 
   // Events
   canvasEl.addEventListener('mousedown', onMouseDown);
@@ -1207,6 +1210,38 @@ function onMinimapMove(e) {
 }
 
 function onMinimapUp() {
+  isMinimapDragging = false;
+}
+
+function minimapToWorldFromTouch(touch, mm) {
+  const rect = mm.getBoundingClientRect();
+  const mx = touch.clientX - rect.left;
+  const my = touch.clientY - rect.top;
+  const mmScale = mm.width / data.canvas_width;
+  return { x: mx / mmScale, y: my / mmScale };
+}
+
+function onMinimapTouchStart(e) {
+  e.preventDefault();
+  e.stopPropagation();
+  isMinimapDragging = true;
+  const world = minimapToWorldFromTouch(e.touches[0], e.target);
+  centerOnWorld(world.x, world.y);
+}
+
+function onMinimapTouchMove(e) {
+  e.preventDefault();
+  e.stopPropagation();
+  if (!isMinimapDragging) return;
+  const world = minimapToWorldFromTouch(e.touches[0], e.target);
+  centerOnWorld(world.x, world.y);
+  hideTooltip();
+  hoveredTerm = null;
+}
+
+function onMinimapTouchEnd(e) {
+  e.preventDefault();
+  e.stopPropagation();
   isMinimapDragging = false;
 }
 
