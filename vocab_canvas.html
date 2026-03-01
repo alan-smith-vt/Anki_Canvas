@@ -1114,6 +1114,14 @@ function onTouchEnd(e) {
     return;
   }
 
+  // If tooltip is showing, just dismiss it
+  if (hoveredTerm !== null) {
+    hoveredTerm = null;
+    hideTooltip();
+    isTouchDragging = false;
+    return;
+  }
+
   if (isTouchDragging) {
     isTouchDragging = false;
     return;
