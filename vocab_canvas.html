@@ -165,7 +165,7 @@
   #info {
     position: fixed;
     top: 16px;
-    right: 40px;
+    right: 60px;
     z-index: 50;
     font-family: 'IBM Plex Mono', monospace;
     font-size: 12px;
@@ -177,7 +177,7 @@
     display: none;
     position: fixed;
     top: 16px;
-    right: 40px;
+    right: 60px;
     z-index: 50;
     font-family: 'IBM Plex Mono', monospace;
     font-size: 11px;
@@ -243,6 +243,21 @@
   }
   #ui-toggle:hover { color: #444460; }
 
+  #ui-toggle-bl {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 40;
+    background: transparent;
+    border: none;
+    color: #2a2a3a;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 4px 8px;
+    line-height: 1;
+  }
+  #ui-toggle-bl:hover { color: #444460; }
+
   @media (max-width: 768px) {
     #info-mobile { display: block; }
     #info { display: none; }
@@ -290,7 +305,7 @@
 
 <div id="kanji-picker"></div>
 
-<div id="legend">
+<div id="legend" style="display:none">
   <div class="legend-row"><div class="legend-dot" style="background:#ff3344;box-shadow:0 0 8px #ff3344"></div> struggling (>20% fail)</div>
   <div class="legend-row"><div class="legend-dot" style="background:#ff9933;box-shadow:0 0 6px #ff9933"></div> shaky (10-20%)</div>
   <div class="legend-row"><div class="legend-dot" style="background:#c0c0d0"></div> solid (<10%)</div>
@@ -298,7 +313,7 @@
 </div>
 
 <div id="minimap"><canvas id="minimap-canvas"></canvas></div>
-<div id="info">
+<div id="info" style="display:none">
   drag to pan · scroll to zoom · click minimap to jump<br>
   hover to inspect · click to dismiss/cycle<br>
   right-click for radical search
@@ -309,9 +324,10 @@
   <input type="text" id="search-input" class="collapsed" placeholder="search kanji, reading, meaning..." />
 </div>
 
-<button id="ui-toggle">◉</button>
+<button id="ui-toggle">○</button>
+<button id="ui-toggle-bl">◉</button>
 
-<div id="info-mobile">
+<div id="info-mobile" style="display:none">
   drag to pan · pinch to zoom<br>
   tap to inspect · double tap to select<br>
   long press for radical search
@@ -517,6 +533,15 @@ function init() {
       document.getElementById(id).style.display = hidden ? '' : 'none';
     }
     document.getElementById('ui-toggle').textContent = hidden ? '◉' : '○';
+  });
+
+  document.getElementById('ui-toggle-bl').addEventListener('click', () => {
+    const elements = ['search-box', 'minimap-canvas'];
+    const hidden = document.getElementById('search-box').style.display === 'none';
+    for (const id of elements) {
+      document.getElementById(id).style.display = hidden ? '' : 'none';
+    }
+    document.getElementById('ui-toggle-bl').textContent = hidden ? '◉' : '○';
   });
 
   document.addEventListener('keydown', (e) => {
