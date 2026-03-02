@@ -117,7 +117,7 @@ const VOCAB_DATA = {
       "col": 0,
       "x": 1940,
       "y": 460,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -173,7 +173,7 @@ const VOCAB_DATA = {
       "col": 0,
       "x": 1940,
       "y": 860,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -271,7 +271,7 @@ const VOCAB_DATA = {
       "col": 1,
       "x": 1900,
       "y": 560,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -299,7 +299,7 @@ const VOCAB_DATA = {
       "col": 1,
       "x": 1900,
       "y": 760,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -327,7 +327,7 @@ const VOCAB_DATA = {
       "col": 1,
       "x": 1900,
       "y": 960,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -341,9 +341,9 @@ const VOCAB_DATA = {
       "col": 2,
       "x": 1860,
       "y": 60,
-      "reviews": 5,
+      "reviews": 6,
       "fails": 1,
-      "fail_rate": 0.2,
+      "fail_rate": 0.167,
       "status": "mature"
     },
     {
@@ -439,7 +439,7 @@ const VOCAB_DATA = {
       "col": 2,
       "x": 1860,
       "y": 760,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -503,7 +503,7 @@ const VOCAB_DATA = {
     {
       "term": "座",
       "reading": "すわ。る",
-      "meaning": "To sit",
+      "meaning": "sitting",
       "page": 1,
       "row": 2,
       "col": 3,
@@ -663,7 +663,7 @@ const VOCAB_DATA = {
       "col": 4,
       "x": 1780,
       "y": 360,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -719,7 +719,7 @@ const VOCAB_DATA = {
       "col": 4,
       "x": 1780,
       "y": 760,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -943,7 +943,7 @@ const VOCAB_DATA = {
       "col": 6,
       "x": 1700,
       "y": 360,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -999,7 +999,7 @@ const VOCAB_DATA = {
       "col": 6,
       "x": 1700,
       "y": 760,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -1111,7 +1111,7 @@ const VOCAB_DATA = {
       "col": 7,
       "x": 1660,
       "y": 560,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -1237,9 +1237,9 @@ const VOCAB_DATA = {
       "col": 8,
       "x": 1620,
       "y": 460,
-      "reviews": 3,
-      "fails": 0,
-      "fail_rate": 0.0,
+      "reviews": 5,
+      "fails": 1,
+      "fail_rate": 0.2,
       "status": "mature"
     },
     {
@@ -1265,7 +1265,7 @@ const VOCAB_DATA = {
       "col": 8,
       "x": 1620,
       "y": 660,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -1300,17 +1300,17 @@ const VOCAB_DATA = {
     },
     {
       "term": "呼",
-      "reading": "よ。び",
+      "reading": "よ。ぶ",
       "meaning": "call",
       "page": 1,
       "row": 9,
       "col": 8,
       "x": 1620,
       "y": 960,
-      "reviews": 7,
+      "reviews": 8,
       "fails": 0,
       "fail_rate": 0.0,
-      "status": "mature"
+      "status": "new"
     },
     {
       "term": "医者",
@@ -1321,7 +1321,7 @@ const VOCAB_DATA = {
       "col": 9,
       "x": 1580,
       "y": 60,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -1349,9 +1349,9 @@ const VOCAB_DATA = {
       "col": 9,
       "x": 1580,
       "y": 260,
-      "reviews": 3,
-      "fails": 0,
-      "fail_rate": 0.0,
+      "reviews": 5,
+      "fails": 1,
+      "fail_rate": 0.2,
       "status": "mature"
     },
     {
@@ -1363,7 +1363,7 @@ const VOCAB_DATA = {
       "col": 9,
       "x": 1580,
       "y": 360,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -1440,17 +1440,17 @@ const VOCAB_DATA = {
     },
     {
       "term": "住",
-      "reading": "す。む",
-      "meaning": "to live in; reside",
+      "reading": "す。む・す。まう",
+      "meaning": "to live in; reside(humans)",
       "page": 1,
       "row": 9,
       "col": 9,
       "x": 1580,
       "y": 960,
-      "reviews": 7,
+      "reviews": 8,
       "fails": 0,
       "fail_rate": 0.0,
-      "status": "mature"
+      "status": "new"
     },
     {
       "term": "大家",
@@ -1495,18 +1495,18 @@ const VOCAB_DATA = {
       "status": "mature"
     },
     {
-      "term": "縞模様",
-      "reading": "しまもよう",
-      "meaning": "stripe pattern",
+      "term": "縞",
+      "reading": "しま",
+      "meaning": "stripe",
       "page": 1,
       "row": 3,
       "col": 10,
       "x": 1540,
       "y": 360,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
-      "status": "mature"
+      "status": "new"
     },
     {
       "term": "中",
@@ -1713,7 +1713,7 @@ const VOCAB_DATA = {
       "col": 11,
       "x": 1500,
       "y": 860,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -1755,7 +1755,7 @@ const VOCAB_DATA = {
       "col": 12,
       "x": 1460,
       "y": 160,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -1769,7 +1769,7 @@ const VOCAB_DATA = {
       "col": 12,
       "x": 1460,
       "y": 260,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -1853,7 +1853,7 @@ const VOCAB_DATA = {
       "col": 12,
       "x": 1460,
       "y": 860,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -1951,7 +1951,7 @@ const VOCAB_DATA = {
       "col": 13,
       "x": 1420,
       "y": 560,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -2175,7 +2175,7 @@ const VOCAB_DATA = {
       "col": 1,
       "x": 1900,
       "y": 1280,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -2203,7 +2203,7 @@ const VOCAB_DATA = {
       "col": 1,
       "x": 1900,
       "y": 1480,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -2301,7 +2301,7 @@ const VOCAB_DATA = {
       "col": 2,
       "x": 1860,
       "y": 1180,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -2315,9 +2315,9 @@ const VOCAB_DATA = {
       "col": 2,
       "x": 1860,
       "y": 1280,
-      "reviews": 3,
-      "fails": 0,
-      "fail_rate": 0.0,
+      "reviews": 5,
+      "fails": 1,
+      "fail_rate": 0.2,
       "status": "mature"
     },
     {
@@ -2455,9 +2455,9 @@ const VOCAB_DATA = {
       "col": 3,
       "x": 1820,
       "y": 1280,
-      "reviews": 5,
+      "reviews": 6,
       "fails": 1,
-      "fail_rate": 0.2,
+      "fail_rate": 0.167,
       "status": "mature"
     },
     {
@@ -2483,9 +2483,9 @@ const VOCAB_DATA = {
       "col": 3,
       "x": 1820,
       "y": 1480,
-      "reviews": 3,
-      "fails": 0,
-      "fail_rate": 0.0,
+      "reviews": 5,
+      "fails": 1,
+      "fail_rate": 0.2,
       "status": "mature"
     },
     {
@@ -2553,9 +2553,9 @@ const VOCAB_DATA = {
       "col": 3,
       "x": 1820,
       "y": 1980,
-      "reviews": 11,
+      "reviews": 12,
       "fails": 3,
-      "fail_rate": 0.273,
+      "fail_rate": 0.25,
       "status": "mature"
     },
     {
@@ -2581,9 +2581,9 @@ const VOCAB_DATA = {
       "col": 4,
       "x": 1780,
       "y": 1180,
-      "reviews": 3,
-      "fails": 0,
-      "fail_rate": 0.0,
+      "reviews": 5,
+      "fails": 1,
+      "fail_rate": 0.2,
       "status": "mature"
     },
     {
@@ -2693,7 +2693,7 @@ const VOCAB_DATA = {
       "col": 4,
       "x": 1780,
       "y": 1980,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -2707,7 +2707,7 @@ const VOCAB_DATA = {
       "col": 4,
       "x": 1780,
       "y": 2080,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -3099,7 +3099,7 @@ const VOCAB_DATA = {
       "col": 7,
       "x": 1660,
       "y": 1880,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -3211,9 +3211,9 @@ const VOCAB_DATA = {
       "col": 8,
       "x": 1620,
       "y": 1680,
-      "reviews": 3,
-      "fails": 0,
-      "fail_rate": 0.0,
+      "reviews": 5,
+      "fails": 1,
+      "fail_rate": 0.2,
       "status": "mature"
     },
     {
@@ -3239,9 +3239,9 @@ const VOCAB_DATA = {
       "col": 8,
       "x": 1620,
       "y": 1880,
-      "reviews": 3,
-      "fails": 0,
-      "fail_rate": 0.0,
+      "reviews": 5,
+      "fails": 1,
+      "fail_rate": 0.2,
       "status": "mature"
     },
     {
@@ -3351,9 +3351,9 @@ const VOCAB_DATA = {
       "col": 9,
       "x": 1580,
       "y": 1680,
-      "reviews": 5,
-      "fails": 1,
-      "fail_rate": 0.2,
+      "reviews": 7,
+      "fails": 2,
+      "fail_rate": 0.286,
       "status": "mature"
     },
     {
@@ -3407,9 +3407,9 @@ const VOCAB_DATA = {
       "col": 9,
       "x": 1580,
       "y": 2080,
-      "reviews": 3,
-      "fails": 0,
-      "fail_rate": 0.0,
+      "reviews": 5,
+      "fails": 1,
+      "fail_rate": 0.2,
       "status": "mature"
     },
     {
@@ -3491,7 +3491,7 @@ const VOCAB_DATA = {
       "col": 10,
       "x": 1540,
       "y": 1680,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -3519,9 +3519,9 @@ const VOCAB_DATA = {
       "col": 10,
       "x": 1540,
       "y": 1880,
-      "reviews": 3,
-      "fails": 0,
-      "fail_rate": 0.0,
+      "reviews": 5,
+      "fails": 1,
+      "fail_rate": 0.2,
       "status": "mature"
     },
     {
@@ -3547,7 +3547,7 @@ const VOCAB_DATA = {
       "col": 10,
       "x": 1540,
       "y": 2080,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -3701,9 +3701,9 @@ const VOCAB_DATA = {
       "col": 12,
       "x": 1460,
       "y": 1180,
-      "reviews": 5,
+      "reviews": 6,
       "fails": 1,
-      "fail_rate": 0.2,
+      "fail_rate": 0.167,
       "status": "mature"
     },
     {
@@ -3715,7 +3715,7 @@ const VOCAB_DATA = {
       "col": 12,
       "x": 1460,
       "y": 1280,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -3729,7 +3729,7 @@ const VOCAB_DATA = {
       "col": 12,
       "x": 1460,
       "y": 1380,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -3799,7 +3799,7 @@ const VOCAB_DATA = {
       "col": 12,
       "x": 1460,
       "y": 1880,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -3897,7 +3897,7 @@ const VOCAB_DATA = {
       "col": 13,
       "x": 1420,
       "y": 1580,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -3953,7 +3953,7 @@ const VOCAB_DATA = {
       "col": 13,
       "x": 1420,
       "y": 1980,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -4380,17 +4380,17 @@ const VOCAB_DATA = {
     },
     {
       "term": "語",
-      "reading": "ご・・かたり・がたり",
+      "reading": "ご・かたり・がたり",
       "meaning": "language/word/talk",
       "page": 3,
       "row": 9,
       "col": 2,
       "x": 1860,
       "y": 3200,
-      "reviews": 10,
+      "reviews": 11,
       "fails": 2,
-      "fail_rate": 0.2,
-      "status": "mature"
+      "fail_rate": 0.182,
+      "status": "new"
     },
     {
       "term": "温",
@@ -4555,9 +4555,9 @@ const VOCAB_DATA = {
       "col": 4,
       "x": 1780,
       "y": 2400,
-      "reviews": 7,
+      "reviews": 8,
       "fails": 2,
-      "fail_rate": 0.286,
+      "fail_rate": 0.25,
       "status": "mature"
     },
     {
@@ -4779,9 +4779,9 @@ const VOCAB_DATA = {
       "col": 5,
       "x": 1740,
       "y": 3000,
-      "reviews": 9,
+      "reviews": 10,
       "fails": 2,
-      "fail_rate": 0.222,
+      "fail_rate": 0.2,
       "status": "mature"
     },
     {
@@ -4849,9 +4849,9 @@ const VOCAB_DATA = {
       "col": 6,
       "x": 1700,
       "y": 2500,
-      "reviews": 5,
+      "reviews": 6,
       "fails": 1,
-      "fail_rate": 0.2,
+      "fail_rate": 0.167,
       "status": "mature"
     },
     {
@@ -4961,9 +4961,9 @@ const VOCAB_DATA = {
       "col": 7,
       "x": 1660,
       "y": 2300,
-      "reviews": 7,
+      "reviews": 8,
       "fails": 1,
-      "fail_rate": 0.143,
+      "fail_rate": 0.125,
       "status": "mature"
     },
     {
@@ -4989,9 +4989,9 @@ const VOCAB_DATA = {
       "col": 7,
       "x": 1660,
       "y": 2500,
-      "reviews": 5,
+      "reviews": 6,
       "fails": 1,
-      "fail_rate": 0.2,
+      "fail_rate": 0.167,
       "status": "mature"
     },
     {
@@ -5171,9 +5171,9 @@ const VOCAB_DATA = {
       "col": 8,
       "x": 1620,
       "y": 2800,
-      "reviews": 7,
+      "reviews": 8,
       "fails": 2,
-      "fail_rate": 0.286,
+      "fail_rate": 0.25,
       "status": "mature"
     },
     {
@@ -5213,9 +5213,9 @@ const VOCAB_DATA = {
       "col": 8,
       "x": 1620,
       "y": 3100,
-      "reviews": 8,
+      "reviews": 9,
       "fails": 2,
-      "fail_rate": 0.25,
+      "fail_rate": 0.222,
       "status": "mature"
     },
     {
@@ -5311,9 +5311,9 @@ const VOCAB_DATA = {
       "col": 9,
       "x": 1580,
       "y": 2800,
-      "reviews": 5,
+      "reviews": 6,
       "fails": 1,
-      "fail_rate": 0.2,
+      "fail_rate": 0.167,
       "status": "mature"
     },
     {
@@ -5717,9 +5717,9 @@ const VOCAB_DATA = {
       "col": 12,
       "x": 1460,
       "y": 2700,
-      "reviews": 8,
+      "reviews": 9,
       "fails": 2,
-      "fail_rate": 0.25,
+      "fail_rate": 0.222,
       "status": "mature"
     },
     {
@@ -6305,9 +6305,9 @@ const VOCAB_DATA = {
       "col": 2,
       "x": 1180,
       "y": 660,
-      "reviews": 5,
+      "reviews": 6,
       "fails": 1,
-      "fail_rate": 0.2,
+      "fail_rate": 0.167,
       "status": "mature"
     },
     {
@@ -6368,17 +6368,17 @@ const VOCAB_DATA = {
     },
     {
       "term": "流行",
-      "reading": "はや。り",
+      "reading": "はや。り・りゅうこう",
       "meaning": "trend",
       "page": 4,
       "row": 1,
       "col": 3,
       "x": 1140,
       "y": 160,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
-      "status": "mature"
+      "status": "new"
     },
     {
       "term": "練習",
@@ -6949,9 +6949,9 @@ const VOCAB_DATA = {
       "col": 7,
       "x": 980,
       "y": 260,
-      "reviews": 5,
+      "reviews": 6,
       "fails": 1,
-      "fail_rate": 0.2,
+      "fail_rate": 0.167,
       "status": "mature"
     },
     {
@@ -7005,9 +7005,9 @@ const VOCAB_DATA = {
       "col": 7,
       "x": 980,
       "y": 660,
-      "reviews": 6,
+      "reviews": 7,
       "fails": 2,
-      "fail_rate": 0.333,
+      "fail_rate": 0.286,
       "status": "mature"
     },
     {
@@ -7215,9 +7215,9 @@ const VOCAB_DATA = {
       "col": 9,
       "x": 900,
       "y": 160,
-      "reviews": 6,
+      "reviews": 7,
       "fails": 2,
-      "fail_rate": 0.333,
+      "fail_rate": 0.286,
       "status": "mature"
     },
     {
@@ -7307,16 +7307,16 @@ const VOCAB_DATA = {
     {
       "term": "卒業",
       "reading": "そつぎょう",
-      "meaning": "to graduate",
+      "meaning": "graduation",
       "page": 4,
       "row": 8,
       "col": 9,
       "x": 900,
       "y": 860,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
-      "status": "mature"
+      "status": "new"
     },
     {
       "term": "習",
@@ -9433,7 +9433,7 @@ const VOCAB_DATA = {
       "status": "new"
     },
     {
-      "term": "ヶ「月」",
+      "term": "ヶ月",
       "reading": "か「げつ」",
       "meaning": "month counter",
       "page": 5,
@@ -9441,7 +9441,7 @@ const VOCAB_DATA = {
       "col": 11,
       "x": 820,
       "y": 1180,
-      "reviews": 0,
+      "reviews": 1,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "new"
@@ -9819,9 +9819,9 @@ const VOCAB_DATA = {
       "col": 13,
       "x": 740,
       "y": 1880,
-      "reviews": 5,
+      "reviews": 6,
       "fails": 1,
-      "fail_rate": 0.2,
+      "fail_rate": 0.167,
       "status": "mature"
     },
     {
@@ -14523,9 +14523,9 @@ const VOCAB_DATA = {
       "col": 5,
       "x": 380,
       "y": 1480,
-      "reviews": 7,
+      "reviews": 8,
       "fails": 1,
-      "fail_rate": 0.143,
+      "fail_rate": 0.125,
       "status": "mature"
     },
     {
@@ -15615,9 +15615,9 @@ const VOCAB_DATA = {
       "col": 13,
       "x": 60,
       "y": 1280,
-      "reviews": 12,
+      "reviews": 13,
       "fails": 3,
-      "fail_rate": 0.25,
+      "fail_rate": 0.231,
       "status": "mature"
     },
     {
@@ -15685,9 +15685,9 @@ const VOCAB_DATA = {
       "col": 13,
       "x": 60,
       "y": 1780,
-      "reviews": 9,
+      "reviews": 10,
       "fails": 2,
-      "fail_rate": 0.222,
+      "fail_rate": 0.2,
       "status": "mature"
     },
     {
@@ -15727,9 +15727,9 @@ const VOCAB_DATA = {
       "col": 13,
       "x": 60,
       "y": 2080,
-      "reviews": 12,
+      "reviews": 13,
       "fails": 3,
-      "fail_rate": 0.25,
+      "fail_rate": 0.231,
       "status": "mature"
     },
     {
@@ -17302,14 +17302,14 @@ const VOCAB_DATA = {
     },
     {
       "term": "棲",
-      "reading": "す。まう",
-      "meaning": "to live/reside/inhabit(rarely used version of 住まう)",
+      "reading": "す。む・す。まう",
+      "meaning": "to live/reside/inhabit(animals)",
       "page": 9,
       "row": 2,
       "col": 11,
       "x": 140,
       "y": 2500,
-      "reviews": 1,
+      "reviews": 2,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "new"
@@ -18384,19 +18384,6 @@ const VOCAB_DATA = {
       "亠",
       "冂"
     ],
-    "模": [
-      "大",
-      "日",
-      "木",
-      "艾"
-    ],
-    "様": [
-      "王",
-      "水",
-      "并",
-      "木",
-      "羊"
-    ],
     "中": [
       "｜",
       "口"
@@ -18657,6 +18644,13 @@ const VOCAB_DATA = {
       "日",
       "礼",
       "田"
+    ],
+    "様": [
+      "王",
+      "水",
+      "并",
+      "木",
+      "羊"
     ],
     "供": [
       "｜",
