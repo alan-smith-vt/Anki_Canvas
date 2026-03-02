@@ -22,6 +22,10 @@
   }
   body.dragging { cursor: grabbing; }
 
+  :root {
+    --search-scale: 2;
+  }
+
   #app { width: 100vw; height: 100vh; }
 
   /* Tooltip */
@@ -161,7 +165,7 @@
   #info {
     position: fixed;
     top: 16px;
-    right: 16px;
+    right: 40px;
     z-index: 50;
     font-family: 'IBM Plex Mono', monospace;
     font-size: 12px;
@@ -173,7 +177,7 @@
     display: none;
     position: fixed;
     top: 16px;
-    right: 16px;
+    right: 40px;
     z-index: 50;
     font-family: 'IBM Plex Mono', monospace;
     font-size: 11px;
@@ -183,36 +187,71 @@
   }
 
   #search-box {
-    position: fixed;
-    top: 16px;
-    left: 16px;
-    z-index: 50;
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  gap: 8px;
   }
+  #search-toggle {
+    background: #13131a;
+    border: 1px solid #2a2a3a;
+    border-radius: 6px;
+    color: #444460;
+    cursor: pointer;
+    font-size: calc(16px * var(--search-scale));
+    padding: calc(4px * var(--search-scale)) calc(6px * var(--search-scale));
+    line-height: 1;
+  }
+  #search-toggle:hover { color: #8888aa; }
   #search-box input {
     background: #13131a;
     border: 1px solid #2a2a3a;
     border-radius: 6px;
-    padding: 8px 12px;
+    padding: calc(8px * var(--search-scale)) calc(12px * var(--search-scale));
     font-family: 'Noto Sans JP', sans-serif;
-    font-size: 13px;
+    font-size: calc(13px * var(--search-scale));
     color: #c0c0d0;
-    width: 240px;
+    width: calc(240px * var(--search-scale));
     outline: none;
+    transition: width 0.2s ease, opacity 0.2s ease, padding 0.2s ease;
   }
-  #search-box input:focus {
-    border-color: #5555ff;
-  }
-  #search-box input::placeholder {
-    color: #444460;
+  #search-box input:focus { border-color: #5555ff; }
+  #search-box input::placeholder { color: #444460; }
+  #search-box input.collapsed {
+    width: 0;
+    padding: 0;
+    opacity: 0;
+    border: none;
+    pointer-events: none;
   }
 
-  @media (max-width: 768px) {
-    #search-box { display: none; }
+  #ui-toggle {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    z-index: 50;
+    background: transparent;
+    border: none;
+    color: #2a2a3a;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 4px 8px;
+    line-height: 1;
   }
+  #ui-toggle:hover { color: #444460; }
 
   @media (max-width: 768px) {
     #info-mobile { display: block; }
     #info { display: none; }
+  }
+
+  @media (max-width: 768px) {
+    #search-toggle {
+      padding: calc(8px * var(--search-scale)) calc(10px * var(--search-scale));
+    }
   }
 
   @media (max-width: 768px) {
@@ -266,8 +305,11 @@
 </div>
 
 <div id="search-box">
-  <input type="text" id="search-input" placeholder="search kanji, reading, meaning..." />
+  <button id="search-toggle">⌕</button>
+  <input type="text" id="search-input" class="collapsed" placeholder="search kanji, reading, meaning..." />
 </div>
+
+<button id="ui-toggle">◉</button>
 
 <div id="info-mobile">
   drag to pan · pinch to zoom<br>
@@ -455,6 +497,56 @@ function init() {
   canvasEl.addEventListener('touchstart', onTouchStart, { passive: false });
   canvasEl.addEventListener('touchmove', onTouchMove, { passive: false });
   canvasEl.addEventListener('touchend', onTouchEnd, { passive: false });
+
+  document.getElementById('search-toggle').addEventListener('click', () => {
+    const input = document.getElementById('search-input');
+    input.classList.toggle('collapsed');
+    if (!input.classList.contains('collapsed')) {
+      input.focus();
+    } else {
+      searchQuery = '';
+      searchMatches.clear();
+      input.value = '';
+    }
+  });
+
+  document.getElementById('ui-toggle').addEventListener('click', () => {
+    const elements = ['info', 'info-mobile', 'legend'];
+    const hidden = document.getElementById('legend').style.display === 'none';
+    for (const id of elements) {
+      document.getElementById(id).style.display = hidden ? '' : 'none';
+    }
+    document.getElementById('ui-toggle').textContent = hidden ? '◉' : '○';
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.ctrlKey && e.key === 'f') {
+      e.preventDefault();
+      const input = document.getElementById('search-input');
+      input.classList.remove('collapsed');
+      input.focus();
+    }
+  });
+
+  document.getElementById('search-input').addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      searchQuery = '';
+      searchMatches.clear();
+      e.target.value = '';
+      e.target.classList.add('collapsed');
+      e.target.blur();
+      document.getElementById('kanji-picker').style.display = 'none';
+      if (selectedKanji) {
+        selectedKanji = null;
+        kanjiScores.clear();
+      }
+      hoveredTerm = null;
+      hideTooltip();
+    } else {
+      e.stopPropagation();
+    }
+  });
+
   drawMinimap();
   requestAnimationFrame(draw);
 }
@@ -941,6 +1033,13 @@ function onClick(e) {
 
   const hit = hitTest(e.clientX, e.clientY);
 
+  // Close picker if open
+  const picker = document.getElementById('kanji-picker');
+  if (!hit && picker.style.display === 'flex') {
+    picker.style.display = 'none';
+    return;
+  }
+
   // Clear kanji selection if clicking empty space
   if (!hit && selectedKanji) {
     selectedKanji = null;
@@ -1008,6 +1107,19 @@ function onRightClick(e) {
   picker.style.display = 'flex';
   picker.style.left = e.clientX + 'px';
   picker.style.top = e.clientY + 'px';
+
+  // Clamp to screen
+  requestAnimationFrame(() => {
+    const rect = picker.getBoundingClientRect();
+    if (rect.right > window.innerWidth - 10) {
+      picker.style.left = (window.innerWidth - rect.width - 10) + 'px';
+    }
+    if (rect.left < 10) picker.style.left = '10px';
+    if (rect.bottom > window.innerHeight - 10) {
+      picker.style.top = (window.innerHeight - rect.height - 10) + 'px';
+    }
+    if (rect.top < 10) picker.style.top = '10px';
+  });
 
   for (const char of chars) {
     const btn = document.createElement('button');
@@ -1116,6 +1228,19 @@ function onTouchStart(e) {
       picker.style.display = 'flex';
       picker.style.left = touch.clientX + 'px';
       picker.style.top = touch.clientY + 'px';
+
+      // Clamp to screen
+      requestAnimationFrame(() => {
+        const rect = picker.getBoundingClientRect();
+        if (rect.right > window.innerWidth - 10) {
+          picker.style.left = (window.innerWidth - rect.width - 10) + 'px';
+        }
+        if (rect.left < 10) picker.style.left = '10px';
+        if (rect.bottom > window.innerHeight - 10) {
+          picker.style.top = (window.innerHeight - rect.height - 10) + 'px';
+        }
+        if (rect.top < 10) picker.style.top = '10px';
+      });
 
       for (const char of chars) {
         const btn = document.createElement('button');
@@ -1280,10 +1405,14 @@ function onTouchEnd(e) {
           else dismissed.add(hit);
         }
       }
-    } else if (selectedKanji) {
-      selectedKanji = null;
-      kanjiScores.clear();
-      document.getElementById('kanji-picker').style.display = 'none';
+    } else if (!hit) {
+      const picker = document.getElementById('kanji-picker');
+      if (picker.style.display === 'flex') {
+        picker.style.display = 'none';
+      } else if (selectedKanji) {
+        selectedKanji = null;
+        kanjiScores.clear();
+      }
     }
 
     return;
