@@ -89,7 +89,7 @@ const VOCAB_DATA = {
       "col": 0,
       "x": 1940,
       "y": 260,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -145,9 +145,9 @@ const VOCAB_DATA = {
       "col": 0,
       "x": 1940,
       "y": 660,
-      "reviews": 6,
+      "reviews": 7,
       "fails": 1,
-      "fail_rate": 0.167,
+      "fail_rate": 0.143,
       "status": "mature"
     },
     {
@@ -341,9 +341,9 @@ const VOCAB_DATA = {
       "col": 2,
       "x": 1860,
       "y": 60,
-      "reviews": 6,
+      "reviews": 7,
       "fails": 1,
-      "fail_rate": 0.167,
+      "fail_rate": 0.143,
       "status": "mature"
     },
     {
@@ -397,9 +397,9 @@ const VOCAB_DATA = {
       "col": 2,
       "x": 1860,
       "y": 460,
-      "reviews": 5,
+      "reviews": 6,
       "fails": 1,
-      "fail_rate": 0.2,
+      "fail_rate": 0.167,
       "status": "mature"
     },
     {
@@ -411,7 +411,7 @@ const VOCAB_DATA = {
       "col": 2,
       "x": 1860,
       "y": 560,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -481,7 +481,7 @@ const VOCAB_DATA = {
       "col": 3,
       "x": 1820,
       "y": 60,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -565,7 +565,7 @@ const VOCAB_DATA = {
       "col": 3,
       "x": 1820,
       "y": 660,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -677,9 +677,9 @@ const VOCAB_DATA = {
       "col": 4,
       "x": 1780,
       "y": 460,
-      "reviews": 3,
-      "fails": 0,
-      "fail_rate": 0.0,
+      "reviews": 6,
+      "fails": 1,
+      "fail_rate": 0.167,
       "status": "mature"
     },
     {
@@ -789,9 +789,9 @@ const VOCAB_DATA = {
       "col": 5,
       "x": 1740,
       "y": 260,
-      "reviews": 7,
+      "reviews": 8,
       "fails": 1,
-      "fail_rate": 0.143,
+      "fail_rate": 0.125,
       "status": "mature"
     },
     {
@@ -831,7 +831,7 @@ const VOCAB_DATA = {
       "col": 5,
       "x": 1740,
       "y": 560,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -845,9 +845,9 @@ const VOCAB_DATA = {
       "col": 5,
       "x": 1740,
       "y": 660,
-      "reviews": 5,
+      "reviews": 6,
       "fails": 1,
-      "fail_rate": 0.2,
+      "fail_rate": 0.167,
       "status": "mature"
     },
     {
@@ -859,7 +859,7 @@ const VOCAB_DATA = {
       "col": 5,
       "x": 1740,
       "y": 760,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -873,9 +873,9 @@ const VOCAB_DATA = {
       "col": 5,
       "x": 1740,
       "y": 860,
-      "reviews": 7,
+      "reviews": 8,
       "fails": 1,
-      "fail_rate": 0.143,
+      "fail_rate": 0.125,
       "status": "mature"
     },
     {
@@ -887,7 +887,7 @@ const VOCAB_DATA = {
       "col": 5,
       "x": 1740,
       "y": 960,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -1069,9 +1069,9 @@ const VOCAB_DATA = {
       "col": 7,
       "x": 1660,
       "y": 260,
-      "reviews": 6,
+      "reviews": 7,
       "fails": 1,
-      "fail_rate": 0.167,
+      "fail_rate": 0.143,
       "status": "mature"
     },
     {
@@ -1139,7 +1139,7 @@ const VOCAB_DATA = {
       "col": 7,
       "x": 1660,
       "y": 760,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -1195,9 +1195,9 @@ const VOCAB_DATA = {
       "col": 8,
       "x": 1620,
       "y": 160,
-      "reviews": 6,
+      "reviews": 7,
       "fails": 1,
-      "fail_rate": 0.167,
+      "fail_rate": 0.143,
       "status": "mature"
     },
     {
@@ -1223,7 +1223,7 @@ const VOCAB_DATA = {
       "col": 8,
       "x": 1620,
       "y": 360,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -1237,9 +1237,9 @@ const VOCAB_DATA = {
       "col": 8,
       "x": 1620,
       "y": 460,
-      "reviews": 5,
+      "reviews": 6,
       "fails": 1,
-      "fail_rate": 0.2,
+      "fail_rate": 0.167,
       "status": "mature"
     },
     {
@@ -1279,9 +1279,9 @@ const VOCAB_DATA = {
       "col": 8,
       "x": 1620,
       "y": 760,
-      "reviews": 9,
+      "reviews": 10,
       "fails": 1,
-      "fail_rate": 0.111,
+      "fail_rate": 0.1,
       "status": "mature"
     },
     {
@@ -1293,9 +1293,9 @@ const VOCAB_DATA = {
       "col": 8,
       "x": 1620,
       "y": 860,
-      "reviews": 6,
+      "reviews": 7,
       "fails": 1,
-      "fail_rate": 0.167,
+      "fail_rate": 0.143,
       "status": "mature"
     },
     {
@@ -1307,10 +1307,10 @@ const VOCAB_DATA = {
       "col": 8,
       "x": 1620,
       "y": 960,
-      "reviews": 8,
+      "reviews": 11,
       "fails": 0,
       "fail_rate": 0.0,
-      "status": "new"
+      "status": "mature"
     },
     {
       "term": "医者",
@@ -1349,9 +1349,9 @@ const VOCAB_DATA = {
       "col": 9,
       "x": 1580,
       "y": 260,
-      "reviews": 5,
+      "reviews": 6,
       "fails": 1,
-      "fail_rate": 0.2,
+      "fail_rate": 0.167,
       "status": "mature"
     },
     {
@@ -1377,7 +1377,7 @@ const VOCAB_DATA = {
       "col": 9,
       "x": 1580,
       "y": 460,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -1391,9 +1391,9 @@ const VOCAB_DATA = {
       "col": 9,
       "x": 1580,
       "y": 560,
-      "reviews": 6,
+      "reviews": 7,
       "fails": 1,
-      "fail_rate": 0.167,
+      "fail_rate": 0.143,
       "status": "mature"
     },
     {
@@ -1433,9 +1433,9 @@ const VOCAB_DATA = {
       "col": 9,
       "x": 1580,
       "y": 860,
-      "reviews": 3,
-      "fails": 0,
-      "fail_rate": 0.0,
+      "reviews": 6,
+      "fails": 1,
+      "fail_rate": 0.167,
       "status": "mature"
     },
     {
@@ -1447,10 +1447,10 @@ const VOCAB_DATA = {
       "col": 9,
       "x": 1580,
       "y": 960,
-      "reviews": 8,
+      "reviews": 11,
       "fails": 0,
       "fail_rate": 0.0,
-      "status": "new"
+      "status": "mature"
     },
     {
       "term": "大家",
@@ -1503,10 +1503,10 @@ const VOCAB_DATA = {
       "col": 10,
       "x": 1540,
       "y": 360,
-      "reviews": 4,
-      "fails": 0,
-      "fail_rate": 0.0,
-      "status": "new"
+      "reviews": 8,
+      "fails": 1,
+      "fail_rate": 0.125,
+      "status": "mature"
     },
     {
       "term": "中",
@@ -1783,7 +1783,7 @@ const VOCAB_DATA = {
       "col": 12,
       "x": 1460,
       "y": 360,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -1797,9 +1797,9 @@ const VOCAB_DATA = {
       "col": 12,
       "x": 1460,
       "y": 460,
-      "reviews": 5,
+      "reviews": 7,
       "fails": 1,
-      "fail_rate": 0.2,
+      "fail_rate": 0.143,
       "status": "mature"
     },
     {
@@ -1839,9 +1839,9 @@ const VOCAB_DATA = {
       "col": 12,
       "x": 1460,
       "y": 760,
-      "reviews": 6,
+      "reviews": 7,
       "fails": 1,
-      "fail_rate": 0.167,
+      "fail_rate": 0.143,
       "status": "mature"
     },
     {
@@ -1881,9 +1881,9 @@ const VOCAB_DATA = {
       "col": 13,
       "x": 1420,
       "y": 60,
-      "reviews": 6,
+      "reviews": 7,
       "fails": 1,
-      "fail_rate": 0.167,
+      "fail_rate": 0.143,
       "status": "mature"
     },
     {
@@ -1979,9 +1979,9 @@ const VOCAB_DATA = {
       "col": 13,
       "x": 1420,
       "y": 760,
-      "reviews": 5,
+      "reviews": 6,
       "fails": 1,
-      "fail_rate": 0.2,
+      "fail_rate": 0.167,
       "status": "mature"
     },
     {
@@ -1993,9 +1993,9 @@ const VOCAB_DATA = {
       "col": 13,
       "x": 1420,
       "y": 860,
-      "reviews": 3,
-      "fails": 0,
-      "fail_rate": 0.0,
+      "reviews": 6,
+      "fails": 1,
+      "fail_rate": 0.167,
       "status": "mature"
     },
     {
@@ -2021,9 +2021,9 @@ const VOCAB_DATA = {
       "col": 0,
       "x": 1940,
       "y": 1180,
-      "reviews": 6,
+      "reviews": 7,
       "fails": 1,
-      "fail_rate": 0.167,
+      "fail_rate": 0.143,
       "status": "mature"
     },
     {
@@ -2049,7 +2049,7 @@ const VOCAB_DATA = {
       "col": 0,
       "x": 1940,
       "y": 1380,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -2063,9 +2063,9 @@ const VOCAB_DATA = {
       "col": 0,
       "x": 1940,
       "y": 1480,
-      "reviews": 5,
+      "reviews": 7,
       "fails": 1,
-      "fail_rate": 0.2,
+      "fail_rate": 0.143,
       "status": "mature"
     },
     {
@@ -2077,7 +2077,7 @@ const VOCAB_DATA = {
       "col": 0,
       "x": 1940,
       "y": 1580,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -2133,9 +2133,9 @@ const VOCAB_DATA = {
       "col": 0,
       "x": 1940,
       "y": 1980,
-      "reviews": 3,
-      "fails": 0,
-      "fail_rate": 0.0,
+      "reviews": 6,
+      "fails": 1,
+      "fail_rate": 0.167,
       "status": "mature"
     },
     {
@@ -2147,9 +2147,9 @@ const VOCAB_DATA = {
       "col": 0,
       "x": 1940,
       "y": 2080,
-      "reviews": 8,
+      "reviews": 10,
       "fails": 2,
-      "fail_rate": 0.25,
+      "fail_rate": 0.2,
       "status": "mature"
     },
     {
@@ -2231,7 +2231,7 @@ const VOCAB_DATA = {
       "col": 1,
       "x": 1900,
       "y": 1680,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -2245,7 +2245,7 @@ const VOCAB_DATA = {
       "col": 1,
       "x": 1900,
       "y": 1780,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -2287,9 +2287,9 @@ const VOCAB_DATA = {
       "col": 1,
       "x": 1900,
       "y": 2080,
-      "reviews": 9,
+      "reviews": 10,
       "fails": 2,
-      "fail_rate": 0.222,
+      "fail_rate": 0.2,
       "status": "mature"
     },
     {
@@ -2315,9 +2315,9 @@ const VOCAB_DATA = {
       "col": 2,
       "x": 1860,
       "y": 1280,
-      "reviews": 5,
+      "reviews": 6,
       "fails": 1,
-      "fail_rate": 0.2,
+      "fail_rate": 0.167,
       "status": "mature"
     },
     {
@@ -2343,7 +2343,7 @@ const VOCAB_DATA = {
       "col": 2,
       "x": 1860,
       "y": 1480,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -2357,7 +2357,7 @@ const VOCAB_DATA = {
       "col": 2,
       "x": 1860,
       "y": 1580,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -2371,7 +2371,7 @@ const VOCAB_DATA = {
       "col": 2,
       "x": 1860,
       "y": 1680,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -2427,7 +2427,7 @@ const VOCAB_DATA = {
       "col": 2,
       "x": 1860,
       "y": 2080,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -2441,9 +2441,9 @@ const VOCAB_DATA = {
       "col": 3,
       "x": 1820,
       "y": 1180,
-      "reviews": 6,
-      "fails": 1,
-      "fail_rate": 0.167,
+      "reviews": 8,
+      "fails": 2,
+      "fail_rate": 0.25,
       "status": "mature"
     },
     {
@@ -2469,7 +2469,7 @@ const VOCAB_DATA = {
       "col": 3,
       "x": 1820,
       "y": 1380,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -2483,9 +2483,9 @@ const VOCAB_DATA = {
       "col": 3,
       "x": 1820,
       "y": 1480,
-      "reviews": 5,
+      "reviews": 6,
       "fails": 1,
-      "fail_rate": 0.2,
+      "fail_rate": 0.167,
       "status": "mature"
     },
     {
@@ -2497,7 +2497,7 @@ const VOCAB_DATA = {
       "col": 3,
       "x": 1820,
       "y": 1580,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -2525,7 +2525,7 @@ const VOCAB_DATA = {
       "col": 3,
       "x": 1820,
       "y": 1780,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -2553,9 +2553,9 @@ const VOCAB_DATA = {
       "col": 3,
       "x": 1820,
       "y": 1980,
-      "reviews": 12,
+      "reviews": 13,
       "fails": 3,
-      "fail_rate": 0.25,
+      "fail_rate": 0.231,
       "status": "mature"
     },
     {
@@ -2581,9 +2581,9 @@ const VOCAB_DATA = {
       "col": 4,
       "x": 1780,
       "y": 1180,
-      "reviews": 5,
+      "reviews": 6,
       "fails": 1,
-      "fail_rate": 0.2,
+      "fail_rate": 0.167,
       "status": "mature"
     },
     {
@@ -2595,7 +2595,7 @@ const VOCAB_DATA = {
       "col": 4,
       "x": 1780,
       "y": 1280,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -2609,9 +2609,9 @@ const VOCAB_DATA = {
       "col": 4,
       "x": 1780,
       "y": 1380,
-      "reviews": 3,
-      "fails": 0,
-      "fail_rate": 0.0,
+      "reviews": 7,
+      "fails": 2,
+      "fail_rate": 0.286,
       "status": "mature"
     },
     {
@@ -2623,7 +2623,7 @@ const VOCAB_DATA = {
       "col": 4,
       "x": 1780,
       "y": 1480,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -2637,7 +2637,7 @@ const VOCAB_DATA = {
       "col": 4,
       "x": 1780,
       "y": 1580,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -2665,9 +2665,9 @@ const VOCAB_DATA = {
       "col": 4,
       "x": 1780,
       "y": 1780,
-      "reviews": 6,
+      "reviews": 7,
       "fails": 1,
-      "fail_rate": 0.167,
+      "fail_rate": 0.143,
       "status": "mature"
     },
     {
@@ -2679,9 +2679,9 @@ const VOCAB_DATA = {
       "col": 4,
       "x": 1780,
       "y": 1880,
-      "reviews": 5,
+      "reviews": 6,
       "fails": 1,
-      "fail_rate": 0.2,
+      "fail_rate": 0.167,
       "status": "mature"
     },
     {
@@ -2721,9 +2721,9 @@ const VOCAB_DATA = {
       "col": 5,
       "x": 1740,
       "y": 1180,
-      "reviews": 9,
+      "reviews": 10,
       "fails": 1,
-      "fail_rate": 0.111,
+      "fail_rate": 0.1,
       "status": "mature"
     },
     {
@@ -2791,7 +2791,7 @@ const VOCAB_DATA = {
       "col": 5,
       "x": 1740,
       "y": 1680,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -2805,9 +2805,9 @@ const VOCAB_DATA = {
       "col": 5,
       "x": 1740,
       "y": 1780,
-      "reviews": 5,
+      "reviews": 7,
       "fails": 1,
-      "fail_rate": 0.2,
+      "fail_rate": 0.143,
       "status": "mature"
     },
     {
@@ -2819,9 +2819,9 @@ const VOCAB_DATA = {
       "col": 5,
       "x": 1740,
       "y": 1880,
-      "reviews": 3,
-      "fails": 0,
-      "fail_rate": 0.0,
+      "reviews": 6,
+      "fails": 1,
+      "fail_rate": 0.167,
       "status": "mature"
     },
     {
@@ -2833,9 +2833,9 @@ const VOCAB_DATA = {
       "col": 5,
       "x": 1740,
       "y": 1980,
-      "reviews": 9,
+      "reviews": 10,
       "fails": 2,
-      "fail_rate": 0.222,
+      "fail_rate": 0.2,
       "status": "mature"
     },
     {
@@ -2861,9 +2861,9 @@ const VOCAB_DATA = {
       "col": 6,
       "x": 1700,
       "y": 1180,
-      "reviews": 6,
+      "reviews": 7,
       "fails": 1,
-      "fail_rate": 0.167,
+      "fail_rate": 0.143,
       "status": "mature"
     },
     {
@@ -2875,7 +2875,7 @@ const VOCAB_DATA = {
       "col": 6,
       "x": 1700,
       "y": 1280,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -2889,7 +2889,7 @@ const VOCAB_DATA = {
       "col": 6,
       "x": 1700,
       "y": 1380,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -2903,7 +2903,7 @@ const VOCAB_DATA = {
       "col": 6,
       "x": 1700,
       "y": 1480,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -2931,7 +2931,7 @@ const VOCAB_DATA = {
       "col": 6,
       "x": 1700,
       "y": 1680,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -2945,9 +2945,9 @@ const VOCAB_DATA = {
       "col": 6,
       "x": 1700,
       "y": 1780,
-      "reviews": 10,
+      "reviews": 11,
       "fails": 1,
-      "fail_rate": 0.1,
+      "fail_rate": 0.091,
       "status": "mature"
     },
     {
@@ -2973,7 +2973,7 @@ const VOCAB_DATA = {
       "col": 6,
       "x": 1700,
       "y": 1980,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -3001,7 +3001,7 @@ const VOCAB_DATA = {
       "col": 7,
       "x": 1660,
       "y": 1180,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -3043,9 +3043,9 @@ const VOCAB_DATA = {
       "col": 7,
       "x": 1660,
       "y": 1480,
-      "reviews": 3,
-      "fails": 0,
-      "fail_rate": 0.0,
+      "reviews": 6,
+      "fails": 1,
+      "fail_rate": 0.167,
       "status": "mature"
     },
     {
@@ -3057,7 +3057,7 @@ const VOCAB_DATA = {
       "col": 7,
       "x": 1660,
       "y": 1580,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -3071,7 +3071,7 @@ const VOCAB_DATA = {
       "col": 7,
       "x": 1660,
       "y": 1680,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -3085,7 +3085,7 @@ const VOCAB_DATA = {
       "col": 7,
       "x": 1660,
       "y": 1780,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -3127,7 +3127,7 @@ const VOCAB_DATA = {
       "col": 7,
       "x": 1660,
       "y": 2080,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -3155,9 +3155,9 @@ const VOCAB_DATA = {
       "col": 8,
       "x": 1620,
       "y": 1280,
-      "reviews": 5,
-      "fails": 1,
-      "fail_rate": 0.2,
+      "reviews": 8,
+      "fails": 2,
+      "fail_rate": 0.25,
       "status": "mature"
     },
     {
@@ -3169,9 +3169,9 @@ const VOCAB_DATA = {
       "col": 8,
       "x": 1620,
       "y": 1380,
-      "reviews": 9,
-      "fails": 1,
-      "fail_rate": 0.111,
+      "reviews": 11,
+      "fails": 2,
+      "fail_rate": 0.182,
       "status": "mature"
     },
     {
@@ -3211,9 +3211,9 @@ const VOCAB_DATA = {
       "col": 8,
       "x": 1620,
       "y": 1680,
-      "reviews": 5,
+      "reviews": 6,
       "fails": 1,
-      "fail_rate": 0.2,
+      "fail_rate": 0.167,
       "status": "mature"
     },
     {
@@ -3239,9 +3239,9 @@ const VOCAB_DATA = {
       "col": 8,
       "x": 1620,
       "y": 1880,
-      "reviews": 5,
+      "reviews": 6,
       "fails": 1,
-      "fail_rate": 0.2,
+      "fail_rate": 0.167,
       "status": "mature"
     },
     {
@@ -3267,7 +3267,7 @@ const VOCAB_DATA = {
       "col": 8,
       "x": 1620,
       "y": 2080,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -3281,7 +3281,7 @@ const VOCAB_DATA = {
       "col": 9,
       "x": 1580,
       "y": 1180,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -3295,7 +3295,7 @@ const VOCAB_DATA = {
       "col": 9,
       "x": 1580,
       "y": 1280,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -3323,9 +3323,9 @@ const VOCAB_DATA = {
       "col": 9,
       "x": 1580,
       "y": 1480,
-      "reviews": 3,
-      "fails": 0,
-      "fail_rate": 0.0,
+      "reviews": 6,
+      "fails": 1,
+      "fail_rate": 0.167,
       "status": "mature"
     },
     {
@@ -3351,9 +3351,9 @@ const VOCAB_DATA = {
       "col": 9,
       "x": 1580,
       "y": 1680,
-      "reviews": 7,
+      "reviews": 9,
       "fails": 2,
-      "fail_rate": 0.286,
+      "fail_rate": 0.222,
       "status": "mature"
     },
     {
@@ -3365,9 +3365,9 @@ const VOCAB_DATA = {
       "col": 9,
       "x": 1580,
       "y": 1780,
-      "reviews": 8,
+      "reviews": 9,
       "fails": 2,
-      "fail_rate": 0.25,
+      "fail_rate": 0.222,
       "status": "mature"
     },
     {
@@ -3379,9 +3379,9 @@ const VOCAB_DATA = {
       "col": 9,
       "x": 1580,
       "y": 1880,
-      "reviews": 5,
+      "reviews": 6,
       "fails": 1,
-      "fail_rate": 0.2,
+      "fail_rate": 0.167,
       "status": "mature"
     },
     {
@@ -3393,9 +3393,9 @@ const VOCAB_DATA = {
       "col": 9,
       "x": 1580,
       "y": 1980,
-      "reviews": 6,
+      "reviews": 7,
       "fails": 1,
-      "fail_rate": 0.167,
+      "fail_rate": 0.143,
       "status": "mature"
     },
     {
@@ -3407,9 +3407,9 @@ const VOCAB_DATA = {
       "col": 9,
       "x": 1580,
       "y": 2080,
-      "reviews": 5,
+      "reviews": 6,
       "fails": 1,
-      "fail_rate": 0.2,
+      "fail_rate": 0.167,
       "status": "mature"
     },
     {
@@ -3421,9 +3421,9 @@ const VOCAB_DATA = {
       "col": 10,
       "x": 1540,
       "y": 1180,
-      "reviews": 3,
-      "fails": 0,
-      "fail_rate": 0.0,
+      "reviews": 6,
+      "fails": 1,
+      "fail_rate": 0.167,
       "status": "mature"
     },
     {
@@ -3435,9 +3435,9 @@ const VOCAB_DATA = {
       "col": 10,
       "x": 1540,
       "y": 1280,
-      "reviews": 3,
-      "fails": 0,
-      "fail_rate": 0.0,
+      "reviews": 10,
+      "fails": 5,
+      "fail_rate": 0.5,
       "status": "mature"
     },
     {
@@ -3463,7 +3463,7 @@ const VOCAB_DATA = {
       "col": 10,
       "x": 1540,
       "y": 1480,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -3477,7 +3477,7 @@ const VOCAB_DATA = {
       "col": 10,
       "x": 1540,
       "y": 1580,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -3505,9 +3505,9 @@ const VOCAB_DATA = {
       "col": 10,
       "x": 1540,
       "y": 1780,
-      "reviews": 6,
+      "reviews": 7,
       "fails": 1,
-      "fail_rate": 0.167,
+      "fail_rate": 0.143,
       "status": "mature"
     },
     {
@@ -3519,9 +3519,9 @@ const VOCAB_DATA = {
       "col": 10,
       "x": 1540,
       "y": 1880,
-      "reviews": 5,
+      "reviews": 6,
       "fails": 1,
-      "fail_rate": 0.2,
+      "fail_rate": 0.167,
       "status": "mature"
     },
     {
@@ -3533,7 +3533,7 @@ const VOCAB_DATA = {
       "col": 10,
       "x": 1540,
       "y": 1980,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -3561,7 +3561,7 @@ const VOCAB_DATA = {
       "col": 11,
       "x": 1500,
       "y": 1180,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -3575,7 +3575,7 @@ const VOCAB_DATA = {
       "col": 11,
       "x": 1500,
       "y": 1280,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -3589,9 +3589,9 @@ const VOCAB_DATA = {
       "col": 11,
       "x": 1500,
       "y": 1380,
-      "reviews": 3,
-      "fails": 0,
-      "fail_rate": 0.0,
+      "reviews": 6,
+      "fails": 1,
+      "fail_rate": 0.167,
       "status": "mature"
     },
     {
@@ -3673,7 +3673,7 @@ const VOCAB_DATA = {
       "col": 11,
       "x": 1500,
       "y": 1980,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -3701,9 +3701,9 @@ const VOCAB_DATA = {
       "col": 12,
       "x": 1460,
       "y": 1180,
-      "reviews": 6,
+      "reviews": 7,
       "fails": 1,
-      "fail_rate": 0.167,
+      "fail_rate": 0.143,
       "status": "mature"
     },
     {
@@ -3743,7 +3743,7 @@ const VOCAB_DATA = {
       "col": 12,
       "x": 1460,
       "y": 1480,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -3757,7 +3757,7 @@ const VOCAB_DATA = {
       "col": 12,
       "x": 1460,
       "y": 1580,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -3785,7 +3785,7 @@ const VOCAB_DATA = {
       "col": 12,
       "x": 1460,
       "y": 1780,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -3813,9 +3813,9 @@ const VOCAB_DATA = {
       "col": 12,
       "x": 1460,
       "y": 1980,
-      "reviews": 9,
-      "fails": 1,
-      "fail_rate": 0.111,
+      "reviews": 11,
+      "fails": 2,
+      "fail_rate": 0.182,
       "status": "mature"
     },
     {
@@ -3841,7 +3841,7 @@ const VOCAB_DATA = {
       "col": 13,
       "x": 1420,
       "y": 1180,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -3869,7 +3869,7 @@ const VOCAB_DATA = {
       "col": 13,
       "x": 1420,
       "y": 1380,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -3883,9 +3883,9 @@ const VOCAB_DATA = {
       "col": 13,
       "x": 1420,
       "y": 1480,
-      "reviews": 3,
-      "fails": 0,
-      "fail_rate": 0.0,
+      "reviews": 6,
+      "fails": 1,
+      "fail_rate": 0.167,
       "status": "mature"
     },
     {
@@ -3995,7 +3995,7 @@ const VOCAB_DATA = {
       "col": 0,
       "x": 1940,
       "y": 2400,
-      "reviews": 5,
+      "reviews": 6,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -4009,9 +4009,9 @@ const VOCAB_DATA = {
       "col": 0,
       "x": 1940,
       "y": 2500,
-      "reviews": 3,
-      "fails": 0,
-      "fail_rate": 0.0,
+      "reviews": 5,
+      "fails": 1,
+      "fail_rate": 0.2,
       "status": "mature"
     },
     {
@@ -4037,9 +4037,9 @@ const VOCAB_DATA = {
       "col": 0,
       "x": 1940,
       "y": 2700,
-      "reviews": 3,
-      "fails": 0,
-      "fail_rate": 0.0,
+      "reviews": 5,
+      "fails": 1,
+      "fail_rate": 0.2,
       "status": "mature"
     },
     {
@@ -4107,7 +4107,7 @@ const VOCAB_DATA = {
       "col": 0,
       "x": 1940,
       "y": 3200,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -4149,7 +4149,7 @@ const VOCAB_DATA = {
       "col": 1,
       "x": 1900,
       "y": 2500,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -4177,7 +4177,7 @@ const VOCAB_DATA = {
       "col": 1,
       "x": 1900,
       "y": 2700,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -4219,7 +4219,7 @@ const VOCAB_DATA = {
       "col": 1,
       "x": 1900,
       "y": 3000,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -4247,7 +4247,7 @@ const VOCAB_DATA = {
       "col": 1,
       "x": 1900,
       "y": 3200,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -4289,7 +4289,7 @@ const VOCAB_DATA = {
       "col": 2,
       "x": 1860,
       "y": 2500,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -4303,9 +4303,9 @@ const VOCAB_DATA = {
       "col": 2,
       "x": 1860,
       "y": 2600,
-      "reviews": 5,
-      "fails": 0,
-      "fail_rate": 0.0,
+      "reviews": 7,
+      "fails": 1,
+      "fail_rate": 0.143,
       "status": "mature"
     },
     {
@@ -4331,9 +4331,9 @@ const VOCAB_DATA = {
       "col": 2,
       "x": 1860,
       "y": 2800,
-      "reviews": 5,
-      "fails": 1,
-      "fail_rate": 0.2,
+      "reviews": 8,
+      "fails": 2,
+      "fail_rate": 0.25,
       "status": "mature"
     },
     {
@@ -4373,7 +4373,7 @@ const VOCAB_DATA = {
       "col": 2,
       "x": 1860,
       "y": 3100,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -4387,10 +4387,10 @@ const VOCAB_DATA = {
       "col": 2,
       "x": 1860,
       "y": 3200,
-      "reviews": 11,
+      "reviews": 14,
       "fails": 2,
-      "fail_rate": 0.182,
-      "status": "new"
+      "fail_rate": 0.143,
+      "status": "mature"
     },
     {
       "term": "温",
@@ -4443,7 +4443,7 @@ const VOCAB_DATA = {
       "col": 3,
       "x": 1820,
       "y": 2600,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -4513,9 +4513,9 @@ const VOCAB_DATA = {
       "col": 3,
       "x": 1820,
       "y": 3100,
-      "reviews": 3,
-      "fails": 0,
-      "fail_rate": 0.0,
+      "reviews": 5,
+      "fails": 1,
+      "fail_rate": 0.2,
       "status": "mature"
     },
     {
@@ -4541,7 +4541,7 @@ const VOCAB_DATA = {
       "col": 4,
       "x": 1780,
       "y": 2300,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -4555,9 +4555,9 @@ const VOCAB_DATA = {
       "col": 4,
       "x": 1780,
       "y": 2400,
-      "reviews": 8,
+      "reviews": 9,
       "fails": 2,
-      "fail_rate": 0.25,
+      "fail_rate": 0.222,
       "status": "mature"
     },
     {
@@ -4569,9 +4569,9 @@ const VOCAB_DATA = {
       "col": 4,
       "x": 1780,
       "y": 2500,
-      "reviews": 3,
-      "fails": 0,
-      "fail_rate": 0.0,
+      "reviews": 5,
+      "fails": 1,
+      "fail_rate": 0.2,
       "status": "mature"
     },
     {
@@ -4583,7 +4583,7 @@ const VOCAB_DATA = {
       "col": 4,
       "x": 1780,
       "y": 2600,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -4653,7 +4653,7 @@ const VOCAB_DATA = {
       "col": 4,
       "x": 1780,
       "y": 3100,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -4709,7 +4709,7 @@ const VOCAB_DATA = {
       "col": 5,
       "x": 1740,
       "y": 2500,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -4779,9 +4779,9 @@ const VOCAB_DATA = {
       "col": 5,
       "x": 1740,
       "y": 3000,
-      "reviews": 10,
+      "reviews": 11,
       "fails": 2,
-      "fail_rate": 0.2,
+      "fail_rate": 0.182,
       "status": "mature"
     },
     {
@@ -4793,9 +4793,9 @@ const VOCAB_DATA = {
       "col": 5,
       "x": 1740,
       "y": 3100,
-      "reviews": 8,
+      "reviews": 9,
       "fails": 2,
-      "fail_rate": 0.25,
+      "fail_rate": 0.222,
       "status": "mature"
     },
     {
@@ -4835,7 +4835,7 @@ const VOCAB_DATA = {
       "col": 6,
       "x": 1700,
       "y": 2400,
-      "reviews": 4,
+      "reviews": 5,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -4919,7 +4919,7 @@ const VOCAB_DATA = {
       "col": 6,
       "x": 1700,
       "y": 3000,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -4947,9 +4947,9 @@ const VOCAB_DATA = {
       "col": 6,
       "x": 1700,
       "y": 3200,
-      "reviews": 7,
+      "reviews": 8,
       "fails": 2,
-      "fail_rate": 0.286,
+      "fail_rate": 0.25,
       "status": "mature"
     },
     {
@@ -4975,9 +4975,9 @@ const VOCAB_DATA = {
       "col": 7,
       "x": 1660,
       "y": 2400,
-      "reviews": 9,
-      "fails": 2,
-      "fail_rate": 0.222,
+      "reviews": 12,
+      "fails": 4,
+      "fail_rate": 0.333,
       "status": "mature"
     },
     {
@@ -5003,9 +5003,9 @@ const VOCAB_DATA = {
       "col": 7,
       "x": 1660,
       "y": 2600,
-      "reviews": 3,
-      "fails": 0,
-      "fail_rate": 0.0,
+      "reviews": 5,
+      "fails": 1,
+      "fail_rate": 0.2,
       "status": "mature"
     },
     {
@@ -5045,7 +5045,7 @@ const VOCAB_DATA = {
       "col": 7,
       "x": 1660,
       "y": 2900,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -5059,9 +5059,9 @@ const VOCAB_DATA = {
       "col": 7,
       "x": 1660,
       "y": 3000,
-      "reviews": 3,
-      "fails": 0,
-      "fail_rate": 0.0,
+      "reviews": 5,
+      "fails": 1,
+      "fail_rate": 0.2,
       "status": "mature"
     },
     {
@@ -5143,7 +5143,7 @@ const VOCAB_DATA = {
       "col": 8,
       "x": 1620,
       "y": 2600,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -5157,9 +5157,9 @@ const VOCAB_DATA = {
       "col": 8,
       "x": 1620,
       "y": 2700,
-      "reviews": 3,
-      "fails": 0,
-      "fail_rate": 0.0,
+      "reviews": 5,
+      "fails": 1,
+      "fail_rate": 0.2,
       "status": "mature"
     },
     {
@@ -5171,9 +5171,9 @@ const VOCAB_DATA = {
       "col": 8,
       "x": 1620,
       "y": 2800,
-      "reviews": 8,
+      "reviews": 9,
       "fails": 2,
-      "fail_rate": 0.25,
+      "fail_rate": 0.222,
       "status": "mature"
     },
     {
@@ -5199,7 +5199,7 @@ const VOCAB_DATA = {
       "col": 8,
       "x": 1620,
       "y": 3000,
-      "reviews": 4,
+      "reviews": 5,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -5213,9 +5213,9 @@ const VOCAB_DATA = {
       "col": 8,
       "x": 1620,
       "y": 3100,
-      "reviews": 9,
+      "reviews": 10,
       "fails": 2,
-      "fail_rate": 0.222,
+      "fail_rate": 0.2,
       "status": "mature"
     },
     {
@@ -5227,7 +5227,7 @@ const VOCAB_DATA = {
       "col": 8,
       "x": 1620,
       "y": 3200,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -5241,7 +5241,7 @@ const VOCAB_DATA = {
       "col": 9,
       "x": 1580,
       "y": 2300,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -5255,7 +5255,7 @@ const VOCAB_DATA = {
       "col": 9,
       "x": 1580,
       "y": 2400,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -5269,9 +5269,9 @@ const VOCAB_DATA = {
       "col": 9,
       "x": 1580,
       "y": 2500,
-      "reviews": 6,
+      "reviews": 7,
       "fails": 1,
-      "fail_rate": 0.167,
+      "fail_rate": 0.143,
       "status": "mature"
     },
     {
@@ -5297,7 +5297,7 @@ const VOCAB_DATA = {
       "col": 9,
       "x": 1580,
       "y": 2700,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -5367,9 +5367,9 @@ const VOCAB_DATA = {
       "col": 9,
       "x": 1580,
       "y": 3200,
-      "reviews": 8,
+      "reviews": 9,
       "fails": 2,
-      "fail_rate": 0.25,
+      "fail_rate": 0.222,
       "status": "mature"
     },
     {
@@ -5381,7 +5381,7 @@ const VOCAB_DATA = {
       "col": 10,
       "x": 1540,
       "y": 2300,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -5437,7 +5437,7 @@ const VOCAB_DATA = {
       "col": 10,
       "x": 1540,
       "y": 2700,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -5451,7 +5451,7 @@ const VOCAB_DATA = {
       "col": 10,
       "x": 1540,
       "y": 2800,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -5507,9 +5507,9 @@ const VOCAB_DATA = {
       "col": 10,
       "x": 1540,
       "y": 3200,
-      "reviews": 5,
+      "reviews": 6,
       "fails": 1,
-      "fail_rate": 0.2,
+      "fail_rate": 0.167,
       "status": "mature"
     },
     {
@@ -5535,9 +5535,9 @@ const VOCAB_DATA = {
       "col": 11,
       "x": 1500,
       "y": 2400,
-      "reviews": 5,
+      "reviews": 6,
       "fails": 1,
-      "fail_rate": 0.2,
+      "fail_rate": 0.167,
       "status": "mature"
     },
     {
@@ -5605,7 +5605,7 @@ const VOCAB_DATA = {
       "col": 11,
       "x": 1500,
       "y": 2900,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -5619,9 +5619,9 @@ const VOCAB_DATA = {
       "col": 11,
       "x": 1500,
       "y": 3000,
-      "reviews": 5,
+      "reviews": 6,
       "fails": 1,
-      "fail_rate": 0.2,
+      "fail_rate": 0.167,
       "status": "mature"
     },
     {
@@ -5647,9 +5647,9 @@ const VOCAB_DATA = {
       "col": 11,
       "x": 1500,
       "y": 3200,
-      "reviews": 5,
+      "reviews": 6,
       "fails": 1,
-      "fail_rate": 0.2,
+      "fail_rate": 0.167,
       "status": "mature"
     },
     {
@@ -5661,7 +5661,7 @@ const VOCAB_DATA = {
       "col": 12,
       "x": 1460,
       "y": 2300,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -5675,7 +5675,7 @@ const VOCAB_DATA = {
       "col": 12,
       "x": 1460,
       "y": 2400,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -5689,7 +5689,7 @@ const VOCAB_DATA = {
       "col": 12,
       "x": 1460,
       "y": 2500,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -5717,9 +5717,9 @@ const VOCAB_DATA = {
       "col": 12,
       "x": 1460,
       "y": 2700,
-      "reviews": 9,
+      "reviews": 10,
       "fails": 2,
-      "fail_rate": 0.222,
+      "fail_rate": 0.2,
       "status": "mature"
     },
     {
@@ -5745,7 +5745,7 @@ const VOCAB_DATA = {
       "col": 12,
       "x": 1460,
       "y": 2900,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -5773,7 +5773,7 @@ const VOCAB_DATA = {
       "col": 12,
       "x": 1460,
       "y": 3100,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -5787,7 +5787,7 @@ const VOCAB_DATA = {
       "col": 12,
       "x": 1460,
       "y": 3200,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -5815,7 +5815,7 @@ const VOCAB_DATA = {
       "col": 13,
       "x": 1420,
       "y": 2400,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -5843,7 +5843,7 @@ const VOCAB_DATA = {
       "col": 13,
       "x": 1420,
       "y": 2600,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -5871,9 +5871,9 @@ const VOCAB_DATA = {
       "col": 13,
       "x": 1420,
       "y": 2800,
-      "reviews": 4,
-      "fails": 0,
-      "fail_rate": 0.0,
+      "reviews": 6,
+      "fails": 1,
+      "fail_rate": 0.167,
       "status": "mature"
     },
     {
@@ -5899,7 +5899,7 @@ const VOCAB_DATA = {
       "col": 13,
       "x": 1420,
       "y": 3000,
-      "reviews": 4,
+      "reviews": 5,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -5927,7 +5927,7 @@ const VOCAB_DATA = {
       "col": 13,
       "x": 1420,
       "y": 3200,
-      "reviews": 3,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
       "status": "mature"
@@ -6081,9 +6081,9 @@ const VOCAB_DATA = {
       "col": 1,
       "x": 1220,
       "y": 60,
-      "reviews": 5,
+      "reviews": 6,
       "fails": 1,
-      "fail_rate": 0.2,
+      "fail_rate": 0.167,
       "status": "mature"
     },
     {
@@ -6165,9 +6165,9 @@ const VOCAB_DATA = {
       "col": 1,
       "x": 1220,
       "y": 660,
-      "reviews": 5,
-      "fails": 1,
-      "fail_rate": 0.2,
+      "reviews": 9,
+      "fails": 3,
+      "fail_rate": 0.333,
       "status": "mature"
     },
     {
@@ -6375,10 +6375,10 @@ const VOCAB_DATA = {
       "col": 3,
       "x": 1140,
       "y": 160,
-      "reviews": 4,
+      "reviews": 7,
       "fails": 0,
       "fail_rate": 0.0,
-      "status": "new"
+      "status": "mature"
     },
     {
       "term": "練習",
@@ -6459,9 +6459,9 @@ const VOCAB_DATA = {
       "col": 3,
       "x": 1140,
       "y": 760,
-      "reviews": 6,
+      "reviews": 8,
       "fails": 2,
-      "fail_rate": 0.333,
+      "fail_rate": 0.25,
       "status": "mature"
     },
     {
@@ -6473,9 +6473,9 @@ const VOCAB_DATA = {
       "col": 3,
       "x": 1140,
       "y": 860,
-      "reviews": 5,
+      "reviews": 6,
       "fails": 1,
-      "fail_rate": 0.2,
+      "fail_rate": 0.167,
       "status": "mature"
     },
     {
@@ -6543,9 +6543,9 @@ const VOCAB_DATA = {
       "col": 4,
       "x": 1100,
       "y": 360,
-      "reviews": 5,
+      "reviews": 6,
       "fails": 1,
-      "fail_rate": 0.2,
+      "fail_rate": 0.167,
       "status": "mature"
     },
     {
@@ -6767,9 +6767,9 @@ const VOCAB_DATA = {
       "col": 5,
       "x": 1060,
       "y": 960,
-      "reviews": 5,
+      "reviews": 6,
       "fails": 1,
-      "fail_rate": 0.2,
+      "fail_rate": 0.167,
       "status": "mature"
     },
     {
@@ -6893,9 +6893,9 @@ const VOCAB_DATA = {
       "col": 6,
       "x": 1020,
       "y": 860,
-      "reviews": 9,
+      "reviews": 10,
       "fails": 1,
-      "fail_rate": 0.111,
+      "fail_rate": 0.1,
       "status": "mature"
     },
     {
@@ -6935,9 +6935,9 @@ const VOCAB_DATA = {
       "col": 7,
       "x": 980,
       "y": 160,
-      "reviews": 5,
+      "reviews": 6,
       "fails": 1,
-      "fail_rate": 0.2,
+      "fail_rate": 0.167,
       "status": "mature"
     },
     {
@@ -6963,9 +6963,9 @@ const VOCAB_DATA = {
       "col": 7,
       "x": 980,
       "y": 360,
-      "reviews": 6,
+      "reviews": 7,
       "fails": 2,
-      "fail_rate": 0.333,
+      "fail_rate": 0.286,
       "status": "mature"
     },
     {
@@ -6991,9 +6991,9 @@ const VOCAB_DATA = {
       "col": 7,
       "x": 980,
       "y": 560,
-      "reviews": 5,
+      "reviews": 6,
       "fails": 1,
-      "fail_rate": 0.2,
+      "fail_rate": 0.167,
       "status": "mature"
     },
     {
@@ -7005,9 +7005,9 @@ const VOCAB_DATA = {
       "col": 7,
       "x": 980,
       "y": 660,
-      "reviews": 7,
+      "reviews": 8,
       "fails": 2,
-      "fail_rate": 0.286,
+      "fail_rate": 0.25,
       "status": "mature"
     },
     {
@@ -7061,9 +7061,9 @@ const VOCAB_DATA = {
       "col": 8,
       "x": 940,
       "y": 60,
-      "reviews": 5,
+      "reviews": 6,
       "fails": 1,
-      "fail_rate": 0.2,
+      "fail_rate": 0.167,
       "status": "mature"
     },
     {
@@ -7089,9 +7089,9 @@ const VOCAB_DATA = {
       "col": 8,
       "x": 940,
       "y": 260,
-      "reviews": 5,
+      "reviews": 6,
       "fails": 1,
-      "fail_rate": 0.2,
+      "fail_rate": 0.167,
       "status": "mature"
     },
     {
@@ -7187,9 +7187,9 @@ const VOCAB_DATA = {
       "col": 8,
       "x": 940,
       "y": 960,
-      "reviews": 5,
-      "fails": 1,
-      "fail_rate": 0.2,
+      "reviews": 7,
+      "fails": 2,
+      "fail_rate": 0.286,
       "status": "mature"
     },
     {
@@ -7215,9 +7215,9 @@ const VOCAB_DATA = {
       "col": 9,
       "x": 900,
       "y": 160,
-      "reviews": 7,
+      "reviews": 8,
       "fails": 2,
-      "fail_rate": 0.286,
+      "fail_rate": 0.25,
       "status": "mature"
     },
     {
@@ -7271,9 +7271,9 @@ const VOCAB_DATA = {
       "col": 9,
       "x": 900,
       "y": 560,
-      "reviews": 5,
+      "reviews": 6,
       "fails": 1,
-      "fail_rate": 0.2,
+      "fail_rate": 0.167,
       "status": "mature"
     },
     {
@@ -7299,9 +7299,9 @@ const VOCAB_DATA = {
       "col": 9,
       "x": 900,
       "y": 760,
-      "reviews": 5,
+      "reviews": 6,
       "fails": 1,
-      "fail_rate": 0.2,
+      "fail_rate": 0.167,
       "status": "mature"
     },
     {
@@ -7313,10 +7313,10 @@ const VOCAB_DATA = {
       "col": 9,
       "x": 900,
       "y": 860,
-      "reviews": 4,
+      "reviews": 7,
       "fails": 0,
       "fail_rate": 0.0,
-      "status": "new"
+      "status": "mature"
     },
     {
       "term": "習",
@@ -7327,9 +7327,9 @@ const VOCAB_DATA = {
       "col": 9,
       "x": 900,
       "y": 960,
-      "reviews": 5,
+      "reviews": 6,
       "fails": 1,
-      "fail_rate": 0.2,
+      "fail_rate": 0.167,
       "status": "mature"
     },
     {
@@ -7341,9 +7341,9 @@ const VOCAB_DATA = {
       "col": 10,
       "x": 860,
       "y": 60,
-      "reviews": 5,
+      "reviews": 6,
       "fails": 1,
-      "fail_rate": 0.2,
+      "fail_rate": 0.167,
       "status": "mature"
     },
     {
@@ -7495,9 +7495,9 @@ const VOCAB_DATA = {
       "col": 11,
       "x": 820,
       "y": 160,
-      "reviews": 5,
+      "reviews": 6,
       "fails": 1,
-      "fail_rate": 0.2,
+      "fail_rate": 0.167,
       "status": "mature"
     },
     {
@@ -7579,9 +7579,9 @@ const VOCAB_DATA = {
       "col": 11,
       "x": 820,
       "y": 760,
-      "reviews": 6,
+      "reviews": 8,
       "fails": 2,
-      "fail_rate": 0.333,
+      "fail_rate": 0.25,
       "status": "mature"
     },
     {
@@ -7677,9 +7677,9 @@ const VOCAB_DATA = {
       "col": 12,
       "x": 780,
       "y": 460,
-      "reviews": 6,
+      "reviews": 7,
       "fails": 1,
-      "fail_rate": 0.167,
+      "fail_rate": 0.143,
       "status": "mature"
     },
     {
@@ -7719,9 +7719,9 @@ const VOCAB_DATA = {
       "col": 12,
       "x": 780,
       "y": 760,
-      "reviews": 6,
+      "reviews": 7,
       "fails": 1,
-      "fail_rate": 0.167,
+      "fail_rate": 0.143,
       "status": "mature"
     },
     {
@@ -13781,9 +13781,9 @@ const VOCAB_DATA = {
       "col": 0,
       "x": 580,
       "y": 1180,
-      "reviews": 9,
+      "reviews": 10,
       "fails": 1,
-      "fail_rate": 0.111,
+      "fail_rate": 0.1,
       "status": "mature"
     },
     {
@@ -13795,9 +13795,9 @@ const VOCAB_DATA = {
       "col": 0,
       "x": 580,
       "y": 1280,
-      "reviews": 6,
+      "reviews": 7,
       "fails": 1,
-      "fail_rate": 0.167,
+      "fail_rate": 0.143,
       "status": "mature"
     },
     {
@@ -13823,9 +13823,9 @@ const VOCAB_DATA = {
       "col": 0,
       "x": 580,
       "y": 1480,
-      "reviews": 6,
-      "fails": 1,
-      "fail_rate": 0.167,
+      "reviews": 9,
+      "fails": 2,
+      "fail_rate": 0.222,
       "status": "mature"
     },
     {
@@ -13851,9 +13851,9 @@ const VOCAB_DATA = {
       "col": 0,
       "x": 580,
       "y": 1680,
-      "reviews": 6,
+      "reviews": 7,
       "fails": 1,
-      "fail_rate": 0.167,
+      "fail_rate": 0.143,
       "status": "mature"
     },
     {
@@ -14005,9 +14005,9 @@ const VOCAB_DATA = {
       "col": 1,
       "x": 540,
       "y": 1780,
-      "reviews": 15,
+      "reviews": 16,
       "fails": 3,
-      "fail_rate": 0.2,
+      "fail_rate": 0.188,
       "status": "mature"
     },
     {
@@ -14019,9 +14019,9 @@ const VOCAB_DATA = {
       "col": 1,
       "x": 540,
       "y": 1880,
-      "reviews": 7,
+      "reviews": 8,
       "fails": 1,
-      "fail_rate": 0.143,
+      "fail_rate": 0.125,
       "status": "mature"
     },
     {
@@ -14103,9 +14103,9 @@ const VOCAB_DATA = {
       "col": 2,
       "x": 500,
       "y": 1480,
-      "reviews": 10,
+      "reviews": 11,
       "fails": 2,
-      "fail_rate": 0.2,
+      "fail_rate": 0.182,
       "status": "mature"
     },
     {
@@ -14229,9 +14229,9 @@ const VOCAB_DATA = {
       "col": 3,
       "x": 460,
       "y": 1380,
-      "reviews": 7,
+      "reviews": 8,
       "fails": 1,
-      "fail_rate": 0.143,
+      "fail_rate": 0.125,
       "status": "mature"
     },
     {
@@ -14271,9 +14271,9 @@ const VOCAB_DATA = {
       "col": 3,
       "x": 460,
       "y": 1680,
-      "reviews": 7,
+      "reviews": 8,
       "fails": 1,
-      "fail_rate": 0.143,
+      "fail_rate": 0.125,
       "status": "mature"
     },
     {
@@ -14299,9 +14299,9 @@ const VOCAB_DATA = {
       "col": 3,
       "x": 460,
       "y": 1880,
-      "reviews": 11,
+      "reviews": 12,
       "fails": 2,
-      "fail_rate": 0.182,
+      "fail_rate": 0.167,
       "status": "mature"
     },
     {
@@ -14439,9 +14439,9 @@ const VOCAB_DATA = {
       "col": 4,
       "x": 420,
       "y": 1880,
-      "reviews": 7,
+      "reviews": 8,
       "fails": 1,
-      "fail_rate": 0.143,
+      "fail_rate": 0.125,
       "status": "mature"
     },
     {
@@ -14537,9 +14537,9 @@ const VOCAB_DATA = {
       "col": 5,
       "x": 380,
       "y": 1580,
-      "reviews": 6,
+      "reviews": 7,
       "fails": 1,
-      "fail_rate": 0.167,
+      "fail_rate": 0.143,
       "status": "mature"
     },
     {
@@ -14691,9 +14691,9 @@ const VOCAB_DATA = {
       "col": 6,
       "x": 340,
       "y": 1680,
-      "reviews": 13,
+      "reviews": 15,
       "fails": 4,
-      "fail_rate": 0.308,
+      "fail_rate": 0.267,
       "status": "mature"
     },
     {
@@ -14789,9 +14789,9 @@ const VOCAB_DATA = {
       "col": 7,
       "x": 300,
       "y": 1380,
-      "reviews": 12,
+      "reviews": 14,
       "fails": 2,
-      "fail_rate": 0.167,
+      "fail_rate": 0.143,
       "status": "mature"
     },
     {
@@ -14803,9 +14803,9 @@ const VOCAB_DATA = {
       "col": 7,
       "x": 300,
       "y": 1480,
-      "reviews": 13,
+      "reviews": 15,
       "fails": 3,
-      "fail_rate": 0.231,
+      "fail_rate": 0.2,
       "status": "mature"
     },
     {
@@ -14845,9 +14845,9 @@ const VOCAB_DATA = {
       "col": 7,
       "x": 300,
       "y": 1780,
-      "reviews": 6,
+      "reviews": 7,
       "fails": 1,
-      "fail_rate": 0.167,
+      "fail_rate": 0.143,
       "status": "mature"
     },
     {
@@ -14859,9 +14859,9 @@ const VOCAB_DATA = {
       "col": 7,
       "x": 300,
       "y": 1880,
-      "reviews": 6,
+      "reviews": 7,
       "fails": 1,
-      "fail_rate": 0.167,
+      "fail_rate": 0.143,
       "status": "mature"
     },
     {
@@ -14887,9 +14887,9 @@ const VOCAB_DATA = {
       "col": 7,
       "x": 300,
       "y": 2080,
-      "reviews": 6,
-      "fails": 1,
-      "fail_rate": 0.167,
+      "reviews": 8,
+      "fails": 2,
+      "fail_rate": 0.25,
       "status": "mature"
     },
     {
@@ -14901,9 +14901,9 @@ const VOCAB_DATA = {
       "col": 8,
       "x": 260,
       "y": 1180,
-      "reviews": 13,
-      "fails": 3,
-      "fail_rate": 0.231,
+      "reviews": 17,
+      "fails": 4,
+      "fail_rate": 0.235,
       "status": "mature"
     },
     {
@@ -14915,9 +14915,9 @@ const VOCAB_DATA = {
       "col": 8,
       "x": 260,
       "y": 1280,
-      "reviews": 8,
+      "reviews": 9,
       "fails": 2,
-      "fail_rate": 0.25,
+      "fail_rate": 0.222,
       "status": "mature"
     },
     {
@@ -14943,9 +14943,9 @@ const VOCAB_DATA = {
       "col": 8,
       "x": 260,
       "y": 1480,
-      "reviews": 13,
+      "reviews": 14,
       "fails": 3,
-      "fail_rate": 0.231,
+      "fail_rate": 0.214,
       "status": "mature"
     },
     {
@@ -15069,9 +15069,9 @@ const VOCAB_DATA = {
       "col": 9,
       "x": 220,
       "y": 1380,
-      "reviews": 10,
+      "reviews": 11,
       "fails": 2,
-      "fail_rate": 0.2,
+      "fail_rate": 0.182,
       "status": "mature"
     },
     {
@@ -15125,9 +15125,9 @@ const VOCAB_DATA = {
       "col": 9,
       "x": 220,
       "y": 1780,
-      "reviews": 6,
-      "fails": 1,
-      "fail_rate": 0.167,
+      "reviews": 8,
+      "fails": 2,
+      "fail_rate": 0.25,
       "status": "mature"
     },
     {
@@ -15153,9 +15153,9 @@ const VOCAB_DATA = {
       "col": 9,
       "x": 220,
       "y": 1980,
-      "reviews": 15,
-      "fails": 3,
-      "fail_rate": 0.2,
+      "reviews": 17,
+      "fails": 4,
+      "fail_rate": 0.235,
       "status": "mature"
     },
     {
@@ -15237,9 +15237,9 @@ const VOCAB_DATA = {
       "col": 10,
       "x": 180,
       "y": 1580,
-      "reviews": 7,
-      "fails": 1,
-      "fail_rate": 0.143,
+      "reviews": 10,
+      "fails": 3,
+      "fail_rate": 0.3,
       "status": "mature"
     },
     {
@@ -15307,9 +15307,9 @@ const VOCAB_DATA = {
       "col": 10,
       "x": 180,
       "y": 2080,
-      "reviews": 6,
+      "reviews": 7,
       "fails": 1,
-      "fail_rate": 0.167,
+      "fail_rate": 0.143,
       "status": "mature"
     },
     {
@@ -15335,9 +15335,9 @@ const VOCAB_DATA = {
       "col": 11,
       "x": 140,
       "y": 1280,
-      "reviews": 12,
+      "reviews": 13,
       "fails": 2,
-      "fail_rate": 0.167,
+      "fail_rate": 0.154,
       "status": "mature"
     },
     {
@@ -15349,9 +15349,9 @@ const VOCAB_DATA = {
       "col": 11,
       "x": 140,
       "y": 1380,
-      "reviews": 9,
+      "reviews": 10,
       "fails": 2,
-      "fail_rate": 0.222,
+      "fail_rate": 0.2,
       "status": "mature"
     },
     {
@@ -15363,9 +15363,9 @@ const VOCAB_DATA = {
       "col": 11,
       "x": 140,
       "y": 1480,
-      "reviews": 12,
+      "reviews": 14,
       "fails": 3,
-      "fail_rate": 0.25,
+      "fail_rate": 0.214,
       "status": "mature"
     },
     {
@@ -15405,9 +15405,9 @@ const VOCAB_DATA = {
       "col": 11,
       "x": 140,
       "y": 1780,
-      "reviews": 6,
+      "reviews": 7,
       "fails": 1,
-      "fail_rate": 0.167,
+      "fail_rate": 0.143,
       "status": "mature"
     },
     {
@@ -15447,9 +15447,9 @@ const VOCAB_DATA = {
       "col": 11,
       "x": 140,
       "y": 2080,
-      "reviews": 6,
+      "reviews": 7,
       "fails": 1,
-      "fail_rate": 0.167,
+      "fail_rate": 0.143,
       "status": "mature"
     },
     {
@@ -15461,9 +15461,9 @@ const VOCAB_DATA = {
       "col": 12,
       "x": 100,
       "y": 1180,
-      "reviews": 6,
-      "fails": 1,
-      "fail_rate": 0.167,
+      "reviews": 8,
+      "fails": 2,
+      "fail_rate": 0.25,
       "status": "mature"
     },
     {
@@ -15517,9 +15517,9 @@ const VOCAB_DATA = {
       "col": 12,
       "x": 100,
       "y": 1580,
-      "reviews": 6,
+      "reviews": 7,
       "fails": 1,
-      "fail_rate": 0.167,
+      "fail_rate": 0.143,
       "status": "mature"
     },
     {
@@ -15531,9 +15531,9 @@ const VOCAB_DATA = {
       "col": 12,
       "x": 100,
       "y": 1680,
-      "reviews": 12,
+      "reviews": 14,
       "fails": 3,
-      "fail_rate": 0.25,
+      "fail_rate": 0.214,
       "status": "mature"
     },
     {
@@ -15573,9 +15573,9 @@ const VOCAB_DATA = {
       "col": 12,
       "x": 100,
       "y": 1980,
-      "reviews": 13,
+      "reviews": 14,
       "fails": 2,
-      "fail_rate": 0.154,
+      "fail_rate": 0.143,
       "status": "mature"
     },
     {
@@ -15587,9 +15587,9 @@ const VOCAB_DATA = {
       "col": 12,
       "x": 100,
       "y": 2080,
-      "reviews": 6,
+      "reviews": 7,
       "fails": 1,
-      "fail_rate": 0.167,
+      "fail_rate": 0.143,
       "status": "mature"
     },
     {
@@ -15615,9 +15615,9 @@ const VOCAB_DATA = {
       "col": 13,
       "x": 60,
       "y": 1280,
-      "reviews": 13,
+      "reviews": 14,
       "fails": 3,
-      "fail_rate": 0.231,
+      "fail_rate": 0.214,
       "status": "mature"
     },
     {
@@ -15629,9 +15629,9 @@ const VOCAB_DATA = {
       "col": 13,
       "x": 60,
       "y": 1380,
-      "reviews": 6,
+      "reviews": 7,
       "fails": 1,
-      "fail_rate": 0.167,
+      "fail_rate": 0.143,
       "status": "mature"
     },
     {
@@ -15657,9 +15657,9 @@ const VOCAB_DATA = {
       "col": 13,
       "x": 60,
       "y": 1580,
-      "reviews": 6,
+      "reviews": 7,
       "fails": 1,
-      "fail_rate": 0.167,
+      "fail_rate": 0.143,
       "status": "mature"
     },
     {
@@ -15671,9 +15671,9 @@ const VOCAB_DATA = {
       "col": 13,
       "x": 60,
       "y": 1680,
-      "reviews": 7,
+      "reviews": 8,
       "fails": 1,
-      "fail_rate": 0.143,
+      "fail_rate": 0.125,
       "status": "mature"
     },
     {
@@ -15685,9 +15685,9 @@ const VOCAB_DATA = {
       "col": 13,
       "x": 60,
       "y": 1780,
-      "reviews": 10,
+      "reviews": 11,
       "fails": 2,
-      "fail_rate": 0.2,
+      "fail_rate": 0.182,
       "status": "mature"
     },
     {
@@ -15741,10 +15741,10 @@ const VOCAB_DATA = {
       "col": 0,
       "x": 580,
       "y": 2300,
-      "reviews": 0,
+      "reviews": 3,
       "fails": 0,
       "fail_rate": 0.0,
-      "status": "new"
+      "status": "mature"
     },
     {
       "term": "性格",
@@ -15755,10 +15755,10 @@ const VOCAB_DATA = {
       "col": 0,
       "x": 580,
       "y": 2400,
-      "reviews": 0,
+      "reviews": 3,
       "fails": 0,
       "fail_rate": 0.0,
-      "status": "new"
+      "status": "mature"
     },
     {
       "term": "希望",
@@ -15769,10 +15769,10 @@ const VOCAB_DATA = {
       "col": 0,
       "x": 580,
       "y": 2500,
-      "reviews": 0,
+      "reviews": 3,
       "fails": 0,
       "fail_rate": 0.0,
-      "status": "new"
+      "status": "mature"
     },
     {
       "term": "本体",
@@ -15783,10 +15783,10 @@ const VOCAB_DATA = {
       "col": 0,
       "x": 580,
       "y": 2600,
-      "reviews": 0,
+      "reviews": 3,
       "fails": 0,
       "fail_rate": 0.0,
-      "status": "new"
+      "status": "mature"
     },
     {
       "term": "定価",
@@ -15797,10 +15797,10 @@ const VOCAB_DATA = {
       "col": 0,
       "x": 580,
       "y": 2700,
-      "reviews": 0,
+      "reviews": 3,
       "fails": 0,
       "fail_rate": 0.0,
-      "status": "new"
+      "status": "mature"
     },
     {
       "term": "片付",
@@ -15811,10 +15811,10 @@ const VOCAB_DATA = {
       "col": 0,
       "x": 580,
       "y": 2800,
-      "reviews": 0,
+      "reviews": 3,
       "fails": 0,
       "fail_rate": 0.0,
-      "status": "new"
+      "status": "mature"
     },
     {
       "term": "就職",
@@ -15825,10 +15825,10 @@ const VOCAB_DATA = {
       "col": 0,
       "x": 580,
       "y": 2900,
-      "reviews": 0,
+      "reviews": 3,
       "fails": 0,
       "fail_rate": 0.0,
-      "status": "new"
+      "status": "mature"
     },
     {
       "term": "腹減",
@@ -15839,10 +15839,10 @@ const VOCAB_DATA = {
       "col": 0,
       "x": 580,
       "y": 3000,
-      "reviews": 0,
-      "fails": 0,
-      "fail_rate": 0.0,
-      "status": "new"
+      "reviews": 5,
+      "fails": 1,
+      "fail_rate": 0.2,
+      "status": "mature"
     },
     {
       "term": "綾瀬",
@@ -15853,10 +15853,10 @@ const VOCAB_DATA = {
       "col": 0,
       "x": 580,
       "y": 3100,
-      "reviews": 0,
-      "fails": 0,
-      "fail_rate": 0.0,
-      "status": "new"
+      "reviews": 5,
+      "fails": 1,
+      "fail_rate": 0.2,
+      "status": "mature"
     },
     {
       "term": "用意",
@@ -15867,10 +15867,10 @@ const VOCAB_DATA = {
       "col": 0,
       "x": 580,
       "y": 3200,
-      "reviews": 1,
-      "fails": 0,
-      "fail_rate": 0.0,
-      "status": "new"
+      "reviews": 6,
+      "fails": 1,
+      "fail_rate": 0.167,
+      "status": "mature"
     },
     {
       "term": "嗜好",
@@ -15881,10 +15881,10 @@ const VOCAB_DATA = {
       "col": 1,
       "x": 540,
       "y": 2300,
-      "reviews": 0,
+      "reviews": 3,
       "fails": 0,
       "fail_rate": 0.0,
-      "status": "new"
+      "status": "mature"
     },
     {
       "term": "連絡",
@@ -15895,10 +15895,10 @@ const VOCAB_DATA = {
       "col": 1,
       "x": 540,
       "y": 2400,
-      "reviews": 0,
+      "reviews": 3,
       "fails": 0,
       "fail_rate": 0.0,
-      "status": "new"
+      "status": "mature"
     },
     {
       "term": "外部",
@@ -15909,10 +15909,10 @@ const VOCAB_DATA = {
       "col": 1,
       "x": 540,
       "y": 2500,
-      "reviews": 0,
+      "reviews": 3,
       "fails": 0,
       "fail_rate": 0.0,
-      "status": "new"
+      "status": "mature"
     },
     {
       "term": "含",
@@ -15923,10 +15923,10 @@ const VOCAB_DATA = {
       "col": 1,
       "x": 540,
       "y": 2600,
-      "reviews": 0,
-      "fails": 0,
-      "fail_rate": 0.0,
-      "status": "new"
+      "reviews": 7,
+      "fails": 2,
+      "fail_rate": 0.286,
+      "status": "mature"
     },
     {
       "term": "程度",
@@ -15937,10 +15937,10 @@ const VOCAB_DATA = {
       "col": 1,
       "x": 540,
       "y": 2700,
-      "reviews": 0,
+      "reviews": 3,
       "fails": 0,
       "fail_rate": 0.0,
-      "status": "new"
+      "status": "mature"
     },
     {
       "term": "体力",
@@ -15951,10 +15951,10 @@ const VOCAB_DATA = {
       "col": 1,
       "x": 540,
       "y": 2800,
-      "reviews": 0,
+      "reviews": 3,
       "fails": 0,
       "fail_rate": 0.0,
-      "status": "new"
+      "status": "mature"
     },
     {
       "term": "粗品",
@@ -15965,10 +15965,10 @@ const VOCAB_DATA = {
       "col": 1,
       "x": 540,
       "y": 2900,
-      "reviews": 0,
+      "reviews": 3,
       "fails": 0,
       "fail_rate": 0.0,
-      "status": "new"
+      "status": "mature"
     },
     {
       "term": "異",
@@ -15979,10 +15979,10 @@ const VOCAB_DATA = {
       "col": 1,
       "x": 540,
       "y": 3000,
-      "reviews": 0,
+      "reviews": 3,
       "fails": 0,
       "fail_rate": 0.0,
-      "status": "new"
+      "status": "mature"
     },
     {
       "term": "低下",
@@ -15993,10 +15993,10 @@ const VOCAB_DATA = {
       "col": 1,
       "x": 540,
       "y": 3100,
-      "reviews": 0,
-      "fails": 0,
-      "fail_rate": 0.0,
-      "status": "new"
+      "reviews": 6,
+      "fails": 2,
+      "fail_rate": 0.333,
+      "status": "mature"
     },
     {
       "term": "禁",
@@ -16007,10 +16007,10 @@ const VOCAB_DATA = {
       "col": 1,
       "x": 540,
       "y": 3200,
-      "reviews": 0,
+      "reviews": 3,
       "fails": 0,
       "fail_rate": 0.0,
-      "status": "new"
+      "status": "mature"
     },
     {
       "term": "一切",
@@ -16021,10 +16021,10 @@ const VOCAB_DATA = {
       "col": 2,
       "x": 500,
       "y": 2300,
-      "reviews": 0,
+      "reviews": 3,
       "fails": 0,
       "fail_rate": 0.0,
-      "status": "new"
+      "status": "mature"
     },
     {
       "term": "燃",
@@ -16035,10 +16035,10 @@ const VOCAB_DATA = {
       "col": 2,
       "x": 500,
       "y": 2400,
-      "reviews": 1,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
-      "status": "new"
+      "status": "mature"
     },
     {
       "term": "配",
@@ -16049,10 +16049,10 @@ const VOCAB_DATA = {
       "col": 2,
       "x": 500,
       "y": 2500,
-      "reviews": 0,
+      "reviews": 3,
       "fails": 0,
       "fail_rate": 0.0,
-      "status": "new"
+      "status": "mature"
     },
     {
       "term": "肉親",
@@ -16063,10 +16063,10 @@ const VOCAB_DATA = {
       "col": 2,
       "x": 500,
       "y": 2600,
-      "reviews": 0,
+      "reviews": 3,
       "fails": 0,
       "fail_rate": 0.0,
-      "status": "new"
+      "status": "mature"
     },
     {
       "term": "除",
@@ -16077,10 +16077,10 @@ const VOCAB_DATA = {
       "col": 2,
       "x": 500,
       "y": 2700,
-      "reviews": 0,
-      "fails": 0,
-      "fail_rate": 0.0,
-      "status": "new"
+      "reviews": 5,
+      "fails": 1,
+      "fail_rate": 0.2,
+      "status": "mature"
     },
     {
       "term": "特例",
@@ -16091,10 +16091,10 @@ const VOCAB_DATA = {
       "col": 2,
       "x": 500,
       "y": 2800,
-      "reviews": 0,
+      "reviews": 3,
       "fails": 0,
       "fail_rate": 0.0,
-      "status": "new"
+      "status": "mature"
     },
     {
       "term": "義務",
@@ -16105,10 +16105,10 @@ const VOCAB_DATA = {
       "col": 2,
       "x": 500,
       "y": 2900,
-      "reviews": 0,
+      "reviews": 3,
       "fails": 0,
       "fail_rate": 0.0,
-      "status": "new"
+      "status": "mature"
     },
     {
       "term": "寮",
@@ -16119,10 +16119,10 @@ const VOCAB_DATA = {
       "col": 2,
       "x": 500,
       "y": 3000,
-      "reviews": 0,
+      "reviews": 3,
       "fails": 0,
       "fail_rate": 0.0,
-      "status": "new"
+      "status": "mature"
     },
     {
       "term": "敷地内",
@@ -16133,10 +16133,10 @@ const VOCAB_DATA = {
       "col": 2,
       "x": 500,
       "y": 3100,
-      "reviews": 3,
+      "reviews": 6,
       "fails": 0,
       "fail_rate": 0.0,
-      "status": "new"
+      "status": "mature"
     },
     {
       "term": "全員",
@@ -16147,10 +16147,10 @@ const VOCAB_DATA = {
       "col": 2,
       "x": 500,
       "y": 3200,
-      "reviews": 0,
+      "reviews": 3,
       "fails": 0,
       "fail_rate": 0.0,
-      "status": "new"
+      "status": "mature"
     },
     {
       "term": "配布",
@@ -16161,10 +16161,10 @@ const VOCAB_DATA = {
       "col": 3,
       "x": 460,
       "y": 2300,
-      "reviews": 0,
+      "reviews": 3,
       "fails": 0,
       "fail_rate": 0.0,
-      "status": "new"
+      "status": "mature"
     },
     {
       "term": "案内",
@@ -16175,10 +16175,10 @@ const VOCAB_DATA = {
       "col": 3,
       "x": 460,
       "y": 2400,
-      "reviews": 0,
+      "reviews": 3,
       "fails": 0,
       "fail_rate": 0.0,
-      "status": "new"
+      "status": "mature"
     },
     {
       "term": "既",
@@ -16189,10 +16189,10 @@ const VOCAB_DATA = {
       "col": 3,
       "x": 460,
       "y": 2500,
-      "reviews": 0,
+      "reviews": 3,
       "fails": 0,
       "fail_rate": 0.0,
-      "status": "new"
+      "status": "mature"
     },
     {
       "term": "資料",
@@ -16203,10 +16203,10 @@ const VOCAB_DATA = {
       "col": 3,
       "x": 460,
       "y": 2600,
-      "reviews": 0,
-      "fails": 0,
-      "fail_rate": 0.0,
-      "status": "new"
+      "reviews": 5,
+      "fails": 1,
+      "fail_rate": 0.2,
+      "status": "mature"
     },
     {
       "term": "特殊",
@@ -16217,10 +16217,10 @@ const VOCAB_DATA = {
       "col": 3,
       "x": 460,
       "y": 2700,
-      "reviews": 1,
-      "fails": 0,
-      "fail_rate": 0.0,
-      "status": "new"
+      "reviews": 6,
+      "fails": 1,
+      "fail_rate": 0.167,
+      "status": "mature"
     },
     {
       "term": "入学式",
@@ -16231,10 +16231,10 @@ const VOCAB_DATA = {
       "col": 3,
       "x": 460,
       "y": 2800,
-      "reviews": 0,
+      "reviews": 3,
       "fails": 0,
       "fail_rate": 0.0,
-      "status": "new"
+      "status": "mature"
     },
     {
       "term": "担任",
@@ -16245,10 +16245,10 @@ const VOCAB_DATA = {
       "col": 3,
       "x": 460,
       "y": 2900,
-      "reviews": 0,
+      "reviews": 3,
       "fails": 0,
       "fail_rate": 0.0,
-      "status": "new"
+      "status": "mature"
     },
     {
       "term": "替",
@@ -16259,10 +16259,10 @@ const VOCAB_DATA = {
       "col": 3,
       "x": 460,
       "y": 3000,
-      "reviews": 0,
+      "reviews": 3,
       "fails": 0,
       "fail_rate": 0.0,
-      "status": "new"
+      "status": "mature"
     },
     {
       "term": "普段",
@@ -16273,10 +16273,10 @@ const VOCAB_DATA = {
       "col": 3,
       "x": 460,
       "y": 3100,
-      "reviews": 0,
-      "fails": 0,
-      "fail_rate": 0.0,
-      "status": "new"
+      "reviews": 4,
+      "fails": 1,
+      "fail_rate": 0.25,
+      "status": "mature"
     },
     {
       "term": "史",
@@ -16287,10 +16287,10 @@ const VOCAB_DATA = {
       "col": 3,
       "x": 460,
       "y": 3200,
-      "reviews": 0,
+      "reviews": 3,
       "fails": 0,
       "fail_rate": 0.0,
-      "status": "new"
+      "status": "mature"
     },
     {
       "term": "花隈",
@@ -16301,10 +16301,10 @@ const VOCAB_DATA = {
       "col": 4,
       "x": 420,
       "y": 2300,
-      "reviews": 0,
-      "fails": 0,
-      "fail_rate": 0.0,
-      "status": "new"
+      "reviews": 5,
+      "fails": 1,
+      "fail_rate": 0.2,
+      "status": "mature"
     },
     {
       "term": "千冬",
@@ -16315,10 +16315,10 @@ const VOCAB_DATA = {
       "col": 4,
       "x": 420,
       "y": 2400,
-      "reviews": 0,
+      "reviews": 3,
       "fails": 0,
       "fail_rate": 0.0,
-      "status": "new"
+      "status": "mature"
     },
     {
       "term": "佐枝",
@@ -16329,10 +16329,10 @@ const VOCAB_DATA = {
       "col": 4,
       "x": 420,
       "y": 2500,
-      "reviews": 0,
+      "reviews": 3,
       "fails": 0,
       "fail_rate": 0.0,
-      "status": "new"
+      "status": "mature"
     },
     {
       "term": "茶柱",
@@ -16343,10 +16343,10 @@ const VOCAB_DATA = {
       "col": 4,
       "x": 420,
       "y": 2600,
-      "reviews": 0,
+      "reviews": 3,
       "fails": 0,
       "fail_rate": 0.0,
-      "status": "new"
+      "status": "mature"
     },
     {
       "term": "担当",
@@ -16357,10 +16357,10 @@ const VOCAB_DATA = {
       "col": 4,
       "x": 420,
       "y": 2700,
-      "reviews": 0,
+      "reviews": 3,
       "fails": 0,
       "fail_rate": 0.0,
-      "status": "new"
+      "status": "mature"
     },
     {
       "term": "新入",
@@ -16371,10 +16371,10 @@ const VOCAB_DATA = {
       "col": 4,
       "x": 420,
       "y": 2800,
-      "reviews": 0,
+      "reviews": 3,
       "fails": 0,
       "fail_rate": 0.0,
-      "status": "new"
+      "status": "mature"
     },
     {
       "term": "諸君",
@@ -16385,10 +16385,10 @@ const VOCAB_DATA = {
       "col": 4,
       "x": 420,
       "y": 2900,
-      "reviews": 0,
+      "reviews": 3,
       "fails": 0,
       "fail_rate": 0.0,
-      "status": "new"
+      "status": "mature"
     },
     {
       "term": "整",
@@ -16399,10 +16399,10 @@ const VOCAB_DATA = {
       "col": 4,
       "x": 420,
       "y": 3000,
-      "reviews": 0,
-      "fails": 0,
-      "fail_rate": 0.0,
-      "status": "new"
+      "reviews": 5,
+      "fails": 1,
+      "fail_rate": 0.2,
+      "status": "mature"
     },
     {
       "term": "設備",
@@ -16413,10 +16413,10 @@ const VOCAB_DATA = {
       "col": 4,
       "x": 420,
       "y": 3100,
-      "reviews": 0,
+      "reviews": 3,
       "fails": 0,
       "fail_rate": 0.0,
-      "status": "new"
+      "status": "mature"
     },
     {
       "term": "察",
@@ -16427,10 +16427,10 @@ const VOCAB_DATA = {
       "col": 4,
       "x": 420,
       "y": 3200,
-      "reviews": 0,
-      "fails": 0,
-      "fail_rate": 0.0,
-      "status": "new"
+      "reviews": 6,
+      "fails": 2,
+      "fail_rate": 0.333,
+      "status": "mature"
     },
     {
       "term": "心中",
@@ -16441,10 +16441,10 @@ const VOCAB_DATA = {
       "col": 5,
       "x": 380,
       "y": 2300,
-      "reviews": 0,
+      "reviews": 3,
       "fails": 0,
       "fail_rate": 0.0,
-      "status": "new"
+      "status": "mature"
     },
     {
       "term": "祈",
@@ -16455,10 +16455,10 @@ const VOCAB_DATA = {
       "col": 5,
       "x": 380,
       "y": 2400,
-      "reviews": 0,
+      "reviews": 3,
       "fails": 0,
       "fail_rate": 0.0,
-      "status": "new"
+      "status": "mature"
     },
     {
       "term": "不運",
@@ -16469,10 +16469,10 @@ const VOCAB_DATA = {
       "col": 5,
       "x": 380,
       "y": 2500,
-      "reviews": 0,
+      "reviews": 3,
       "fails": 0,
       "fail_rate": 0.0,
-      "status": "new"
+      "status": "mature"
     },
     {
       "term": "否定",
@@ -16483,10 +16483,10 @@ const VOCAB_DATA = {
       "col": 5,
       "x": 380,
       "y": 2600,
-      "reviews": 0,
-      "fails": 0,
-      "fail_rate": 0.0,
-      "status": "new"
+      "reviews": 4,
+      "fails": 1,
+      "fail_rate": 0.25,
+      "status": "mature"
     },
     {
       "term": "備",
@@ -16497,10 +16497,10 @@ const VOCAB_DATA = {
       "col": 5,
       "x": 380,
       "y": 2700,
-      "reviews": 1,
-      "fails": 0,
-      "fail_rate": 0.0,
-      "status": "new"
+      "reviews": 7,
+      "fails": 2,
+      "fail_rate": 0.286,
+      "status": "mature"
     },
     {
       "term": "導入",
@@ -16511,10 +16511,10 @@ const VOCAB_DATA = {
       "col": 5,
       "x": 380,
       "y": 2800,
-      "reviews": 1,
-      "fails": 0,
-      "fail_rate": 0.0,
-      "status": "new"
+      "reviews": 5,
+      "fails": 1,
+      "fail_rate": 0.2,
+      "status": "mature"
     },
     {
       "term": "真□中",
@@ -16525,10 +16525,10 @@ const VOCAB_DATA = {
       "col": 5,
       "x": 380,
       "y": 2900,
-      "reviews": 1,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
-      "status": "new"
+      "status": "mature"
     },
     {
       "term": "都会",
@@ -16539,10 +16539,10 @@ const VOCAB_DATA = {
       "col": 5,
       "x": 380,
       "y": 3000,
-      "reviews": 1,
+      "reviews": 4,
       "fails": 0,
       "fail_rate": 0.0,
-      "status": "new"
+      "status": "mature"
     },
     {
       "term": "注意",
@@ -16553,10 +16553,10 @@ const VOCAB_DATA = {
       "col": 5,
       "x": 380,
       "y": 3100,
-      "reviews": 0,
+      "reviews": 3,
       "fails": 0,
       "fail_rate": 0.0,
-      "status": "new"
+      "status": "mature"
     },
     {
       "term": "消費",
@@ -16567,10 +16567,10 @@ const VOCAB_DATA = {
       "col": 5,
       "x": 380,
       "y": 3200,
-      "reviews": 0,
+      "reviews": 3,
       "fails": 0,
       "fail_rate": 0.0,
-      "status": "new"
+      "status": "mature"
     },
     {
       "term": "購入",
@@ -16581,10 +16581,10 @@ const VOCAB_DATA = {
       "col": 6,
       "x": 340,
       "y": 2300,
-      "reviews": 0,
-      "fails": 0,
-      "fail_rate": 0.0,
-      "status": "new"
+      "reviews": 6,
+      "fails": 2,
+      "fail_rate": 0.333,
+      "status": "mature"
     },
     {
       "term": "商品",
@@ -16595,10 +16595,10 @@ const VOCAB_DATA = {
       "col": 6,
       "x": 340,
       "y": 2400,
-      "reviews": 0,
+      "reviews": 3,
       "fails": 0,
       "fail_rate": 0.0,
-      "status": "new"
+      "status": "mature"
     },
     {
       "term": "利用",
@@ -16609,10 +16609,10 @@ const VOCAB_DATA = {
       "col": 6,
       "x": 340,
       "y": 2500,
-      "reviews": 0,
+      "reviews": 3,
       "fails": 0,
       "fail_rate": 0.0,
-      "status": "new"
+      "status": "mature"
     },
     {
       "term": "学生証",
@@ -16623,10 +16623,10 @@ const VOCAB_DATA = {
       "col": 6,
       "x": 340,
       "y": 2600,
-      "reviews": 0,
+      "reviews": 3,
       "fails": 0,
       "fail_rate": 0.0,
-      "status": "new"
+      "status": "mature"
     },
     {
       "term": "平米",
@@ -16637,10 +16637,10 @@ const VOCAB_DATA = {
       "col": 6,
       "x": 340,
       "y": 2700,
-      "reviews": 0,
+      "reviews": 3,
       "fails": 0,
       "fail_rate": 0.0,
-      "status": "new"
+      "status": "mature"
     },
     {
       "term": "資源",
@@ -16651,10 +16651,10 @@ const VOCAB_DATA = {
       "col": 6,
       "x": 340,
       "y": 2800,
-      "reviews": 0,
+      "reviews": 3,
       "fails": 0,
       "fail_rate": 0.0,
-      "status": "new"
+      "status": "mature"
     },
     {
       "term": "提示",
@@ -16665,10 +16665,10 @@ const VOCAB_DATA = {
       "col": 6,
       "x": 340,
       "y": 2900,
-      "reviews": 0,
-      "fails": 0,
-      "fail_rate": 0.0,
-      "status": "new"
+      "reviews": 4,
+      "fails": 1,
+      "fail_rate": 0.25,
+      "status": "mature"
     },
     {
       "term": "使用可能",
@@ -16679,10 +16679,10 @@ const VOCAB_DATA = {
       "col": 6,
       "x": 340,
       "y": 3000,
-      "reviews": 0,
+      "reviews": 3,
       "fails": 0,
       "fail_rate": 0.0,
-      "status": "new"
+      "status": "mature"
     },
     {
       "term": "自動的",
@@ -16693,10 +16693,10 @@ const VOCAB_DATA = {
       "col": 6,
       "x": 340,
       "y": 3100,
-      "reviews": 0,
+      "reviews": 3,
       "fails": 0,
       "fail_rate": 0.0,
-      "status": "new"
+      "status": "mature"
     },
     {
       "term": "平等",
@@ -16707,10 +16707,10 @@ const VOCAB_DATA = {
       "col": 6,
       "x": 340,
       "y": 3200,
-      "reviews": 0,
-      "fails": 0,
-      "fail_rate": 0.0,
-      "status": "new"
+      "reviews": 4,
+      "fails": 1,
+      "fail_rate": 0.25,
+      "status": "mature"
     },
     {
       "term": "宝石",
