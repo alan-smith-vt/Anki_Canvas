@@ -301,9 +301,9 @@
 <div id="kanji-picker"></div>
 
 <div id="legend" style="display:none">
-  <div class="legend-row"><div class="legend-dot" style="background:#ff3344;box-shadow:0 0 8px #ff3344"></div> struggling (>20% fail)</div>
-  <div class="legend-row"><div class="legend-dot" style="background:#ff9933;box-shadow:0 0 6px #ff9933"></div> shaky (10-20%)</div>
-  <div class="legend-row"><div class="legend-dot" style="background:#c0c0d0"></div> solid (<10%)</div>
+  <div class="legend-row"><div class="legend-dot" style="background:#ff3344;box-shadow:0 0 8px #ff3344"></div> struggling</div>
+  <div class="legend-row"><div class="legend-dot" style="background:#ff9933;box-shadow:0 0 6px #ff9933"></div> shaky</div>
+  <div class="legend-row"><div class="legend-dot" style="background:#c0c0d0"></div> solid</div>
   <div class="legend-row"><div class="legend-dot" style="background:#333348"></div> new / unstarted</div>
 </div>
 
@@ -349,6 +349,27 @@ let termProgress = new Map(); // term -> 0(red) / 1(orange) / 2(white)
 let isMinimapDragging = false;
 let searchQuery = '';
 let searchMatches = new Set();
+
+// Color configuration — change prop/thresholds to recolor the whole canvas
+const colorConfig = {
+  prop: 'lapse_score',   // term field to color by (e.g. 'lapses', 'fail_rate', 'fails',
+                    // 'ivl (negative)', 'lapse_score', 'recent_lapses')
+  thresh2: 2,       // above this = red (struggling)
+  thresh1: 1,       // above this = orange (shaky), at or below = white (solid)
+};
+
+// Returns 'red', 'orange', or 'white' based on colorConfig
+function termTier(term) {
+  const val = term[colorConfig.prop] || 0;
+  if (val > colorConfig.thresh2) return 'red';
+  if (val > colorConfig.thresh1) return 'orange';
+  return 'white';
+}
+
+// Whether a term is "highlighted" (orange or red) for dismiss/click purposes
+function termIsHighlighted(term) {
+  return term.status !== 'new' && termTier(term) !== 'white';
+}
 
 //Touch states
 let lastTouchEnd = 0;
@@ -421,8 +442,9 @@ function getTermColor(term) {
 
   // Normal
   if (term.status === 'new') return { fill: '#333348', glow: null };
-  if (term.fail_rate > 0.20) return { fill: '#ff3344', glow: '#ff3344' };
-  if (term.fail_rate > 0.10) return { fill: '#ff9933', glow: '#ff993366' };
+  const tier = termTier(term);
+  if (tier === 'red') return { fill: '#ff3344', glow: '#ff3344' };
+  if (tier === 'orange') return { fill: '#ff9933', glow: '#ff993366' };
   return { fill: '#c0c0d0', glow: null };
 }
 
@@ -468,8 +490,9 @@ function getGlowIntensity(term) {
   }
 
   if (term.status === 'new') return 0;
-  if (term.fail_rate > 0.20) return 12 + (term.fail_rate - 0.20) * 40;
-  if (term.fail_rate > 0.10) return 6;
+  const tier = termTier(term);
+  if (tier === 'red') return 12 + Math.min((term[colorConfig.prop] - colorConfig.thresh2) * 4, 20);
+  if (tier === 'orange') return 6;
   return 0;
 }
 
@@ -478,6 +501,7 @@ function computeKanjiScores(kanji) {
   const selectedRadicals = new Set(data.radicals[kanji] || []);
 
   for (const term of data.terms) {
+    if (term.type === 'radical') continue;
     const charScores = {};
     for (const char of term.term) {
       if (char === kanji) {
@@ -708,9 +732,9 @@ function draw() {
         solid++;
       } else if (t.status === 'new') {
         newCount++;
-      } else if (t.fail_rate > 0.20) {
+      } else if (termTier(t) === 'red') {
         red++;
-      } else if (t.fail_rate > 0.10) {
+      } else if (termTier(t) === 'orange') {
         orange++;
       } else {
         solid++;
@@ -728,7 +752,7 @@ function draw() {
       const whiteCount = pageTerms.filter(t => {
         if (termProgress.has(t)) return termProgress.get(t) === 2;
         if (dismissed.has(t)) return true;
-        return t.status !== 'new' && t.fail_rate <= 0.10;
+        return t.status !== 'new' && termTier(t) === 'white';
       }).length;
       const passRate = whiteCount / totalReviewed;
       dotColor = passRate >= 0.85 ? '#c0c0d0' : passRate >= 0.70 ? '#ff9933' : '#ff3344';
@@ -838,7 +862,7 @@ function draw() {
     const charSpacing = 22;
     const startY = term.y - ((chars.length - 1) * charSpacing) / 2;
 
-    const charScores = (selectedKanji && kanjiScores.size > 0) ? kanjiScores.get(term) || {} : null;
+    const charScores = (selectedKanji && kanjiScores.size > 0 && term.type !== 'radical') ? kanjiScores.get(term) || {} : null;
 
     for (let ci = 0; ci < chars.length; ci++) {
       if (charScores) {
@@ -1059,7 +1083,7 @@ function showTooltip(term, mouseX, mouseY) {
     tt.querySelector('.tt-fails-label').textContent = 'in vocab';
     tt.querySelector('.tt-reviews').textContent = term.kanji_count;
     tt.querySelector('.tt-fails').textContent = term.vocab_count;
-    tt.querySelector('.tt-rate').textContent = term.strokes ? term.strokes : '';
+    tt.querySelector('.tt-rate').textContent = term.strokes ? term.strokes + '画' : '';
     tt.querySelector('.tt-rate').parentElement.style.display = '';
     const barFill = tt.querySelector('.tt-bar-fill');
     barFill.style.width = (term.vocab_count > 0 ? Math.min(term.vocab_count / term.kanji_count * 100, 100) : 0) + '%';
@@ -1082,9 +1106,9 @@ function showTooltip(term, mouseX, mouseY) {
   } else {
     tt.querySelector('.tt-meaning').innerHTML = term.meaning;
     tt.querySelector('.tt-reviews-label').textContent = 'reviews';
-    tt.querySelector('.tt-fails-label').textContent = 'fails';
+    tt.querySelector('.tt-fails-label').textContent = colorConfig.prop;
     tt.querySelector('.tt-reviews').textContent = term.reviews;
-    tt.querySelector('.tt-fails').textContent = term.fails;
+    tt.querySelector('.tt-fails').textContent = term[colorConfig.prop] || 0;
     tt.querySelector('.tt-rate').textContent = term.status === 'new' ? 'new' : (term.fail_rate * 100).toFixed(1) + '%';
     tt.querySelector('.tt-rate').parentElement.style.display = '';
 
@@ -1093,8 +1117,11 @@ function showTooltip(term, mouseX, mouseY) {
       barFill.style.width = '0%';
       barFill.style.background = '#333348';
     } else {
-      barFill.style.width = Math.min(term.fail_rate * 300, 100) + '%';
-      barFill.style.background = term.fail_rate > 0.2 ? '#ff3344' : term.fail_rate > 0.1 ? '#ff9933' : '#4a4a6a';
+      const val = term[colorConfig.prop] || 0;
+      const barMax = colorConfig.thresh2 * 2;
+      barFill.style.width = Math.min(val / barMax * 100, 100) + '%';
+      const tier = termTier(term);
+      barFill.style.background = tier === 'red' ? '#ff3344' : tier === 'orange' ? '#ff9933' : '#4a4a6a';
     }
 
     // Radical similarity info
@@ -1251,7 +1278,7 @@ function onClick(e) {
       }
     } else if (!selectedKanji) {
       // Outside review mode, clicking a highlighted term dismisses as before
-      if (hit.status !== 'new' && hit.fail_rate > 0.10) {
+      if (termIsHighlighted(hit)) {
         if (dismissed.has(hit)) dismissed.delete(hit);
         else dismissed.add(hit);
       }
@@ -1617,7 +1644,7 @@ function onTouchEnd(e) {
           const current = termProgress.get(hit);
           if (current < 2) termProgress.set(hit, current + 1);
         } else if (!selectedKanji) {
-          if (hit.status !== 'new' && hit.fail_rate > 0.10) {
+          if (termIsHighlighted(hit)) {
             if (dismissed.has(hit)) dismissed.delete(hit);
             else dismissed.add(hit);
           }
