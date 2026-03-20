@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dark Sketch</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #0e0e10;
+    --surface: #1a1a1f;
+    --surface-hover: #25252b;
+    --border: #2a2a32;
+    --text: #c8c8d0;
+    --text-dim: #6e6e7a;
+    --accent: #6c5ce7;
+    --canvas-bg: #141418;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Cascadia Code', 'Consolas', 'Courier New', monospace;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    user-select: none;
+  }
+
+  /* ── Toolbar ── */
+  .toolbar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 12px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+    flex-wrap: wrap;
+  }
+
+  .toolbar-group {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .toolbar-group + .toolbar-group {
+    margin-left: 4px;
+    padding-left: 10px;
+    border-left: 1px solid var(--border);
+  }
+
+  .tool-btn {
+    width: 36px; height: 36px;
+    display: flex; align-items: center; justify-content: center;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    background: transparent;
+    color: var(--text-dim);
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.15s;
+  }
+  .tool-btn:hover { background: var(--surface-hover); color: var(--text); }
+  .tool-btn.active { background: var(--accent); color: #fff; border-color: transparent; }
+
+  .tool-btn svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+  /* Color swatches */
+  .swatch {
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: all 0.15s;
+    position: relative;
+  }
+  .swatch:hover { transform: scale(1.15); }
+  .swatch.active { border-color: #fff; box-shadow: 0 0 0 2px var(--accent); }
+
+  .custom-color-wrap {
+    position: relative;
+    width: 26px; height: 26px;
+  }
+  .custom-color-wrap input[type="color"] {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    opacity: 0; cursor: pointer;
+  }
+  .custom-swatch {
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    border: 2px dashed var(--border);
+    display: flex; align-items: center; justify-content: center;
+    pointer-events: none;
+    font-size: 12px; color: var(--text-dim);
+  }
+
+  /* Slider */
+  .size-slider {
+    -webkit-appearance: none;
+    width: 80px; height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+    outline: none;
+  }
+  .size-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 14px; height: 14px;
+    background: var(--text);
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  .size-slider::-moz-range-thumb {
+    width: 14px; height: 14px;
+    background: var(--text);
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+  }
+
+  .size-label {
+    font-size: 11px;
+    color: var(--text-dim);
+    min-width: 28px;
+    text-align: center;
+  }
+
+  /* Canvas */
+  .canvas-wrap {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    background: var(--canvas-bg);
+    /* subtle grid */
+    background-image:
+      radial-gradient(circle, #ffffff06 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+
+  canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+    cursor: crosshair;
+  }
+
+  /* Status bar */
+  .status-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4px 12px;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    font-size: 11px;
+    color: var(--text-dim);
+    flex-shrink: 0;
+  }
+
+  .shortcut-hint { opacity: 0.5; }
+
+  /* Save modal */
+  .save-overlay {
+    display: none;
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.6);
+    z-index: 100;
+    align-items: center; justify-content: center;
+  }
+  .save-overlay.show { display: flex; }
+  .save-modal {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    min-width: 280px;
+    text-align: center;
+  }
+  .save-modal h3 { margin-bottom: 16px; font-weight: 400; font-size: 14px; }
+  .save-btn {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 8px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--surface-hover);
+    color: var(--text);
+    font-family: inherit;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .save-btn:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .save-btn.cancel { background: transparent; border-color: transparent; color: var(--text-dim); }
+  .save-btn.cancel:hover { color: var(--text); background: transparent; }
+</style>
+</head>
+<body>
+
+<!-- Toolbar -->
+<div class="toolbar">
+  <!-- Tools -->
+  <div class="toolbar-group">
+    <button class="tool-btn active" data-tool="brush" title="Brush (B)">
+      <svg viewBox="0 0 24 24"><path d="M18.37 2.63a1.5 1.5 0 0 1 2.12 0l.88.88a1.5 1.5 0 0 1 0 2.12L9.62 17.38a4 4 0 0 1-1.88 1.05l-3.35.84.84-3.35a4 4 0 0 1 1.05-1.88Z"/></svg>
+    </button>
+    <button class="tool-btn" data-tool="line" title="Line (L)">
+      <svg viewBox="0 0 24 24"><line x1="5" y1="19" x2="19" y2="5"/></svg>
+    </button>
+    <button class="tool-btn" data-tool="rect" title="Rectangle (R)">
+      <svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="1"/></svg>
+    </button>
+    <button class="tool-btn" data-tool="circle" title="Circle (C)">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/></svg>
+    </button>
+    <button class="tool-btn" data-tool="arrow" title="Arrow (A)">
+      <svg viewBox="0 0 24 24"><line x1="5" y1="19" x2="19" y2="5"/><polyline points="10 5 19 5 19 14"/></svg>
+    </button>
+    <button class="tool-btn" data-tool="eraser" title="Eraser (E)">
+      <svg viewBox="0 0 24 24"><path d="m7 21-4.3-4.3c-1-1-1-2.5 0-3.4l9.6-9.6c1-1 2.5-1 3.4 0l5.6 5.6c1 1 1 2.5 0 3.4L13 21"/><line x1="2" y1="21" x2="22" y2="21"/></svg>
+    </button>
+    <button class="tool-btn" data-tool="text" title="Text (T)">
+      <svg viewBox="0 0 24 24"><polyline points="4 7 4 4 20 4 20 7"/><line x1="12" y1="4" x2="12" y2="20"/><line x1="8" y1="20" x2="16" y2="20"/></svg>
+    </button>
+  </div>
+
+  <!-- Colors -->
+  <div class="toolbar-group">
+    <div class="swatch active" data-color="#ffffff" style="background:#ffffff" title="White"></div>
+    <div class="swatch" data-color="#ef4444" style="background:#ef4444" title="Red"></div>
+    <div class="swatch" data-color="#f59e0b" style="background:#f59e0b" title="Amber"></div>
+    <div class="swatch" data-color="#22c55e" style="background:#22c55e" title="Green"></div>
+    <div class="swatch" data-color="#3b82f6" style="background:#3b82f6" title="Blue"></div>
+    <div class="swatch" data-color="#a855f7" style="background:#a855f7" title="Purple"></div>
+    <div class="swatch" data-color="#ec4899" style="background:#ec4899" title="Pink"></div>
+    <div class="custom-color-wrap">
+      <div class="custom-swatch">+</div>
+      <input type="color" id="customColor" value="#00ffcc" title="Custom color">
+    </div>
+  </div>
+
+  <!-- Size -->
+  <div class="toolbar-group">
+    <span class="size-label" id="sizeLabel">3</span>
+    <input type="range" class="size-slider" id="sizeSlider" min="1" max="40" value="3">
+  </div>
+
+  <!-- Actions -->
+  <div class="toolbar-group">
+    <button class="tool-btn" id="undoBtn" title="Undo (Ctrl+Z)">
+      <svg viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+    </button>
+    <button class="tool-btn" id="redoBtn" title="Redo (Ctrl+Y)">
+      <svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.13-9.36L23 10"/></svg>
+    </button>
+    <button class="tool-btn" id="clearBtn" title="Clear all">
+      <svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+    </button>
+    <button class="tool-btn" id="saveBtn" title="Save (Ctrl+S)">
+      <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+    </button>
+  </div>
+</div>
+
+<!-- Canvas -->
+<div class="canvas-wrap">
+  <canvas id="drawCanvas"></canvas>
+</div>
+
+<!-- Status -->
+<div class="status-bar">
+  <span id="statusText">Brush · 3px</span>
+  <span class="shortcut-hint">B brush · L line · R rect · C circle · A arrow · E eraser · T text · Ctrl+Z undo</span>
+</div>
+
+<!-- Save modal -->
+<div class="save-overlay" id="saveOverlay">
+  <div class="save-modal">
+    <h3>Save sketch</h3>
+    <button class="save-btn" id="savePng">Save as PNG (dark bg)</button>
+    <button class="save-btn" id="saveTransparent">Save as PNG (transparent)</button>
+    <button class="save-btn" id="saveCopy">Copy to clipboard</button>
+    <button class="save-btn cancel" id="saveCancel">Cancel</button>
+  </div>
+</div>
+
+<script>
+(() => {
+  const canvas = document.getElementById('drawCanvas');
+  const ctx = canvas.getContext('2d');
+  const wrap = canvas.parentElement;
+
+  // ── State ──
+  let tool = 'brush';
+  let color = '#ffffff';
+  let size = 3;
+  let drawing = false;
+  let startX, startY, lastX, lastY;
+
+  // History (stores ImageData snapshots)
+  let history = [];
+  let historyIdx = -1;
+  const MAX_HISTORY = 60;
+
+  // ── Canvas sizing ──
+  function resize() {
+    const dpr = window.devicePixelRatio || 1;
+    const w = wrap.clientWidth;
+    const h = wrap.clientHeight;
+
+    // Save current content
+    let imgData = null;
+    if (canvas.width > 0 && canvas.height > 0) {
+      imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    }
+
+    canvas.width = w * dpr;
+    canvas.height = h * dpr;
+    canvas.style.width = w + 'px';
+    canvas.style.height = h + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    // Restore
+    if (imgData) {
+      ctx.putImageData(imgData, 0, 0);
+    }
+  }
+
+  window.addEventListener('resize', resize);
+  resize();
+  pushHistory();
+
+  // ── History ──
+  function pushHistory() {
+    const dpr = window.devicePixelRatio || 1;
+    historyIdx++;
+    history.length = historyIdx;
+    history.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
+    if (history.length > MAX_HISTORY) {
+      history.shift();
+      historyIdx--;
+    }
+  }
+
+  function undo() {
+    if (historyIdx > 0) {
+      historyIdx--;
+      ctx.putImageData(history[historyIdx], 0, 0);
+    }
+  }
+
+  function redo() {
+    if (historyIdx < history.length - 1) {
+      historyIdx++;
+      ctx.putImageData(history[historyIdx], 0, 0);
+    }
+  }
+
+  // ── Coordinate helpers ──
+  function getPos(e) {
+    const r = canvas.getBoundingClientRect();
+    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+    return { x: clientX - r.left, y: clientY - r.top };
+  }
+
+  // ── Drawing ──
+  let snapshot = null;
+
+  function startDraw(e) {
+    e.preventDefault();
+    drawing = true;
+    const p = getPos(e);
+    startX = lastX = p.x;
+    startY = lastY = p.y;
+
+    if (tool === 'text') {
+      drawing = false;
+      const text = prompt('Enter text:');
+      if (text) {
+        ctx.save();
+        ctx.font = `${Math.max(size * 4, 14)}px 'Cascadia Code', 'Consolas', 'Courier New', monospace`;
+        ctx.fillStyle = color;
+        ctx.fillText(text, p.x, p.y);
+        ctx.restore();
+        pushHistory();
+      }
+      return;
+    }
+
+    if (tool === 'brush' || tool === 'eraser') {
+      ctx.beginPath();
+      ctx.moveTo(p.x, p.y);
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+    }
+
+    // snapshot for shape preview
+    snapshot = ctx.getImageData(0, 0, canvas.width, canvas.height);
+  }
+
+  function moveDraw(e) {
+    if (!drawing) return;
+    e.preventDefault();
+    const p = getPos(e);
+
+    if (tool === 'brush') {
+      ctx.strokeStyle = color;
+      ctx.lineWidth = size;
+      ctx.globalCompositeOperation = 'source-over';
+      ctx.lineTo(p.x, p.y);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(p.x, p.y);
+    } else if (tool === 'eraser') {
+      ctx.globalCompositeOperation = 'destination-out';
+      ctx.lineWidth = size * 3;
+      ctx.lineTo(p.x, p.y);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(p.x, p.y);
+    } else {
+      // Shape preview: restore snapshot, draw preview
+      ctx.putImageData(snapshot, 0, 0);
+      drawShape(startX, startY, p.x, p.y, false);
+    }
+
+    lastX = p.x;
+    lastY = p.y;
+  }
+
+  function endDraw(e) {
+    if (!drawing) return;
+    drawing = false;
+    ctx.globalCompositeOperation = 'source-over';
+
+    if (['line', 'rect', 'circle', 'arrow'].includes(tool)) {
+      const p = e.changedTouches ? { x: lastX, y: lastY } : getPos(e);
+      ctx.putImageData(snapshot, 0, 0);
+      drawShape(startX, startY, p.x, p.y, true);
+    }
+
+    pushHistory();
+  }
+
+  function drawShape(x1, y1, x2, y2) {
+    ctx.save();
+    ctx.strokeStyle = color;
+    ctx.lineWidth = size;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+
+    if (tool === 'line') {
+      ctx.beginPath();
+      ctx.moveTo(x1, y1);
+      ctx.lineTo(x2, y2);
+      ctx.stroke();
+    } else if (tool === 'rect') {
+      ctx.beginPath();
+      ctx.rect(x1, y1, x2 - x1, y2 - y1);
+      ctx.stroke();
+    } else if (tool === 'circle') {
+      const rx = (x2 - x1) / 2;
+      const ry = (y2 - y1) / 2;
+      ctx.beginPath();
+      ctx.ellipse(x1 + rx, y1 + ry, Math.abs(rx), Math.abs(ry), 0, 0, Math.PI * 2);
+      ctx.stroke();
+    } else if (tool === 'arrow') {
+      const headLen = Math.max(size * 4, 12);
+      const angle = Math.atan2(y2 - y1, x2 - x1);
+      ctx.beginPath();
+      ctx.moveTo(x1, y1);
+      ctx.lineTo(x2, y2);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(x2, y2);
+      ctx.lineTo(x2 - headLen * Math.cos(angle - Math.PI / 6), y2 - headLen * Math.sin(angle - Math.PI / 6));
+      ctx.moveTo(x2, y2);
+      ctx.lineTo(x2 - headLen * Math.cos(angle + Math.PI / 6), y2 - headLen * Math.sin(angle + Math.PI / 6));
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  // ── Events ──
+  canvas.addEventListener('mousedown', startDraw);
+  canvas.addEventListener('mousemove', moveDraw);
+  canvas.addEventListener('mouseup', endDraw);
+  canvas.addEventListener('mouseleave', endDraw);
+  canvas.addEventListener('touchstart', startDraw, { passive: false });
+  canvas.addEventListener('touchmove', moveDraw, { passive: false });
+  canvas.addEventListener('touchend', endDraw);
+
+  // ── Toolbar ──
+  const toolBtns = document.querySelectorAll('[data-tool]');
+  const swatches = document.querySelectorAll('.swatch');
+  const sizeSlider = document.getElementById('sizeSlider');
+  const sizeLabel = document.getElementById('sizeLabel');
+  const statusText = document.getElementById('statusText');
+  const customColor = document.getElementById('customColor');
+
+  function setTool(t) {
+    tool = t;
+    toolBtns.forEach(b => b.classList.toggle('active', b.dataset.tool === t));
+    canvas.style.cursor = t === 'eraser' ? 'cell' : t === 'text' ? 'text' : 'crosshair';
+    updateStatus();
+  }
+
+  function setColor(c) {
+    color = c;
+    swatches.forEach(s => s.classList.toggle('active', s.dataset.color === c));
+    updateStatus();
+  }
+
+  function updateStatus() {
+    const name = tool.charAt(0).toUpperCase() + tool.slice(1);
+    statusText.textContent = `${name} · ${size}px · ${color}`;
+  }
+
+  toolBtns.forEach(b => b.addEventListener('click', () => setTool(b.dataset.tool)));
+  swatches.forEach(s => s.addEventListener('click', () => setColor(s.dataset.color)));
+
+  customColor.addEventListener('input', (e) => {
+    const c = e.target.value;
+    swatches.forEach(s => s.classList.remove('active'));
+    color = c;
+    document.querySelector('.custom-swatch').style.background = c;
+    document.querySelector('.custom-swatch').style.borderColor = c;
+    document.querySelector('.custom-swatch').textContent = '';
+    updateStatus();
+  });
+
+  sizeSlider.addEventListener('input', () => {
+    size = parseInt(sizeSlider.value);
+    sizeLabel.textContent = size;
+    updateStatus();
+  });
+
+  document.getElementById('undoBtn').addEventListener('click', undo);
+  document.getElementById('redoBtn').addEventListener('click', redo);
+  document.getElementById('clearBtn').addEventListener('click', () => {
+    ctx.clearRect(0, 0, canvas.width / (window.devicePixelRatio||1), canvas.height / (window.devicePixelRatio||1));
+    pushHistory();
+  });
+
+  // ── Save ──
+  const saveOverlay = document.getElementById('saveOverlay');
+  document.getElementById('saveBtn').addEventListener('click', () => saveOverlay.classList.add('show'));
+  document.getElementById('saveCancel').addEventListener('click', () => saveOverlay.classList.remove('show'));
+  saveOverlay.addEventListener('click', (e) => { if (e.target === saveOverlay) saveOverlay.classList.remove('show'); });
+
+  function exportCanvas(withBg) {
+    const exp = document.createElement('canvas');
+    exp.width = canvas.width;
+    exp.height = canvas.height;
+    const ectx = exp.getContext('2d');
+    if (withBg) {
+      ectx.fillStyle = '#141418';
+      ectx.fillRect(0, 0, exp.width, exp.height);
+    }
+    ectx.drawImage(canvas, 0, 0);
+    return exp;
+  }
+
+  document.getElementById('savePng').addEventListener('click', () => {
+    const link = document.createElement('a');
+    link.download = 'sketch.png';
+    link.href = exportCanvas(true).toDataURL('image/png');
+    link.click();
+    saveOverlay.classList.remove('show');
+  });
+
+  document.getElementById('saveTransparent').addEventListener('click', () => {
+    const link = document.createElement('a');
+    link.download = 'sketch-transparent.png';
+    link.href = exportCanvas(false).toDataURL('image/png');
+    link.click();
+    saveOverlay.classList.remove('show');
+  });
+
+  document.getElementById('saveCopy').addEventListener('click', async () => {
+    try {
+      const blob = await new Promise(r => exportCanvas(true).toBlob(r, 'image/png'));
+      await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
+      saveOverlay.classList.remove('show');
+      statusText.textContent = 'Copied to clipboard!';
+      setTimeout(updateStatus, 2000);
+    } catch {
+      statusText.textContent = 'Copy failed — try Save as PNG';
+      setTimeout(updateStatus, 2000);
+    }
+  });
+
+  // ── Keyboard shortcuts ──
+  document.addEventListener('keydown', (e) => {
+    if (e.target.tagName === 'INPUT') return;
+    const k = e.key.toLowerCase();
+    if (e.ctrlKey || e.metaKey) {
+      if (k === 'z') { e.preventDefault(); undo(); }
+      if (k === 'y') { e.preventDefault(); redo(); }
+      if (k === 's') { e.preventDefault(); saveOverlay.classList.add('show'); }
+      return;
+    }
+    const shortcuts = { b: 'brush', l: 'line', r: 'rect', c: 'circle', a: 'arrow', e: 'eraser', t: 'text' };
+    if (shortcuts[k]) setTool(shortcuts[k]);
+
+    // bracket keys for size
+    if (k === '[') { sizeSlider.value = Math.max(1, size - 1); sizeSlider.dispatchEvent(new Event('input')); }
+    if (k === ']') { sizeSlider.value = Math.min(40, size + 1); sizeSlider.dispatchEvent(new Event('input')); }
+  });
+
+  updateStatus();
+})();
+</script>
+</body>
+</html>
