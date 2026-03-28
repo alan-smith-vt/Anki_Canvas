@@ -562,22 +562,26 @@ async function buildStack(goo, ctrl) {
   const totalZ = header.layerCount * header.layerHeight;
 
   // Downsample for GPU — 16K is way too much for textures
-  // Find bounding box first from a middle layer
+  // Find bounding box by sampling several layers (first, last, middle, quartiles)
   progressText.textContent = 'Finding geometry bounds...';
   await sleep(10);
 
-  const midIdx = Math.floor(layers.length / 2);
-  const midPixels = gooDecodeLayer(layers[midIdx].rle, W, H);
-
-  // Find bounding box of non-zero pixels
   let minCol = W, maxCol = 0, minRow = H, maxRow = 0;
-  for (let r = 0; r < H; r++) {
-    for (let c = 0; c < W; c++) {
-      if (midPixels[r * W + c] > 0) {
-        if (c < minCol) minCol = c;
-        if (c > maxCol) maxCol = c;
-        if (r < minRow) minRow = r;
-        if (r > maxRow) maxRow = r;
+  const sampleIndices = [...new Set([
+    0, Math.floor(layers.length / 4), Math.floor(layers.length / 2),
+    Math.floor(layers.length * 3 / 4), layers.length - 1
+  ].filter(i => i >= 0 && i < layers.length))];
+
+  for (const si of sampleIndices) {
+    const samplePixels = gooDecodeLayer(layers[si].rle, W, H);
+    for (let r = 0; r < H; r++) {
+      for (let c = 0; c < W; c++) {
+        if (samplePixels[r * W + c] > 0) {
+          if (c < minCol) minCol = c;
+          if (c > maxCol) maxCol = c;
+          if (r < minRow) minRow = r;
+          if (r > maxRow) maxRow = r;
+        }
       }
     }
   }
