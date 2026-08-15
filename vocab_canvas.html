@@ -64,6 +64,13 @@
     margin-bottom: 10px;
     font-size: 13px;
   }
+  #tooltip .tt-sentence {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 13px;
+    color: #8899bb;
+    line-height: 1.5;
+    margin-bottom: 10px;
+  }
   #tooltip .tt-stats {
     display: flex;
     gap: 16px;
@@ -275,6 +282,7 @@
     #tooltip .tt-term { font-size: 36px; }
     #tooltip .tt-reading { font-size: 17px; }
     #tooltip .tt-meaning { font-size: 15px; }
+    #tooltip .tt-sentence { font-size: 15px; }
     #tooltip .tt-stats { font-size: 13px; gap: 20px; }
     #tooltip .tt-radicals { font-size: 15px; }
     #kanji-picker button { font-size: 32px; padding: 12px 18px; }
@@ -289,6 +297,7 @@
   <div class="tt-term"></div>
   <div class="tt-reading"></div>
   <div class="tt-meaning"></div>
+  <div class="tt-sentence"></div>
   <div class="tt-stats">
     <div><span class="tt-reviews-label">reviews</span> <span class="tt-reviews"></span></div>
     <div><span class="tt-fails-label">fails</span> <span class="tt-fails"></span></div>
@@ -1103,8 +1112,12 @@ function showTooltip(term, mouseX, mouseY) {
       radicalHTML += `<div style="color:#333355">other: ${otherKanji.slice(0, 20).join(' ')}${otherKanji.length > 20 ? ' …' : ''}</div>`;
     }
     tt.querySelector('.tt-radicals').innerHTML = radicalHTML;
+    tt.querySelector('.tt-sentence').style.display = 'none';
   } else {
     tt.querySelector('.tt-meaning').innerHTML = term.meaning;
+    const sentEl = tt.querySelector('.tt-sentence');
+    sentEl.textContent = term.sentence || '';
+    sentEl.style.display = term.sentence ? '' : 'none';
     tt.querySelector('.tt-reviews-label').textContent = 'reviews';
     tt.querySelector('.tt-fails-label').textContent = colorConfig.prop;
     tt.querySelector('.tt-reviews').textContent = term.reviews;
