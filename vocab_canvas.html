@@ -287,6 +287,22 @@
     #tooltip .tt-radicals { font-size: 15px; }
     #kanji-picker button { font-size: 32px; padding: 12px 18px; }
   }
+
+  /* Desktop: double the base tooltip sizes */
+  @media (min-width: 769px) {
+    #tooltip {
+      padding: 24px 32px;
+      min-width: 360px;
+      font-size: 26px;
+    }
+    #tooltip .tt-term { font-size: 56px; }
+    #tooltip .tt-reading { font-size: 28px; }
+    #tooltip .tt-meaning { font-size: 26px; }
+    #tooltip .tt-sentence { font-size: 26px; }
+    #tooltip .tt-stats { font-size: 22px; gap: 32px; }
+    #tooltip .tt-radicals { font-size: 26px; }
+    #tooltip .tt-bar { height: 6px; }
+  }
 </style>
 </head>
 <body>
@@ -1155,12 +1171,14 @@ function showTooltip(term, mouseX, mouseY) {
     tt.querySelector('.tt-radicals').innerHTML = radicalHTML;
   }
 
-  // Position tooltip
+  // Position tooltip — measure real size so large tooltips stay on screen
+  const ttW = tt.offsetWidth || 220;
+  const ttH = tt.offsetHeight || 160;
   let tx = mouseX + 16;
   let ty = mouseY - 10;
-  if (tx + 220 > window.innerWidth) tx = mouseX - 220;
+  if (tx + ttW > window.innerWidth) tx = mouseX - ttW - 16;
   if (tx < 10) tx = 10;
-  if (ty + 160 > window.innerHeight) ty = mouseY - 160;
+  if (ty + ttH > window.innerHeight) ty = mouseY - ttH;
   if (ty < 10) ty = 10;
   tt.style.left = tx + 'px';
   tt.style.top = ty + 'px';
