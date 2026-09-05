@@ -239,7 +239,7 @@
     position: fixed;
     top: 16px;
     right: 16px;
-    z-index: 50;
+    z-index: 70;
     background: transparent;
     border: none;
     color: #2a2a3a;
@@ -293,6 +293,13 @@
   }
   #eink-bar #eink-page { min-width: 90px; font-size: 14px; }
   body.eink #eink-bar { display: flex; }
+  @media (max-width: 768px) {
+    /* Narrow screens: the bar would cover the top-right toggles, so dock it at the bottom */
+    #eink-bar { top: auto; bottom: 12px; }
+    #eink-bar button { min-width: 40px; height: 40px; font-size: 18px; padding: 0 6px; }
+    #eink-bar #eink-page { min-width: 70px; font-size: 12px; }
+    body.eink #minimap { bottom: 64px; }
+  }
 
   /* ---------- E-ink theme: white, high contrast, no glow, no animation ---------- */
   body.eink { background: #ffffff; cursor: default; }
@@ -319,8 +326,8 @@
   #eink-toggle {
     position: fixed;
     top: 16px;
-    right: 44px;
-    z-index: 50;
+    right: 48px;
+    z-index: 70;
     background: transparent;
     border: none;
     color: #2a2a3a;
@@ -462,7 +469,9 @@ const THEMES = {
     btnFill: '#ffffff', btnFillActive: '#000000', btnStroke: '#000000', btnStrokeActive: '#000000',
     btnText: '#000000', btnTextActive: '#ffffff',
     mmBg: '#ffffff', mmPage: '#e8e8e8', mmDim: '#d0d0d0', mmBlueDim: '#a0b0d0', mmView: '#000000',
-    weight: { normal: 400, red: 800, orange: 600, hi: 800, hover: 800 },
+    weight: { normal: 400, red: 700, orange: 500, hi: 800, hover: 800 },
+    // Draw tier as a box around the term instead of coloring the glyphs
+    box: { red: { color: '#c00000', width: 3 }, orange: { color: '#c06000', width: 1.5 } },
   },
 };
 let T = THEMES.dark;
@@ -632,8 +641,8 @@ function getTermColor(term) {
   // Term has progress entry
   if (termProgress.has(term)) {
     const p = termProgress.get(term);
-    if (p === 0) return { fill: T.red, glow: T.red, weight: T.weight.red };
-    if (p === 1) return { fill: T.orange, glow: T.orangeGlow, weight: T.weight.orange };
+    if (p === 0) return { fill: T.red, glow: T.red, weight: T.weight.red, tier: 'red' };
+    if (p === 1) return { fill: T.orange, glow: T.orangeGlow, weight: T.weight.orange, tier: 'orange' };
     return { fill: T.solid, glow: null };
   }
 
@@ -650,8 +659,8 @@ function getTermColor(term) {
   // Normal
   if (term.status === 'new') return { fill: T.newc, glow: null };
   const tier = termTier(term);
-  if (tier === 'red') return { fill: T.red, glow: T.red, weight: T.weight.red };
-  if (tier === 'orange') return { fill: T.orange, glow: T.orangeGlow, weight: T.weight.orange };
+  if (tier === 'red') return { fill: T.red, glow: T.red, weight: T.weight.red, tier: 'red' };
+  if (tier === 'orange') return { fill: T.orange, glow: T.orangeGlow, weight: T.weight.orange, tier: 'orange' };
   return { fill: T.solid, glow: null };
 }
 
@@ -952,7 +961,7 @@ function fitPage(index) {
   const n = data.pages.length;
   index = ((index % n) + n) % n;
   const b = pageBounds(data.pages[index]);
-  const toolbarPad = T.name === 'eink' ? 70 : 10;
+  const toolbarPad = (T.name === 'eink' && window.innerWidth > 768) ? 70 : 10;
   scale = Math.min(canvasEl.width / b.w, (canvasEl.height - toolbarPad) / b.h) * 0.97;
   scale = Math.max(0.2, Math.min(5, scale));
   offsetX = (canvasEl.width - b.w * scale) / 2 - b.x * scale;
@@ -1182,6 +1191,15 @@ function drawInner() {
     const chars = term.term.split('');
     const charSpacing = 22;
     const startY = term.y - ((chars.length - 1) * charSpacing) / 2;
+
+    // E-ink tiers: black glyphs inside a red (thick) or orange (thin) box
+    const box = T.box && color.tier ? T.box[color.tier] : null;
+    if (box) {
+      ctx.strokeStyle = box.color;
+      ctx.lineWidth = box.width;
+      ctx.strokeRect(term.x - 15, startY - 13, 30, (chars.length - 1) * charSpacing + 26);
+      if (hoveredTerm !== term) ctx.fillStyle = T.solid;
+    }
 
     const charScores = (selectedKanji && kanjiScores.size > 0 && term.type !== 'radical') ? kanjiScores.get(term) || {} : null;
 
