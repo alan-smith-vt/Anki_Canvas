@@ -568,6 +568,23 @@ function requestDragRedraw() {
 // --- State ---
 let data = null;
 let canvasEl, ctx;
+let viewW = 0, viewH = 0; // canvas size in CSS px (backing store is scaled by DPR)
+let dpr = 1;
+let mmW = 0, mmH = 0;     // minimap size in CSS px
+
+function pixelRatio() {
+  return Math.min(window.devicePixelRatio || 1, 3);
+}
+
+function sizeCanvas() {
+  dpr = pixelRatio();
+  viewW = window.innerWidth;
+  viewH = window.innerHeight;
+  canvasEl.width = Math.round(viewW * dpr);
+  canvasEl.height = Math.round(viewH * dpr);
+  canvasEl.style.width = viewW + 'px';
+  canvasEl.style.height = viewH + 'px';
+}
 let offsetX = 0, offsetY = 0, scale = 1;
 let isDragging = false, dragStartX, dragStartY, dragOffsetX, dragOffsetY;
 let hoveredTerm = null;
@@ -790,9 +807,8 @@ function init() {
 
   // Create main canvas
   canvasEl = document.createElement('canvas');
-  canvasEl.width = window.innerWidth;
-  canvasEl.height = window.innerHeight;
   document.getElementById('app').appendChild(canvasEl);
+  sizeCanvas();
   ctx = canvasEl.getContext('2d', isEinkRequested() ? { willReadFrequently: true } : undefined);
 
   // Center on the canvas content
@@ -808,8 +824,12 @@ function init() {
   // Minimap
   const mm = document.getElementById('minimap-canvas');
   const mmScale = 150 / Math.max(data.canvas_width, data.canvas_height);
-  mm.width = Math.round(data.canvas_width * mmScale);
-  mm.height = Math.round(data.canvas_height * mmScale);
+  mmW = Math.round(data.canvas_width * mmScale);
+  mmH = Math.round(data.canvas_height * mmScale);
+  mm.width = Math.round(mmW * pixelRatio());
+  mm.height = Math.round(mmH * pixelRatio());
+  mm.style.width = mmW + 'px';
+  mm.style.height = mmH + 'px';
   minimapCtx = mm.getContext('2d');
   mm.addEventListener('mousedown', onMinimapDown);
   mm.addEventListener('mousemove', onMinimapMove);
@@ -897,8 +917,8 @@ function init() {
     if (T.name === 'eink') return; // leave e-ink via ▣
     applyTheme(T.name === 'dark' ? 'light' : 'dark');
   });
-  document.getElementById('eink-zoom-in').addEventListener('click', () => zoomAt(canvasEl.width / 2, canvasEl.height / 2, 1.25));
-  document.getElementById('eink-zoom-out').addEventListener('click', () => zoomAt(canvasEl.width / 2, canvasEl.height / 2, 0.8));
+  document.getElementById('eink-zoom-in').addEventListener('click', () => zoomAt(viewW / 2, viewH / 2, 1.25));
+  document.getElementById('eink-zoom-out').addEventListener('click', () => zoomAt(viewW / 2, viewH / 2, 0.8));
   document.getElementById('eink-fit').addEventListener('click', fitAll);
   document.getElementById('eink-prev').addEventListener('click', () => fitPage(currentPageIndex() - 1));
   document.getElementById('eink-next').addEventListener('click', () => fitPage(currentPageIndex() + 1));
@@ -947,10 +967,10 @@ function zoomAt(cx, cy, factor) {
 }
 
 function fitAll() {
-  scale = Math.min(canvasEl.width / data.canvas_width, canvasEl.height / data.canvas_height) * 0.96;
+  scale = Math.min(viewW / data.canvas_width, viewH / data.canvas_height) * 0.96;
   scale = Math.max(0.2, Math.min(5, scale));
-  offsetX = (canvasEl.width - data.canvas_width * scale) / 2;
-  offsetY = (canvasEl.height - data.canvas_height * scale) / 2;
+  offsetX = (viewW - data.canvas_width * scale) / 2;
+  offsetY = (viewH - data.canvas_height * scale) / 2;
   hideTooltip();
   hoveredTerm = null;
   updatePageLabel();
@@ -959,8 +979,8 @@ function fitAll() {
 
 // Index (into data.pages) of the page whose center is nearest the viewport center.
 function currentPageIndex() {
-  const vx = (canvasEl.width / 2 - offsetX) / scale;
-  const vy = (canvasEl.height / 2 - offsetY) / scale;
+  const vx = (viewW / 2 - offsetX) / scale;
+  const vy = (viewH / 2 - offsetY) / scale;
   let best = 0, bestD = Infinity;
   data.pages.forEach((p, i) => {
     const b = pageBounds(p);
@@ -976,10 +996,10 @@ function fitPage(index) {
   index = ((index % n) + n) % n;
   const b = pageBounds(data.pages[index]);
   const toolbarPad = (T.name === 'eink' && window.innerWidth > 768) ? 70 : 10;
-  scale = Math.min(canvasEl.width / b.w, (canvasEl.height - toolbarPad) / b.h) * 0.97;
+  scale = Math.min(viewW / b.w, (viewH - toolbarPad) / b.h) * 0.97;
   scale = Math.max(0.2, Math.min(5, scale));
-  offsetX = (canvasEl.width - b.w * scale) / 2 - b.x * scale;
-  offsetY = toolbarPad + (canvasEl.height - toolbarPad - b.h * scale) / 2 - b.y * scale;
+  offsetX = (viewW - b.w * scale) / 2 - b.x * scale;
+  offsetY = toolbarPad + (viewH - toolbarPad - b.h * scale) / 2 - b.y * scale;
   hideTooltip();
   hoveredTerm = null;
   updatePageLabel();
@@ -1006,7 +1026,9 @@ function draw() {
 
 function drawInner() {
   lastDrawTime = performance.now();
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
   ctx.clearRect(0, 0, canvasEl.width, canvasEl.height);
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   ctx.save();
   ctx.translate(offsetX, offsetY);
   ctx.scale(scale, scale);
@@ -1264,10 +1286,14 @@ function drawInner() {
 function drawMinimap() {
   if (!minimapCtx || !data) return;
   const mm = minimapCtx.canvas;
-  const s = mm.width / data.canvas_width;
+  const s = mmW / data.canvas_width;
+  const r = mm.width / mmW;
+  minimapCtx.setTransform(1, 0, 0, 1, 0, 0);
+  minimapCtx.clearRect(0, 0, mm.width, mm.height);
+  minimapCtx.setTransform(r, 0, 0, r, 0, 0);
 
   minimapCtx.fillStyle = T.mmBg;
-  minimapCtx.fillRect(0, 0, mm.width, mm.height);
+  minimapCtx.fillRect(0, 0, mmW, mmH);
 
   // Page boxes
   const pw = 13 * data.cell_width;
@@ -1354,8 +1380,7 @@ function drawMinimap() {
 
 function drawMinimapViewport() {
   if (!minimapCtx || !data) return;
-  const mm = minimapCtx.canvas;
-  const s = mm.width / data.canvas_width;
+  const s = mmW / data.canvas_width;
 
   // Redraw base
   drawMinimap();
@@ -1363,8 +1388,8 @@ function drawMinimapViewport() {
   // Viewport rect
   const vx = (-offsetX / scale) * s;
   const vy = (-offsetY / scale) * s;
-  const vw = (canvasEl.width / scale) * s;
-  const vh = (canvasEl.height / scale) * s;
+  const vw = (viewW / scale) * s;
+  const vh = (viewH / scale) * s;
 
   minimapCtx.strokeStyle = T.mmView;
   minimapCtx.lineWidth = T.name === 'eink' ? 2 : 1.5;
@@ -1749,8 +1774,7 @@ function onWheel(e) {
 }
 
 function onResize() {
-  canvasEl.width = window.innerWidth;
-  canvasEl.height = window.innerHeight;
+  sizeCanvas();
   requestRedraw();
 }
 
@@ -2050,13 +2074,13 @@ function minimapToWorld(e) {
   const rect = mm.getBoundingClientRect();
   const mx = e.clientX - rect.left;
   const my = e.clientY - rect.top;
-  const mmScale = mm.width / data.canvas_width;
+  const mmScale = mmW / data.canvas_width;
   return { x: mx / mmScale, y: my / mmScale };
 }
 
 function centerOnWorld(worldX, worldY) {
-  offsetX = canvasEl.width / 2 - worldX * scale;
-  offsetY = canvasEl.height / 2 - worldY * scale;
+  offsetX = viewW / 2 - worldX * scale;
+  offsetY = viewH / 2 - worldY * scale;
 }
 
 function onMinimapDown(e) {
@@ -2082,7 +2106,7 @@ function minimapToWorldFromTouch(touch, mm) {
   const rect = mm.getBoundingClientRect();
   const mx = touch.clientX - rect.left;
   const my = touch.clientY - rect.top;
-  const mmScale = mm.width / data.canvas_width;
+  const mmScale = mmW / data.canvas_width;
   return { x: mx / mmScale, y: my / mmScale };
 }
 
