@@ -844,7 +844,7 @@ function init() {
   });
 
   document.getElementById('ui-toggle-bl').addEventListener('click', () => {
-    const elements = ['search-box', 'minimap-canvas'];
+    const elements = ['search-box', 'minimap-canvas', 'eink-bar'];
     const hidden = document.getElementById('search-box').style.display === 'none';
     for (const id of elements) {
       document.getElementById(id).style.display = hidden ? '' : 'none';
