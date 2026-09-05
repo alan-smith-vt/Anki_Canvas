@@ -343,7 +343,8 @@
     #info { display: none; }
     #search-box { display: none; }
     #search-toggle { display: none; }
-    #ui-toggle-bl {display: none; }
+    #ui-toggle-bl { font-size: 22px; padding: 8px 10px; }
+    body.eink #ui-toggle-bl { bottom: 64px; } /* clear the bottom-docked e-ink bar */
   }
 
   @media (max-width: 768px) {
