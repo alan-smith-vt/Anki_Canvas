@@ -3,14 +3,14 @@
 
 ## E-ink tablets (Boox Note Air etc.)
 
-Add `?eink=1` to the URL, or tap the `▣` button top-right. The setting is remembered.
+Add `?eink=1` to the URL, or tap the `▣` button top-right. The setting is remembered. The ☾/☀ button next to it switches between dark and a plain light mode (the same high-contrast look without the e-ink toolbar or repaint throttling).
 
 [Open in e-ink mode](https://alan-smith-vt.github.io/Anki_Canvas/vocab_canvas.html?eink=1)
 
 E-ink mode:
 
 - white, high-contrast theme with no glow, shadows, or CSS animations
-- struggling / shaky terms are also drawn **bold** / semi-bold, so they read on a monochrome or muted-color panel
+- struggling terms get a thick red box and shaky terms a thin orange box, with the characters themselves black, so tiers read on a monochrome or muted-color panel
 - the canvas only repaints when something changes (the dark mode used to redraw every frame, which makes e-ink flicker and ghost constantly)
 - panning repaints are throttled to a few per second
 - a toolbar with `‹ Page › − + ⊡` for page-by-page navigation, stepped zoom, and fit-all, so no pinch zoom is needed

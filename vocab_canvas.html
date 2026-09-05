@@ -235,7 +235,7 @@
     pointer-events: none;
   }
 
-  #ui-toggle {
+  #theme-toggle {
     position: fixed;
     top: 16px;
     right: 16px;
@@ -248,7 +248,7 @@
     padding: 4px 8px;
     line-height: 1;
   }
-  #ui-toggle:hover { color: #444460; }
+  #theme-toggle:hover { color: #444460; }
 
   #ui-toggle-bl {
     position: fixed;
@@ -301,27 +301,27 @@
     body.eink #minimap { bottom: 64px; }
   }
 
-  /* ---------- E-ink theme: white, high contrast, no glow, no animation ---------- */
-  body.eink { background: #ffffff; cursor: default; }
-  body.eink * { transition: none !important; animation: none !important; box-shadow: none !important; text-shadow: none !important; }
-  body.eink #tooltip {
+  /* ---------- High-contrast theme (light + e-ink): white, high contrast, no glow, no animation ---------- */
+  body.hc { background: #ffffff; cursor: default; }
+  body.hc * { transition: none !important; animation: none !important; box-shadow: none !important; text-shadow: none !important; }
+  body.hc #tooltip {
     background: #ffffff; border: 2px solid #000000; color: #000000;
   }
-  body.eink #tooltip .tt-term { color: #000000; }
-  body.eink #tooltip .tt-reading { color: #333333; }
-  body.eink #tooltip .tt-meaning { color: #000000; }
-  body.eink #tooltip .tt-sentence { color: #222222; }
-  body.eink #tooltip .tt-stats { color: #444444; border-top-color: #000000; }
-  body.eink #tooltip .tt-stats span { color: #000000; }
-  body.eink #tooltip .tt-bar { background: #dddddd; }
-  body.eink #kanji-picker { background: #ffffff; border: 2px solid #000000; }
-  body.eink #kanji-picker button { background: #ffffff; color: #000000; border: 1px solid #000000; }
-  body.eink #legend, body.eink #minimap { background: #ffffff; border: 2px solid #000000; color: #000000; }
-  body.eink #info, body.eink #info-mobile { color: #000000; }
-  body.eink #search-toggle, body.eink #search-box input { background: #ffffff; color: #000000; border: 1px solid #000000; }
-  body.eink #search-box input::placeholder { color: #777777; }
-  body.eink #ui-toggle, body.eink #ui-toggle-bl, body.eink #eink-toggle { color: #000000; }
-  body.eink #search-box input.collapsed { border: none; }
+  body.hc #tooltip .tt-term { color: #000000; }
+  body.hc #tooltip .tt-reading { color: #333333; }
+  body.hc #tooltip .tt-meaning { color: #000000; }
+  body.hc #tooltip .tt-sentence { color: #222222; }
+  body.hc #tooltip .tt-stats { color: #444444; border-top-color: #000000; }
+  body.hc #tooltip .tt-stats span { color: #000000; }
+  body.hc #tooltip .tt-bar { background: #dddddd; }
+  body.hc #kanji-picker { background: #ffffff; border: 2px solid #000000; }
+  body.hc #kanji-picker button { background: #ffffff; color: #000000; border: 1px solid #000000; }
+  body.hc #legend, body.hc #minimap { background: #ffffff; border: 2px solid #000000; color: #000000; }
+  body.hc #info, body.hc #info-mobile { color: #000000; }
+  body.hc #search-toggle, body.hc #search-box input { background: #ffffff; color: #000000; border: 1px solid #000000; }
+  body.hc #search-box input::placeholder { color: #777777; }
+  body.hc #theme-toggle, body.hc #ui-toggle-bl, body.hc #eink-toggle { color: #000000; }
+  body.hc #search-box input.collapsed { border: none; }
 
   #eink-toggle {
     position: fixed;
@@ -417,7 +417,7 @@
   <input type="text" id="search-input" class="collapsed" placeholder="search kanji, reading, meaning..." />
 </div>
 
-<button id="ui-toggle">○</button>
+<button id="theme-toggle" title="light / dark">☾</button>
 <button id="eink-toggle" title="toggle e-ink mode">▣</button>
 
 <div id="eink-bar">
@@ -469,11 +469,14 @@ const THEMES = {
     btnFill: '#ffffff', btnFillActive: '#000000', btnStroke: '#000000', btnStrokeActive: '#000000',
     btnText: '#000000', btnTextActive: '#ffffff',
     mmBg: '#ffffff', mmPage: '#e8e8e8', mmDim: '#d0d0d0', mmBlueDim: '#a0b0d0', mmView: '#000000',
-    weight: { normal: 400, red: 700, orange: 500, hi: 800, hover: 800 },
+    weight: { normal: 400, red: 400, orange: 400, hi: 800, hover: 800 },
     // Draw tier as a box around the term instead of coloring the glyphs
     box: { red: { color: '#c00000', width: 3 }, orange: { color: '#c06000', width: 1.5 } },
   },
 };
+// Light: the high-contrast palette, but with normal (non e-ink) behavior:
+// hover, pinch zoom, no toolbar, no repaint throttling.
+THEMES.light = Object.assign({}, THEMES.eink, { name: 'light' });
 let T = THEMES.dark;
 
 // Older browsers (the Boox NeoBrowser ships an old Chromium) lack
@@ -498,17 +501,32 @@ if (typeof CanvasRenderingContext2D !== 'undefined' && !CanvasRenderingContext2D
 }
 
 function isEinkRequested() {
-  const q = new URLSearchParams(location.search).get('eink');
-  if (q !== null) return q !== '0' && q !== 'false';
-  try { if (localStorage.getItem('eink') === '1') return true; } catch (e) {}
+  return requestedTheme() === 'eink';
+}
+
+// Theme precedence: ?eink=1 / ?theme=x in the URL, then the saved choice,
+// then e-ink on Boox/Onyx user agents, else dark.
+function requestedTheme() {
+  const params = new URLSearchParams(location.search);
+  const q = params.get('eink');
+  if (q !== null && q !== '0' && q !== 'false') return 'eink';
+  const t = params.get('theme');
+  if (t && THEMES[t]) return t;
+  let saved = null;
+  try { saved = localStorage.getItem('theme'); } catch (e) {}
+  if (saved && THEMES[saved] && saved !== 'eink') return saved;
+  if (q !== null) return saved && saved !== 'eink' ? saved : 'dark'; // explicit ?eink=0
+  if (saved === 'eink') return 'eink';
   // Onyx Boox browsers usually identify themselves; harmless if they don't.
-  return /boox|onyx|eink|e-ink/i.test(navigator.userAgent);
+  return /boox|onyx|eink|e-ink/i.test(navigator.userAgent) ? 'eink' : 'dark';
 }
 
 function applyTheme(name) {
   T = THEMES[name] || THEMES.dark;
   document.body.classList.toggle('eink', T.name === 'eink');
-  try { localStorage.setItem('eink', T.name === 'eink' ? '1' : '0'); } catch (e) {}
+  document.body.classList.toggle('hc', T.name === 'eink' || T.name === 'light');
+  document.getElementById('theme-toggle').textContent = T.name === 'dark' ? '☾' : '☀';
+  try { localStorage.setItem('theme', T.name); } catch (e) {}
   const dots = document.querySelectorAll('#legend .legend-dot');
   const dotColors = [T.red, T.orange, T.solid, T.newc];
   dots.forEach((d, i) => {
@@ -825,15 +843,6 @@ function init() {
     }
   });
 
-  document.getElementById('ui-toggle').addEventListener('click', () => {
-    const elements = ['info', 'info-mobile', 'legend'];
-    const hidden = document.getElementById('legend').style.display === 'none';
-    for (const id of elements) {
-      document.getElementById(id).style.display = hidden ? '' : 'none';
-    }
-    document.getElementById('ui-toggle').textContent = hidden ? '◉' : '○';
-  });
-
   document.getElementById('ui-toggle-bl').addEventListener('click', () => {
     const elements = ['search-box', 'minimap-canvas'];
     const hidden = document.getElementById('search-box').style.display === 'none';
@@ -877,11 +886,16 @@ function init() {
 
   // E-ink toolbar
   document.getElementById('eink-toggle').addEventListener('click', () => {
-    const next = T.name === 'eink' ? '0' : '1';
-    try { localStorage.setItem('eink', next); } catch (e) {}
+    const toEink = T.name !== 'eink';
+    try { localStorage.setItem('theme', toEink ? 'eink' : 'dark'); } catch (e) {}
     const url = new URL(location.href);
-    url.searchParams.set('eink', next);
+    url.searchParams.set('eink', toEink ? '1' : '0');
+    url.searchParams.delete('theme');
     location.href = url.toString(); // reload so the 2D context is created in the right mode
+  });
+  document.getElementById('theme-toggle').addEventListener('click', () => {
+    if (T.name === 'eink') return; // leave e-ink via ▣
+    applyTheme(T.name === 'dark' ? 'light' : 'dark');
   });
   document.getElementById('eink-zoom-in').addEventListener('click', () => zoomAt(canvasEl.width / 2, canvasEl.height / 2, 1.25));
   document.getElementById('eink-zoom-out').addEventListener('click', () => zoomAt(canvasEl.width / 2, canvasEl.height / 2, 0.8));
@@ -901,7 +915,7 @@ function init() {
   }, { passive: true });
   window.addEventListener('touchmove', requestDragRedraw, { passive: true });
 
-  applyTheme(isEinkRequested() ? 'eink' : 'dark');
+  applyTheme(requestedTheme());
   drawMinimap();
   requestRedraw();
 }
