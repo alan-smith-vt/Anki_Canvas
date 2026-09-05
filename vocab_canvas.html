@@ -467,6 +467,27 @@ const THEMES = {
 };
 let T = THEMES.dark;
 
+// Older browsers (the Boox NeoBrowser ships an old Chromium) lack
+// CanvasRenderingContext2D.roundRect; without this the first review button
+// throws inside draw() and the whole canvas stays blank.
+if (typeof CanvasRenderingContext2D !== 'undefined' && !CanvasRenderingContext2D.prototype.roundRect) {
+  CanvasRenderingContext2D.prototype.roundRect = function (x, y, w, h, r) {
+    if (Array.isArray(r)) r = r[0] || 0;
+    r = Math.min(r || 0, w / 2, h / 2);
+    this.moveTo(x + r, y);
+    this.lineTo(x + w - r, y);
+    this.quadraticCurveTo(x + w, y, x + w, y + r);
+    this.lineTo(x + w, y + h - r);
+    this.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+    this.lineTo(x + r, y + h);
+    this.quadraticCurveTo(x, y + h, x, y + h - r);
+    this.lineTo(x, y + r);
+    this.quadraticCurveTo(x, y, x + r, y);
+    this.closePath();
+    return this;
+  };
+}
+
 function isEinkRequested() {
   const q = new URLSearchParams(location.search).get('eink');
   if (q !== null) return q !== '0' && q !== 'false';
@@ -745,7 +766,7 @@ function init() {
   canvasEl.width = window.innerWidth;
   canvasEl.height = window.innerHeight;
   document.getElementById('app').appendChild(canvasEl);
-  ctx = canvasEl.getContext('2d');
+  ctx = canvasEl.getContext('2d', isEinkRequested() ? { willReadFrequently: true } : undefined);
 
   // Center on the canvas content
   offsetX = (window.innerWidth - data.canvas_width * scale) / 2;
@@ -847,7 +868,11 @@ function init() {
 
   // E-ink toolbar
   document.getElementById('eink-toggle').addEventListener('click', () => {
-    applyTheme(T.name === 'eink' ? 'dark' : 'eink');
+    const next = T.name === 'eink' ? '0' : '1';
+    try { localStorage.setItem('eink', next); } catch (e) {}
+    const url = new URL(location.href);
+    url.searchParams.set('eink', next);
+    location.href = url.toString(); // reload so the 2D context is created in the right mode
   });
   document.getElementById('eink-zoom-in').addEventListener('click', () => zoomAt(canvasEl.width / 2, canvasEl.height / 2, 1.25));
   document.getElementById('eink-zoom-out').addEventListener('click', () => zoomAt(canvasEl.width / 2, canvasEl.height / 2, 0.8));
@@ -949,6 +974,14 @@ function updatePageLabel() {
 
 // --- Drawing ---
 function draw() {
+  try { drawInner(); } catch (err) {
+    console.error(err);
+    document.getElementById('eink-page').textContent = 'draw error';
+    document.title = 'draw error: ' + (err && err.message);
+  }
+}
+
+function drawInner() {
   lastDrawTime = performance.now();
   ctx.clearRect(0, 0, canvasEl.width, canvasEl.height);
   ctx.save();
